@@ -1,3 +1,5 @@
+import { hexToRgba } from '../../examples/utils'
+
 export default (data, config) => {
 	let max = 0
 	const value = data.value || []
@@ -50,7 +52,12 @@ export default (data, config) => {
 			data: value[0] && value[0].x,
 		},
 		yAxis: {
+			name: config.title,
 			type: 'value',
+			nameTextStyle: {
+				padding: [0, 40, 0, 0],
+				color: '#fff'
+			},
 			axisTick: {
 				show: false,
 			},
@@ -73,18 +80,46 @@ export default (data, config) => {
 		},
 		series: [],
 	}
-	value.forEach(item => {
+	value.forEach((item, index) => {
 		max = Math.max(...[...item.y, max])
+		const color = config.colorTheme.colorDisk[index % config.colorTheme.colorDisk.length]
 		option.series.push({
-			type: 'bar',
 			name: item.name,
-			barWidth: 10,
-			smooth: true,
-			symbol: 'none',
-			symbolSize: 5,
+			type: 'line',
 			data: item.y,
+			lineStyle: {
+				color
+			},
+			areaStyle: {
+				normal: {
+					color: new echarts.graphic.LinearGradient(
+						0,
+						0,
+						0,
+						1,
+						[
+							{
+								offset: 0,
+								color: hexToRgba(color, 0.6),
+							},
+							{
+								offset: 1,
+								color: hexToRgba(color, 0),
+							},
+						],
+						false,
+					),
+				},
+			},
+			symbol: 'emptyCircle',
+			showSymbol: false, // 是否显示 symbol, 如果 false 则只有在 tooltip hover 的时候显示。
+			itemStyle: {
+				color: color
+			},
+			smooth: true,
 		})
 	})
 	if (max !== undefined) option.grid.left += (max.toString().length - 3) * 12
+	console.log(option.grid.left, max)
 	return option
 }

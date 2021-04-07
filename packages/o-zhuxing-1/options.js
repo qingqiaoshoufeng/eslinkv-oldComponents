@@ -1,5 +1,5 @@
 export default (data, config) => {
-	let max
+	let max = 0
 	const value = data.value || []
 	const option = {
 		grid: {
@@ -74,7 +74,7 @@ export default (data, config) => {
 		series: [],
 	}
 	value.forEach((item, index) => {
-		max = Math.max(...item.y)
+		max = Math.max(...[...item.y, max])
 		option.series.push({
 			type: 'bar',
 			name: item.name,
