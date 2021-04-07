@@ -1,6 +1,7 @@
 <template lang="pug">
 .widget-part(:style="styles")
 	.chart(:id="id")
+	.unit {{ config.config.unit }}
 </template>
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator'
@@ -33,7 +34,16 @@ export default class OLine1 extends mixins(widgetMixin) {
 }
 </script>
 <style lang="scss" scoped>
-.chart{
+.chart {
 	height: 100%;
+	background-image: url('./loop-bg.svg');
+	background-repeat: no-repeat;
+	background-position: 50% 40%;
+}
+.unit {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	color: #fff;
 }
 </style>
