@@ -1,7 +1,6 @@
 <template lang="pug">
 .widget-part(:style="styles")
 	.o-zhuxing-1(:id="id")
-	.pos-a.o-zhuxing-1-title {{ config.config && config.config.title }}
 </template>
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator'
@@ -36,13 +35,5 @@ export default class OZhuxing1 extends mixins(widgetMixin) {
 <style lang="scss" scoped>
 .o-zhuxing-1 {
 	height: 100%;
-}
-
-.o-zhuxing-1-title {
-	top: 0;
-	left: 0;
-	font-size: 16px;
-	line-height: 16px;
-	color: #fff;
 }
 </style>
