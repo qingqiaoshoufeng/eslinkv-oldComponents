@@ -1,5 +1,5 @@
 // 组件中文名唯一
-export const name = '饼图1'
+export const name = '圆环图'
 // 组件名唯一
 export const type = 'o-pie-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
@@ -51,8 +51,8 @@ export const value = {
 	layout: {
 		// 宽高
 		size: {
-			width: 820,
-			height: 420,
+			width: 450,
+			height: 500,
 		},
 		position: {
 			value: 'relative',

@@ -1,4 +1,4 @@
-import {getCommonOption, hexToRgba} from '../../examples/utils'
+import { getCommonOption, hexToRgba } from '../../examples/utils'
 
 export default (data, config) => {
 	let max = 0
@@ -6,13 +6,16 @@ export default (data, config) => {
 	const option = getCommonOption(value, config)
 	value.forEach((item, index) => {
 		max = Math.max(...[...item.y, max])
-		const color = config.colorTheme.colorDisk[index % config.colorTheme.colorDisk.length]
+		const color =
+			config.colorTheme.colorDisk[
+				index % config.colorTheme.colorDisk.length
+			]
 		option.series.push({
 			name: item.name,
 			type: 'line',
 			data: item.y,
 			lineStyle: {
-				color
+				color,
 			},
 			areaStyle: {
 				normal: {
@@ -38,7 +41,7 @@ export default (data, config) => {
 			symbol: 'emptyCircle',
 			showSymbol: false, // 是否显示 symbol, 如果 false 则只有在 tooltip hover 的时候显示。
 			itemStyle: {
-				color: color
+				color: color,
 			},
 			smooth: true,
 		})

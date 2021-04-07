@@ -1,9 +1,10 @@
 <template lang="pug">
 .widget-part(:style="styles")
 	.chart(:id="id")
-	ul.circle-legend
+	ul.circle-legend.fn-flex.flex-column
 		li(v-for="(k, i) in data.value")
-			.circle-legend-color(:style="{borderColor: config.config.colorTheme.colorDisk[i]}")
+			.circle-legend-color(
+				:style="{ borderColor: config.config.colorTheme && config.config.colorTheme.colorDisk[i] }")
 			.circle-legend-name {{ k.name }}
 			.circle-legend-num
 				.font-num {{ k.count.toLocaleString() }}
@@ -49,8 +50,6 @@ export default class OPie2 extends mixins(widgetMixin) {
 	height: 100%;
 }
 .circle-legend {
-	display: flex;
-	flex-direction: column;
 	justify-content: center;
 	li {
 		display: flex;
