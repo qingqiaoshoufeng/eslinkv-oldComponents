@@ -1,6 +1,6 @@
 export default (data, config) => {
 	let max
-	const value = data.value
+	const value = data.value || []
 	const option = {
 		grid: {
 			top: 40,
@@ -47,7 +47,7 @@ export default (data, config) => {
 					lineHeight: 16,
 				},
 			},
-			data: value[0].x,
+			data: value[0] && value[0].x,
 		},
 		yAxis: {
 			type: 'value',
@@ -115,6 +115,6 @@ export default (data, config) => {
 			data: item.y,
 		})
 	})
-	option.grid.left += (max.toString().length - 3) * 12
+	if (max !== undefined) option.grid.left += (max.toString().length - 3) * 12
 	return option
 }
