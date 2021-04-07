@@ -3,7 +3,7 @@
 	.chart(:id="id")
 	ul.circle-legend
 		li(v-for="(k, i) in data.value")
-			.circle-legend-color
+			.circle-legend-color(:style="{borderColor: config.config.colorTheme.colorDisk[i]}")
 			.circle-legend-name {{ k.name }}
 			.circle-legend-num
 				.font-num {{ k.count.toLocaleString() }}

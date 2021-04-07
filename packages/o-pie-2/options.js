@@ -14,6 +14,7 @@ export default (data, config) => {
 			fontSize: 16,
 			color: '#FFF',
 		},
+		color: config.colorTheme.colorDisk,
 		legend: {
 			orient: 'vertical',
 			left: '33%',
@@ -42,7 +43,6 @@ export default (data, config) => {
 				label: {
 					show: false,
 				},
-				color: '#2C99FF',
 				hoverAnimation: false,
 				data: [
 					{
@@ -76,7 +76,6 @@ export default (data, config) => {
 				label: {
 					show: false,
 				},
-				color: '#18CEB9',
 				hoverAnimation: false,
 				data: [
 					{
@@ -111,7 +110,6 @@ export default (data, config) => {
 						show: false,
 					},
 				},
-				color: '#FB592C',
 				data: [
 					{
 						value: value[0].percent,
