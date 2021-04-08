@@ -11,6 +11,21 @@ export const customConfig = [
 		label: 'y轴单位',
 		type: 'func-input',
 	},
+	{
+		prop: 'smooth',
+		label: '平滑曲线',
+		type: 'func-switch',
+	},
+	{
+		prop: 'area',
+		label: '面积图',
+		type: 'func-switch',
+	},
+	{
+		prop: 'datazoom',
+		label: '区域缩放',
+		type: 'func-switch',
+	},
 ]
 // 配置
 export const value = {
@@ -44,6 +59,9 @@ export const value = {
 	// 自定义配置默认值
 	config: {
 		title: '数量',
+		smooth: true,
+		area: true,
+		datazoom: false,
 	},
 	widget: {
 		componentVersion: version,

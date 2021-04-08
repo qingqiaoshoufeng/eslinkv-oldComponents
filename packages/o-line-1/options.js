@@ -10,6 +10,28 @@ export default (data, config) => {
 			config.colorTheme.colorDisk[
 				index % config.colorTheme.colorDisk.length
 			]
+		option.legend.itemHeight = 2
+		option.tooltip.trigger = 'axis'
+		if (config.datazoom) {
+			option.grid.bottom = 80
+			option.dataZoom = [
+				{
+					type: 'slider',
+					backgroundColor: 'rgba(0,0,0,0)',
+					fillerColor: 'rgba(0, 221, 255, 0.5)',
+					dataBackground: {
+						areaStyle: {
+							color: '#023066',
+							opacity: 1
+						},
+						lineStyle: {
+							color: '#184E8D'
+						}
+					}
+				},
+				{ type: 'inside' }
+			]
+		}
 		option.series.push({
 			name: item.name,
 			type: 'line',
@@ -17,7 +39,7 @@ export default (data, config) => {
 			lineStyle: {
 				color,
 			},
-			areaStyle: {
+			areaStyle: config.area ? {
 				normal: {
 					color: new echarts.graphic.LinearGradient(
 						0,
@@ -37,13 +59,13 @@ export default (data, config) => {
 						false,
 					),
 				},
-			},
+			} : null,
 			symbol: 'emptyCircle',
 			showSymbol: false, // 是否显示 symbol, 如果 false 则只有在 tooltip hover 的时候显示。
 			itemStyle: {
 				color: color,
 			},
-			smooth: true,
+			smooth: config.smooth,
 		})
 	})
 	if (max !== undefined) option.grid.left += (max.toString().length - 3) * 12

@@ -71,6 +71,11 @@ export function getCommonOption (value, config) {
 		color: config.colorTheme.colorDisk,
 		legend: {
 			show: value.length > 1,
+			icon: 'rect',
+			orient: 'horizontal',
+			align: 'left',
+			itemWidth: 16,
+			itemHeight: 8,
 			data: value.map(item => {
 				return {
 					name: item.name,
