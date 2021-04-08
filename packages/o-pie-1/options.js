@@ -1,9 +1,11 @@
-
 export default (data, config) => {
 	const value = data.value || []
-	const total = value.reduce((p, n) => {
-		return (Number(p) || 0) + Number(n.value)
-	})
+	let total = 0
+	if (value.length) {
+		total = value.reduce((p, n) => {
+			return (Number(p) || 0) + Number(n.value)
+		})
+	}
 	const option = {
 		title: {
 			text: config.title1,
@@ -32,13 +34,10 @@ export default (data, config) => {
 				startAngle: config.startAngle,
 				label: {
 					formatter: function (params) {
-						const percent = (
-							(params.value * 100) /
-							total
-						).toFixed(2)
-						return `{normal|${
-							params.name
-						}} \n {value|${Math.ceil(
+						const percent = ((params.value * 100) / total).toFixed(
+							2,
+						)
+						return `{normal|${params.name}} \n {value|${Math.ceil(
 							params.value,
 						).toLocaleString()} ${percent}%}`
 					},
@@ -66,7 +65,7 @@ export default (data, config) => {
 				},
 				data: value,
 			},
-		]
+		],
 	}
 
 	return option

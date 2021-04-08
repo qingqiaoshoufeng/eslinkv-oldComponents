@@ -1,5 +1,5 @@
 // 组件中文名唯一
-export const name = '圆环图'
+export const name = '圆环占比图'
 // 组件名唯一
 export const type = 'o-pie-1'
 // 检测当前组件名，版本唯一，类似npm发布策略

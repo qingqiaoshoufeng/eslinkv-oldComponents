@@ -1,5 +1,5 @@
 // 组件中文名唯一
-export const name = '条形图'
+export const name = '条形占比图'
 // 组件名唯一
 export const type = 'o-bar-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
@@ -33,7 +33,7 @@ export const value = {
 					percent: 20,
 					name: '工业户',
 				},
-			]
+			],
 		}),
 	},
 	layout: {
