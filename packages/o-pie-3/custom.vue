@@ -12,7 +12,7 @@ import { widgetMixin } from 'eslinkv-sdk'
 import options from './options'
 
 @Component
-export default class OLine1 extends mixins(widgetMixin) {
+export default class OPie3 extends mixins(widgetMixin) {
 	@Watch('data', { deep: true, immediate: true })
 	onDataChange(val) {
 		if (this.id) {

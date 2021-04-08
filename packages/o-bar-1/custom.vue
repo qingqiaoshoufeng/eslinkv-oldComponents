@@ -17,7 +17,7 @@ import { value, customConfig } from './index.component'
 import { widgetMixin } from 'eslinkv-sdk'
 
 @Component
-export default class OLine1 extends mixins(widgetMixin) {
+export default class OBar1 extends mixins(widgetMixin) {
 	created() {
 		this.configValue = this.parseConfigValue(value, customConfig)
 	}

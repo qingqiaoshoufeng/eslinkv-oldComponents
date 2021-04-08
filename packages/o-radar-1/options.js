@@ -49,34 +49,36 @@ export default (data, config) => {
 				return { name: item.name, max: 1 }
 			}),
 		},
-		series: {
-			type: 'radar',
-			lineStyle: {
-				normal: {
-					color: '#000',
-					width: 0,
+		series: [
+			{
+				type: 'radar',
+				lineStyle: {
+					normal: {
+						color: '#000',
+						width: 0,
+					},
 				},
-			},
-			areaStyle: {
-				normal: {
-					color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-						{
-							offset: 0,
-							color: 'rgba(0,221,255,0.6)',
-						},
-						{
-							offset: 1,
-							color: 'rgba(0,255,207,0.6)',
-						},
-					]),
+				areaStyle: {
+					normal: {
+						color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+							{
+								offset: 0,
+								color: 'rgba(0,221,255,0.6)',
+							},
+							{
+								offset: 1,
+								color: 'rgba(0,255,207,0.6)',
+							},
+						]),
+					},
 				},
-			},
-			data: [
-				{
-					value: value.map(item => item.percent),
-					symbolSize: 0,
-				},
-			],
-		},
+				data: [
+					{
+						value: value.map(item => item.percent),
+						symbolSize: 0,
+					},
+				],
+			}
+		]
 	}
 }
