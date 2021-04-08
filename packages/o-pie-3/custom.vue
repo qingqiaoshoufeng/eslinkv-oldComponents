@@ -1,7 +1,7 @@
 <template lang="pug">
 .widget-part(:style="styles")
 	.chart(:id="id")
-	.title.font-num {{ data.percent }}%
+	.title.font-num {{ data && data.percent }}%
 	.sub-title {{ config.config.title }}
 </template>
 <script lang="ts">
@@ -35,7 +35,7 @@ export default class OLine1 extends mixins(widgetMixin) {
 }
 </script>
 <style lang="scss" scoped>
-.chart{
+.chart {
 	height: 100%;
 }
 .title {

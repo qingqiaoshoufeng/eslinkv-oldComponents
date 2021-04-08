@@ -1,5 +1,5 @@
-
 export default (data, config) => {
+	const value = data.value || []
 	return {
 		color: config.colorTheme.colorDisk,
 		radar: {
@@ -18,9 +18,14 @@ export default (data, config) => {
 			},
 			splitArea: {
 				areaStyle: {
-					color: ['rgba(0,96,208, 0.1)', 'rgba(0,96,208, 0.2)',
-						'rgba(0,96,208, 0.4)', 'rgba(0,96,208, 0.6)',
-						'rgba(0,96,208, 0.8)', 'rgba(0,96,208, 1)'].reverse(),
+					color: [
+						'rgba(0,96,208, 0.1)',
+						'rgba(0,96,208, 0.2)',
+						'rgba(0,96,208, 0.4)',
+						'rgba(0,96,208, 0.6)',
+						'rgba(0,96,208, 0.8)',
+						'rgba(0,96,208, 1)',
+					].reverse(),
 				},
 				lineStyle: {
 					color: '#fff',
@@ -40,7 +45,7 @@ export default (data, config) => {
 					width: 2,
 				},
 			},
-			indicator: data.value.map(item => {
+			indicator: value.map(item => {
 				return { name: item.name, max: 1 }
 			}),
 		},
@@ -68,7 +73,7 @@ export default (data, config) => {
 			},
 			data: [
 				{
-					value: data.value.map(item => item.percent),
+					value: value.map(item => item.percent),
 					symbolSize: 0,
 				},
 			],

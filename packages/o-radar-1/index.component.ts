@@ -1,12 +1,11 @@
 // 组件中文名唯一
-export const name = '雷达图1'
+export const name = '雷达图'
 // 组件名唯一
 export const type = 'o-radar-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
 export const version = '1.0.0'
 // 自定义配置
-export const customConfig = [
-]
+export const customConfig = []
 // 配置
 export const value = {
 	api: {
@@ -38,7 +37,7 @@ export const value = {
 					value: 2430,
 					percent: 0.56,
 				},
-			]
+			],
 		}),
 	},
 	layout: {
@@ -52,8 +51,7 @@ export const value = {
 		},
 	},
 	// 自定义配置默认值
-	config: {
-	},
+	config: {},
 	widget: {
 		componentVersion: version,
 		name,

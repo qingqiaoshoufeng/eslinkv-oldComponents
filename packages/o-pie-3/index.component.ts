@@ -1,7 +1,7 @@
 // 组件中文名唯一
-export const name = '饼图3'
+export const name = '占比图'
 // 组件名唯一
-export const type = 'o-pie-1'
+export const type = 'o-pie-3'
 // 检测当前组件名，版本唯一，类似npm发布策略
 export const version = '1.0.0'
 // 自定义配置
@@ -17,7 +17,7 @@ export const value = {
 	api: {
 		// 接口请求数据默认值
 		data: JSON.stringify({
-			percent: 56
+			percent: 56,
 		}),
 	},
 	layout: {
@@ -32,7 +32,7 @@ export const value = {
 	},
 	// 自定义配置默认值
 	config: {
-		title: '完成率'
+		title: '完成率',
 	},
 	widget: {
 		componentVersion: version,
