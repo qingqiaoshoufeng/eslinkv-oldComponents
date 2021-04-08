@@ -3,7 +3,7 @@ export default (data, config) => {
 	const value = data.value || []
 	if (value.length === 0) return {}
 	const xAxis = value.map(v => v.name + v.percent + '%')
-	return {
+	const option = {
 		grid: {
 			top: 0,
 			left: 0,
@@ -46,74 +46,8 @@ export default (data, config) => {
 				hoverAnimation: false,
 				data: [
 					{
-						value: value[2].percent,
-						name: '一般',
-					},
-					{
-						value: 100 - value[2].percent,
-						name: '',
-						itemStyle: {
-							color: 'rgba(0,0,0,0)',
-							borderWidth: 0,
-						},
-						tooltip: {
-							show: false,
-						},
-					},
-				],
-			},
-			{
-				name: xAxis[1],
-				clockWise: false,
-				type: 'pie',
-				center: ['42%', '50%'],
-				radius: ['66%', '76%'],
-				labelLine: {
-					normal: {
-						show: false,
-					},
-				},
-				label: {
-					show: false,
-				},
-				hoverAnimation: false,
-				data: [
-					{
-						value: value[1].percent,
-						name: '良',
-					},
-					{
-						value: 100 - value[1].percent,
-						name: '',
-						itemStyle: {
-							color: 'rgba(0,0,0,0)',
-							borderWidth: 0,
-						},
-						tooltip: {
-							show: false,
-						},
-					},
-				],
-			},
-			{
-				name: xAxis[2],
-				type: 'pie',
-				clockWise: false,
-				center: ['42%', '50%'],
-				radius: ['46%', '56%'],
-				hoverAnimation: false,
-				label: {
-					show: false,
-				},
-				labelLine: {
-					normal: {
-						show: false,
-					},
-				},
-				data: [
-					{
 						value: value[0].percent,
-						name: '优',
+						name: '一般',
 					},
 					{
 						value: 100 - value[0].percent,
@@ -127,7 +61,78 @@ export default (data, config) => {
 						},
 					},
 				],
-			},
+			}
 		],
 	}
+	if (value.length > 1) {
+		option.series.push({
+			name: xAxis[1],
+			clockWise: false,
+			type: 'pie',
+			center: ['42%', '50%'],
+			radius: ['66%', '76%'],
+			labelLine: {
+				normal: {
+					show: false,
+				},
+			},
+			label: {
+				show: false,
+			},
+			hoverAnimation: false,
+			data: [
+				{
+					value: value[1].percent,
+					name: '良',
+				},
+				{
+					value: 100 - value[1].percent,
+					name: '',
+					itemStyle: {
+						color: 'rgba(0,0,0,0)',
+						borderWidth: 0,
+					},
+					tooltip: {
+						show: false,
+					},
+				},
+			],
+		})
+	}
+	if (value.length === 3) {
+		option.series.push({
+			name: xAxis[2],
+			type: 'pie',
+			clockWise: false,
+			center: ['42%', '50%'],
+			radius: ['46%', '56%'],
+			hoverAnimation: false,
+			label: {
+				show: false,
+			},
+			labelLine: {
+				normal: {
+					show: false,
+				},
+			},
+			data: [
+				{
+					value: value[2].percent,
+					name: '优',
+				},
+				{
+					value: 100 - value[2].percent,
+					name: '',
+					itemStyle: {
+						color: 'rgba(0,0,0,0)',
+						borderWidth: 0,
+					},
+					tooltip: {
+						show: false,
+					},
+				},
+			],
+		})
+	}
+	return option
 }

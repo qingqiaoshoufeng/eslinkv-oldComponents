@@ -1,10 +1,10 @@
 <template lang="pug">
-.widget-part(:style="styles")
+.widget-part(:style="styles" v-if="data")
 	.chart(:id="id")
 	ul.circle-legend.fn-flex.flex-column
 		li(v-for="(k, i) in data.value")
 			.circle-legend-color(
-				:style="{ borderColor: config.config.colorTheme && config.config.colorTheme.colorDisk[i] }")
+				:style="{ borderColor: config.config.colorTheme.colorDisk[i] }")
 			.circle-legend-name {{ k.name }}
 			.circle-legend-num
 				.font-num {{ k.count.toLocaleString() }}

@@ -9,7 +9,7 @@ export default (data, config) => {
 			text: config.title1,
 			subtext: config.title2,
 			left: 'center',
-			top: config.title2 ? '35%' : '42%',
+			top: config.title2 ? '46%' : '47%',
 			textStyle: {
 				color: '#fff',
 				fontSize: 24,
@@ -25,7 +25,7 @@ export default (data, config) => {
 		series: [
 			{
 				type: 'pie',
-				center: ['50%', '45%'],
+				center: ['50%', '50%'],
 				radius: ['52%', '64%'],
 				avoidLabelOverlap: false,
 				minAngle: 24,

@@ -38,7 +38,8 @@ export default class OLine1 extends mixins(widgetMixin) {
 	height: 100%;
 	background-image: url('./loop-bg.svg');
 	background-repeat: no-repeat;
-	background-position: 50% 40%;
+	background-size: 44% 44%;
+	background-position: 50% 50%;
 }
 .unit {
 	position: absolute;
