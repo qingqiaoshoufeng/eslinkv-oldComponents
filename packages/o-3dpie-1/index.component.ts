@@ -6,11 +6,6 @@ export const type = 'o-3dpie-1'
 export const version = '1.0.0'
 // 自定义配置
 export const customConfig = [
-	{
-		prop: 'title',
-		label: '标题',
-		type: 'func-input',
-	},
 ]
 // 配置
 export const value = {
@@ -49,7 +44,6 @@ export const value = {
 	},
 	// 自定义配置默认值
 	config: {
-		title: '数据1',
 	},
 	widget: {
 		componentVersion: version,

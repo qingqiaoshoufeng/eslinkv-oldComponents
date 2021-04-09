@@ -3,7 +3,7 @@
 	.chart(:id="id")
 	.legend
 		.item(v-for="(k, i) in data.value" :key="i")
-			.color(:style="{borderColor: config.config.colorTheme.colorDisk[i]}")
+			.color(:style="{background: config.config.colorTheme.colorDisk[i]}")
 			.name {{k.name}}
 </template>
 <script lang="ts">
@@ -162,7 +162,6 @@ export default class O3DPie1 extends mixins(widgetMixin) {
 		width: 16px;
 		height: 8px;
 		margin-right: 8px;
-		background: #00DDFF;
 	}
 }
 </style>

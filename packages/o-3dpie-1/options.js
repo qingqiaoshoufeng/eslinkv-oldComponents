@@ -75,7 +75,6 @@ export default function (data, config) {
 		series: [
 			{
 				type: 'pie',
-				name: config.title,
 				dataLabels: { enabled: false },
 				data: arr,
 			},
