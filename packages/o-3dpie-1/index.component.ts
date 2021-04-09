@@ -23,7 +23,7 @@ export const value = {
 					y: 30.0,
 				},
 				{
-					name: 'IE',
+					name: 'IhhhE',
 					y: 26.8,
 				},
 				{
