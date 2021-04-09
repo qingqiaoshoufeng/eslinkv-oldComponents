@@ -36,6 +36,10 @@ module.exports = {
 				// 	'^/node': '/'
 				// }
 			},
+			'^/cdn': {
+				target: 'http://eslinkv.eslink.cc',
+				changeOrigin: true,
+			},
 		},
 	},
 	css: {

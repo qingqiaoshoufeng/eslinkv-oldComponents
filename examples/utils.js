@@ -14,6 +14,7 @@ export function loadJs(src, value) {
 				el.src = src
 				el.onload = () => {
 					resolve()
+					if (!window[value]) window[value] = true
 				}
 				document.head.appendChild(el)
 			}
@@ -30,6 +31,7 @@ export function loadJs(src, value) {
 						el.src = item
 						el.onload = () => {
 							resolve()
+							if (!window[value]) window[value] = true
 						}
 						document.head.appendChild(el)
 					}
@@ -60,7 +62,7 @@ export function hexToRgba(hex, opacity) {
 	)
 }
 
-export function getCommonOption (value, config) {
+export function getCommonOption(value, config) {
 	return {
 		grid: {
 			top: 40,
@@ -118,7 +120,7 @@ export function getCommonOption (value, config) {
 			type: 'value',
 			nameTextStyle: {
 				padding: [0, 40, 0, 0],
-				color: '#fff'
+				color: '#fff',
 			},
 			axisTick: {
 				show: false,
