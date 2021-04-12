@@ -1,10 +1,6 @@
-const path = require('path')
 const isProduction = process.env.NODE_ENV === 'production'
 const needReport = false
 
-function resolve(dir) {
-	return path.join(__dirname, dir)
-}
 module.exports = {
 	pages: {
 		index: {
@@ -13,12 +9,7 @@ module.exports = {
 			filename: 'index.html',
 		},
 	},
-	transpileDependencies: [
-		'@simonwep',
-		'vue-draggable-resizable-gorkys2',
-		'swiper',
-		'dom7',
-	],
+	transpileDependencies: ['@simonwep', 'swiper', 'dom7'],
 	assetsDir: 'static',
 	productionSourceMap: false,
 	lintOnSave: true,
@@ -59,22 +50,6 @@ module.exports = {
 		]
 	},
 	chainWebpack: config => {
-		// 扩展 webpack 配置，使 packages 加入编译
-		config.module
-			.rule('svg')
-			.exclude.add(resolve('node_modules/eslinkv-sdk/src/icons'))
-			.end()
-		config.module
-			.rule('icons')
-			.test(/\.svg$/)
-			.include.add(resolve('node_modules/eslinkv-sdk/src/icons'))
-			.end()
-			.use('svg-sprite-loader')
-			.loader('svg-sprite-loader')
-			.options({
-				symbolId: 'icon-[name]',
-			})
-			.end()
 		config.module
 			.rule('js')
 			.include.add('/packages')
@@ -86,7 +61,6 @@ module.exports = {
 				return options
 			})
 		config.optimization.splitChunks({ cacheGroups: {} })
-		config.resolve.alias.set('@lib', path.resolve(__dirname, './lib'))
 		if (isProduction) {
 			if (needReport) {
 				config
