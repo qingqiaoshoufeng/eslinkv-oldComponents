@@ -16,7 +16,7 @@
 		"@babel/runtime-corejs3": "^7.13.10",
 		"babel-polyfill": "^6.26.0",
 		"core-js": "^3.6.5",
-		"eslinkv-sdk": "^1.0.33",
+		"eslinkv-sdk": "^1.0.34",
 		"lodash": "^4.17.20",
 		"vue": "^2.6.12",
 		"vue-class-component": "^7.2.6",
