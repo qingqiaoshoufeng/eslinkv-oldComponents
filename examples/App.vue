@@ -12,13 +12,13 @@ import {
 	configMerge,
 	dDetail,
 } from 'eslinkv-sdk'
-import custom from '../packages/o-pie-1/custom.vue'
+import custom from '../packages/o-pie-8/custom.vue'
 import {
 	value,
 	customConfig,
 	version,
 	type,
-} from '../packages/o-pie-1/index.component'
+} from '../packages/o-pie-8/index.component'
 
 @Component({ components: { dScreen, dDetail } })
 export default class App extends Vue {

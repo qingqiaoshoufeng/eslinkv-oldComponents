@@ -49,6 +49,11 @@ export function loadJs(src, value) {
  * @returns {string}
  */
 export function hexToRgba(hex, opacity) {
+	if (hex.includes('rgba')) {
+		const arr = hex.split(',')
+		arr[3] = arr[3].replace(/\d+/, opacity)
+		return arr.toString()
+	}
 	return (
 		'rgba(' +
 		parseInt('0x' + hex.slice(1, 3)) +
