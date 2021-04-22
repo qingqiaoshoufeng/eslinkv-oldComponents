@@ -3,7 +3,7 @@ export const name = '轮播饼图'
 // 组件名唯一
 export const type = 'o-pie-7'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.0'
+export const version = '1.0.1'
 // 自定义配置
 export const customConfig = [
 	{
@@ -14,7 +14,7 @@ export const customConfig = [
 	{
 		prop: 'background',
 		label: '背景图片',
-		type: 'func-background'
+		type: 'func-background',
 	},
 ]
 // 配置
@@ -23,14 +23,14 @@ export const value = {
 		// 接口请求数据默认值
 		data: JSON.stringify({
 			value: [
-				{ value: 12.5, des: '111', title: '南门站' },
-				{ value: 12.5, des: '', title: '北门站' },
-				{ value: 12.5, des: '', title: '下沙门站' },
-				{ value: 12.5, des: '', title: '江东门站' },
-				{ value: 12.5, des: '', title: '所前门站' },
-				{ value: 12.5, des: '', title: '杭州东站' },
-				{ value: 12.5, des: '', title: '杭州西站' },
-			]
+				{ value: 12.5, des: '111', title: '分类一' },
+				{ value: 12.5, des: '', title: '分类二' },
+				{ value: 12.5, des: '', title: '分类三' },
+				{ value: 12.5, des: '', title: '分类四' },
+				{ value: 12.5, des: '', title: '分类五' },
+				{ value: 12.5, des: '', title: '分类六' },
+				{ value: 12.5, des: '', title: '分类七' },
+			],
 		}),
 	},
 	layout: {

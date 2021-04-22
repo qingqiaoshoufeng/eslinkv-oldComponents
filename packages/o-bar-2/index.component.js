@@ -6,7 +6,7 @@ exports.name = '条形进度图'
 // 组件名唯一
 exports.type = 'o-bar-2'
 // 检测当前组件名，版本唯一，类似npm发布策略
-exports.version = '1.0.0'
+exports.version = '1.0.1'
 // 自定义配置
 exports.customConfig = []
 // 配置
@@ -18,17 +18,17 @@ exports.value = {
 				{
 					value: 1233556,
 					percent: 60,
-					name: '居民户',
+					name: '分类一',
 				},
 				{
 					value: 69999,
 					percent: 30,
-					name: '公建户',
+					name: '分类二',
 				},
 				{
 					value: 45332,
 					percent: 20,
-					name: '工业户',
+					name: '分类三',
 				},
 			],
 		}),

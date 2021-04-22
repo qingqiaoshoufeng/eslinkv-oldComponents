@@ -3,7 +3,7 @@ export const name = '半圆环占比图'
 // 组件名唯一
 export const type = 'o-pie-2'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.0'
+export const version = '1.0.1'
 // 自定义配置
 export const customConfig = []
 // 配置
@@ -13,19 +13,19 @@ export const value = {
 		data: JSON.stringify({
 			value: [
 				{
-					name: 'PE管',
+					name: '分类一',
 					percent: 50,
 					count: 321,
 					unit: 'km',
 				},
 				{
-					name: '钢管',
+					name: '分类二',
 					percent: 80,
 					count: 321,
 					unit: 'km',
 				},
 				{
-					name: '镀锌管',
+					name: '分类三',
 					percent: 40,
 					count: 321,
 					unit: 'km',

@@ -2,11 +2,11 @@
 exports.__esModule = true
 exports.value = exports.customConfig = exports.version = exports.type = exports.name = void 0
 // 组件中文名唯一
-exports.name = '半圆环进度图'
+exports.name = '圆环进度率图'
 // 组件名唯一
-exports.type = 'o-pie-4'
+exports.type = 'o-pie-5'
 // 检测当前组件名，版本唯一，类似npm发布策略
-exports.version = '1.0.1'
+exports.version = '1.0.0'
 // 自定义配置
 exports.customConfig = [
 	{
@@ -46,8 +46,8 @@ exports.value = {
 	layout: {
 		// 宽高
 		size: {
-			width: 170,
-			height: 90,
+			width: 160,
+			height: 160,
 		},
 		position: {
 			value: 'relative',
@@ -57,10 +57,10 @@ exports.value = {
 	config: {
 		title: '完成率',
 		mainColor: '#00DDFF',
-		bgColor: 'rgba(0, 87, 169, 0.5)',
-		pointerColor: '#00FFCF',
+		bgColor: '#023066',
+		pointerColor: '#00FECF',
 		titleColor: '#fff',
-		subTitleColor: '#00DDFF',
+		subTitleColor: '#C0C1C8',
 	},
 	widget: {
 		componentVersion: exports.version,

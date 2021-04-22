@@ -2,36 +2,31 @@
 exports.__esModule = true
 exports.value = exports.customConfig = exports.version = exports.type = exports.name = void 0
 // 组件中文名唯一
-exports.name = '半圆环进度图'
+exports.name = '水球图'
 // 组件名唯一
-exports.type = 'o-pie-4'
+exports.type = 'o-pie-8'
 // 检测当前组件名，版本唯一，类似npm发布策略
-exports.version = '1.0.1'
+exports.version = '1.0.0'
 // 自定义配置
 exports.customConfig = [
 	{
-		prop: 'title',
-		label: '标题',
-		type: 'func-input',
-	},
-	{
-		prop: 'mainColor',
-		label: '环形主颜色',
+		prop: 'color1',
+		label: '第一层颜色',
 		type: 'func-color',
 	},
 	{
-		prop: 'pointerColor',
-		label: '圆点颜色',
+		prop: 'color2',
+		label: '第二层颜色',
 		type: 'func-color',
 	},
 	{
-		prop: 'titleColor',
-		label: '标题颜色',
+		prop: 'borderColor',
+		label: '边框颜色',
 		type: 'func-color',
 	},
 	{
-		prop: 'subTitleColor',
-		label: '副标题颜色',
+		prop: 'fontColor',
+		label: '文字颜色',
 		type: 'func-color',
 	},
 ]
@@ -40,14 +35,14 @@ exports.value = {
 	api: {
 		// 接口请求数据默认值
 		data: JSON.stringify({
-			percent: 30,
+			percent: 0.6,
 		}),
 	},
 	layout: {
 		// 宽高
 		size: {
-			width: 170,
-			height: 90,
+			width: 148,
+			height: 148,
 		},
 		position: {
 			value: 'relative',
@@ -55,12 +50,10 @@ exports.value = {
 	},
 	// 自定义配置默认值
 	config: {
-		title: '完成率',
-		mainColor: '#00DDFF',
-		bgColor: 'rgba(0, 87, 169, 0.5)',
-		pointerColor: '#00FFCF',
-		titleColor: '#fff',
-		subTitleColor: '#00DDFF',
+		color1: '#00DDFF',
+		color2: '#225C9F',
+		borderColor: '#023066',
+		fontColor: '#fff',
 	},
 	widget: {
 		componentVersion: exports.version,

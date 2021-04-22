@@ -6,7 +6,7 @@ exports.name = '雷达图'
 // 组件名唯一
 exports.type = 'o-radar-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-exports.version = '1.0.0'
+exports.version = '1.0.1'
 // 自定义配置
 exports.customConfig = []
 // 配置
@@ -16,27 +16,27 @@ exports.value = {
 		data: JSON.stringify({
 			value: [
 				{
-					name: '安装',
+					name: '分类一',
 					value: 2430,
 					percent: 0.67,
 				},
 				{
-					name: '开户',
+					name: '分类二',
 					value: 4312,
 					percent: 0.55,
 				},
 				{
-					name: '维修',
+					name: '分类三',
 					value: 5340,
 					percent: 0.67,
 				},
 				{
-					name: '咨询',
+					name: '分类四',
 					value: 340,
 					percent: 0.3,
 				},
 				{
-					name: '其他',
+					name: '分类五',
 					value: 2430,
 					percent: 0.56,
 				},

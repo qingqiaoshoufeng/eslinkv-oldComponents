@@ -2,11 +2,11 @@
 exports.__esModule = true
 exports.value = exports.customConfig = exports.version = exports.type = exports.name = void 0
 // 组件中文名唯一
-exports.name = '半圆环占比图'
+exports.name = '玫瑰环占比图'
 // 组件名唯一
-exports.type = 'o-pie-2'
+exports.type = 'o-pie-6'
 // 检测当前组件名，版本唯一，类似npm发布策略
-exports.version = '1.0.1'
+exports.version = '1.0.0'
 // 自定义配置
 exports.customConfig = []
 // 配置
@@ -16,22 +16,20 @@ exports.value = {
 		data: JSON.stringify({
 			value: [
 				{
-					name: '分类一',
-					percent: 50,
-					count: 321,
-					unit: 'km',
+					name: '零食',
+					value: 3000,
 				},
 				{
-					name: '分类二',
-					percent: 80,
-					count: 321,
-					unit: 'km',
+					name: '化妆品',
+					value: 9300,
 				},
 				{
-					name: '分类三',
-					percent: 40,
-					count: 321,
-					unit: 'km',
+					name: '服装',
+					value: 13200,
+				},
+				{
+					name: '家电',
+					value: 5600,
 				},
 			],
 		}),
@@ -39,8 +37,8 @@ exports.value = {
 	layout: {
 		// 宽高
 		size: {
-			width: 400,
-			height: 170,
+			width: 480,
+			height: 160,
 		},
 		position: {
 			value: 'relative',
