@@ -1,6 +1,6 @@
 <template lang="pug">
-.widget-part(:style="styles" v-if="data")
-	.item(v-for="(k, i) in data.value" :key="i")
+.widget-part(:style="styles", v-if="data")
+	.item(v-for="(k, i) in data.value", :key="i")
 		.gas-info
 			.gas-title {{ k.name }}
 			.gas-percent.font-num {{ k.percent.toFixed(2) }}%
@@ -26,7 +26,9 @@ export default class OBar1 extends mixins(widgetMixin) {
 <style lang="scss" scoped>
 .item {
 	margin-bottom: 22px;
-
+	&:last-child {
+		margin-bottom: 0;
+	}
 	.gas-info {
 		display: flex;
 		align-items: center;
@@ -49,7 +51,7 @@ export default class OBar1 extends mixins(widgetMixin) {
 		.gas-num {
 			font-size: 16px;
 			line-height: 24px;
-			color: #C0C1C8;
+			color: #c0c1c8;
 
 			em {
 				font-size: 16px;
@@ -72,8 +74,8 @@ export default class OBar1 extends mixins(widgetMixin) {
 		position: relative;
 		width: 260px;
 		height: 8px;
-		background: #00DDFF;
-		&:after{
+		background: #00ddff;
+		&:after {
 			background: #fff;
 			width: 4px;
 			height: 8px;

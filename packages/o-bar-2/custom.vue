@@ -23,7 +23,9 @@ export default class OBar2 extends mixins(widgetMixin) {
 <style lang="scss" scoped>
 .item {
 	margin-bottom: 22px;
-
+	&:last-child {
+		margin-bottom: 0;
+	}
 	.gas-info {
 		display: flex;
 		align-items: center;
@@ -47,8 +49,8 @@ export default class OBar2 extends mixins(widgetMixin) {
 		position: relative;
 		width: 260px;
 		height: 4px;
-		background: #00DDFF;
-		&:after{
+		background: #00ddff;
+		&:after {
 			width: 20px;
 			height: 20px;
 			content: '';
@@ -56,7 +58,7 @@ export default class OBar2 extends mixins(widgetMixin) {
 			position: absolute;
 			right: -9px;
 			top: -8px;
-			background: url("./point.svg") no-repeat;
+			background: url('./point.svg') no-repeat;
 			background-size: 100% 100%;
 		}
 	}

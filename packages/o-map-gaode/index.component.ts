@@ -1,9 +1,9 @@
 // 组件中文名唯一
-export const name = '条形进度图'
+export const name = '高德地图'
 // 组件名唯一
-export const type = 'o-bar-2'
+export const type = 'o-map-gaode'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.2'
+export const version = '1.0.0'
 // 自定义配置
 export const customConfig = []
 // 配置
@@ -11,30 +11,19 @@ export const value = {
 	api: {
 		// 接口请求数据默认值
 		data: JSON.stringify({
-			value: [
-				{
-					value: 1233556,
-					percent: 60,
-					name: '分类一',
-				},
-				{
-					value: 69999,
-					percent: 30,
-					name: '分类二',
-				},
-				{
-					value: 45332,
-					percent: 20,
-					name: '分类三',
-				},
-			],
+			zoom: 8,
+			mapKey: '8081bdaac8258a8a4a6244bf16084fed',
+			mapPlugins: '&plugin=AMap.Scale,AMap.ToolBar,AMap.DistrictSearch',
+			mapVersion: '2.0',
+			mapStyle: 'amap://styles/e0e1899c1695e012c70d0731a5cda43c',
+			center: [120.310539, 30.587221],
 		}),
 	},
 	layout: {
 		// 宽高
 		size: {
-			width: 480,
-			height: 170,
+			width: 1000,
+			height: 500,
 		},
 		position: {
 			value: 'relative',
