@@ -14,7 +14,7 @@ export const customConfig = [
 	{
 		prop: 'background',
 		label: '背景图片',
-		type: 'func-background',
+		type: 'func-image',
 	},
 ]
 // 配置
