@@ -19,6 +19,9 @@ export default class OLine1 extends mixins(widgetMixin) {
 			this.$nextTick(() => {
 				this.instance = echarts.init(document.getElementById(this.id))
 				this.setOption(data, this.config.config)
+				this.instance.on('click', params => {
+					this.__handleClick__(params.data)
+				})
 			})
 		}
 	}

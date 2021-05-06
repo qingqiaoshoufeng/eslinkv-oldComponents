@@ -65,6 +65,15 @@ export const value = {
 		title2: '销售气量',
 		startAngle: 270,
 	},
+	event: {
+		scene: [
+			{
+				id: '',
+				type: 'openScene',
+				animate: '',
+			}
+		],
+	},
 	widget: {
 		componentVersion: version,
 		name,
