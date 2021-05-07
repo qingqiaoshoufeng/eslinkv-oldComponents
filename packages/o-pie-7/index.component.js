@@ -6,7 +6,7 @@ exports.name = '轮播饼图'
 // 组件名唯一
 exports.type = 'o-pie-7'
 // 检测当前组件名，版本唯一，类似npm发布策略
-exports.version = '1.0.1'
+exports.version = '1.0.2'
 // 自定义配置
 exports.customConfig = [
 	{
@@ -17,7 +17,7 @@ exports.customConfig = [
 	{
 		prop: 'background',
 		label: '背景图片',
-		type: 'func-background',
+		type: 'func-image',
 	},
 ]
 // 配置

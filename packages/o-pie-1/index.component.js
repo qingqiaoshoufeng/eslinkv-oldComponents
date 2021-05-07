@@ -6,7 +6,7 @@ exports.name = '圆环占比图'
 // 组件名唯一
 exports.type = 'o-pie-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-exports.version = '1.0.0'
+exports.version = '1.0.1'
 // 自定义配置
 exports.customConfig = [
 	{
@@ -67,6 +67,15 @@ exports.value = {
 		title1: '区域',
 		title2: '销售气量',
 		startAngle: 270,
+	},
+	event: {
+		scene: [
+			{
+				id: '',
+				type: 'openScene',
+				animate: '',
+			},
+		],
 	},
 	widget: {
 		componentVersion: exports.version,

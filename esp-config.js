@@ -1,6 +1,6 @@
 module.exports = {
-	domain: 'http://eslinkv.eslink.cc/node/',
-	appKey: 'cb8bd7b1ffba4eeaa831a1df9be20715',
-	// domain: 'http://localhost:3000/node/',
-	// appKey: '1b1de5f642e34a3993b4ef160e1cc980',
+	// domain: 'http://eslinkv.eslink.cc/node/', // 云版
+	// appKey: 'cb8bd7b1ffba4eeaa831a1df9be20715', // 云版
+	domain: 'http://192.168.1.44:2000/node/', // 杭燃 2000
+	appKey: 'd31fc4dae41c4bb99be23e3513f92cbc', // 杭燃 2000
 }
