@@ -4,6 +4,10 @@ export default (data, config) => {
 	let max = 0
 	const value = data.value || []
 	const option = getCommonOption(value, config)
+	option.tooltip.trigger = 'axis'
+	option.tooltip.axisPointer = {
+		type: 'shadow'
+	}
 	value.forEach((item, index) => {
 		max = Math.max(...[...item.y, max])
 		option.series.push({
