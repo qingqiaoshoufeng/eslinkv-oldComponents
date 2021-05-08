@@ -6,17 +6,12 @@ exports.name = '选项卡3'
 // 组件名唯一
 exports.type = 'o-select-3'
 // 检测当前组件名，版本唯一，类似npm发布策略
-exports.version = '1.0.1'
+exports.version = '1.0.4'
 // 自定义配置
 exports.customConfig = [
 	{
 		prop: 'defaultValue',
 		label: '默认选项',
-		type: 'func-input',
-	},
-	{
-		prop: 'type',
-		label: '传参变量名',
 		type: 'func-input',
 	},
 ]
@@ -47,7 +42,6 @@ exports.value = {
 	// 自定义配置默认值
 	config: {
 		defaultValue: '1',
-		type: 'type',
 	},
 	widget: {
 		componentVersion: exports.version,

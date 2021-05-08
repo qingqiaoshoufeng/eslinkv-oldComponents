@@ -6,13 +6,19 @@ exports.name = '圆环占比图'
 // 组件名唯一
 exports.type = 'o-pie-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-exports.version = '1.0.2'
+exports.version = '1.0.3'
 // 自定义配置
 exports.customConfig = [
 	{
 		prop: 'unit',
 		label: '单位',
 		type: 'func-input',
+	},
+	{
+		prop: 'unitPosition',
+		label: '单位位置',
+		type: 'func-select',
+		options: ['top', 'bottom'],
 	},
 	{
 		prop: 'title1',
@@ -64,6 +70,7 @@ exports.value = {
 	// 自定义配置默认值
 	config: {
 		unit: '万m³',
+		unitPosition: 'bottom',
 		title1: '区域',
 		title2: '销售气量',
 		startAngle: 270,

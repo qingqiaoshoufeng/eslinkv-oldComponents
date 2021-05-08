@@ -41,7 +41,6 @@ export default class Widget extends mixins(widgetMixin) {
 	change(row) {
 		this.selectValue = row.value
 		this.selectLabel = row.label
-		this.emitComponentUpdate({ [this.config.config.type]: row.value })
 		this.__handleClick__(row)
 		this.showOptions = !this.showOptions
 	}
@@ -56,10 +55,23 @@ export default class Widget extends mixins(widgetMixin) {
 		}
 	}
 
+	@Watch('config.config.defaultValue', { deep: true, immediate: true })
+	onDataChange(val) {
+		if (val) {
+			this.selectValue = this.config.config.defaultValue
+			this.__handleClick__({
+				value: this.selectValue,
+				label: this.selectLabel,
+			})
+			this.data.forEach(item => {
+				if (item.value === this.selectValue)
+					this.selectLabel = item.label
+			})
+		}
+	}
+
 	created() {
 		this.configValue = this.parseConfigValue(value, customConfig)
-		this.selectValue = this.configValue.config.defaultValue
-		this.emitComponentUpdate({ [this.config.config.type]: row.value })
 	}
 }
 </script>

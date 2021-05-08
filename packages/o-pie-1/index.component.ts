@@ -3,7 +3,7 @@ export const name = '圆环占比图'
 // 组件名唯一
 export const type = 'o-pie-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.2'
+export const version = '1.0.3'
 // 自定义配置
 export const customConfig = [
 	{
@@ -15,7 +15,7 @@ export const customConfig = [
 		prop: 'unitPosition',
 		label: '单位位置',
 		type: 'func-select',
-		options: ['top', 'bottom']
+		options: ['top', 'bottom'],
 	},
 	{
 		prop: 'title1',
