@@ -3,7 +3,7 @@ export const name = '单轴图'
 // 组件名唯一
 export const type = 'o-zhuxing-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.3'
+export const version = '1.0.4'
 // 自定义配置
 export const customConfig = [
 	{
@@ -32,8 +32,8 @@ export const value = {
 			// 有percent字段则显示折线
 			percent: {
 				y: [20, 40, 50, 42, 33, 66],
-				name: '占比'
-			}
+				name: '占比',
+			},
 		}),
 	},
 	layout: {
@@ -49,7 +49,7 @@ export const value = {
 	// 自定义配置默认值
 	config: {
 		title: '数量',
-		lineColor: '#FB5325'
+		lineColor: '#FB5325',
 	},
 	widget: {
 		componentVersion: version,

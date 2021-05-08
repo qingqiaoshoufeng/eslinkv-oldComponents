@@ -1,27 +1,16 @@
 <template>
 	<div class="widget-part pos-r" :style="styles" v-if="data">
-		<div class="o-select-3 fn-flex flex-row pos-r">
-			<h2
-				class="fn-flex flex-row"
-				@click="showOptions = !showOptions"
-				:class="{ active: showOptions }"
-			>
-				<span>{{ selectLabel }}</span>
-				<img src="./select.svg" />
-			</h2>
-			<ul
-				class="pos-a d-scrollbar"
-				v-if="showOptions"
-				:class="{ active: showOptions }"
-			>
-				<li
-					class="pointer"
+		<div class="o-select-4 fn-flex flex-row pos-r">
+			<h2 class="fn-flex flex-row">
+				<span
+					class="pos-r pointer"
 					v-for="item in data ? data : []"
+					:class="{ active: selectValue === item.value }"
 					@click="change(item)"
 				>
 					{{ item.label }}
-				</li>
-			</ul>
+				</span>
+			</h2>
 		</div>
 	</div>
 </template>
@@ -34,7 +23,6 @@ import { mixins } from 'vue-class-component'
 
 @Component
 export default class Widget extends mixins(widgetMixin) {
-	showOptions = false
 	selectValue = ''
 	selectLabel = ''
 
@@ -43,7 +31,6 @@ export default class Widget extends mixins(widgetMixin) {
 		this.selectLabel = row.label
 		this.emitComponentUpdate({ [this.config.config.type]: row.value })
 		this.__handleClick__(row)
-		this.showOptions = !this.showOptions
 	}
 
 	@Watch('data', { deep: true, immediate: true })
@@ -64,68 +51,34 @@ export default class Widget extends mixins(widgetMixin) {
 }
 </script>
 <style lang="scss" scoped>
-.o-select-3 {
+.o-select-4 {
 	height: 100%;
-	background: #0057a9;
-	border-radius: 4px;
-
-	ul {
-		top: 32px;
-		right: 0;
-		width: 100%;
-		background: #0057a9;
-		border-radius: 4px;
-
-		&.active {
-			height: auto;
-			max-height: 207px;
-			padding: 8px 0;
-			overflow-y: auto;
-			border: 1px solid #0df;
-		}
-	}
 
 	h2 {
 		align-items: center;
-		width: 100%;
+		justify-content: center;
 		font-weight: normal;
-		color: #fff;
-		border-radius: 4px;
-
-		&.active {
-			border: 1px solid #0df;
-		}
 
 		span {
-			margin-right: auto;
-			margin-left: 8px;
-			font-size: 16px;
-			line-height: 16px;
-		}
-
-		img {
+			width: 88px;
+			height: 32px;
 			margin-right: 8px;
-		}
-	}
+			font-size: 18px;
+			line-height: 32px;
+			color: rgba(255, 255, 255, 0.75);
+			background: #0057a9;
+			border: 1px solid #0057a9;
+			border-radius: 4px;
+			transition: all 0.3s;
 
-	li {
-		height: 32px;
-		padding-right: 8px;
-		font-size: 16px;
-		line-height: 32px;
-		color: #fff;
-		transition: all 0.3s;
+			&:last-child {
+				margin-right: 0;
+			}
 
-		&:hover {
-			background: rgba(0, 221, 255, 0.5);
-		}
-
-		&.active {
-			background: rgba(0, 221, 255, 0.5);
-		}
-
-		&:last-child {
-			border-bottom: none;
+			&.active {
+				color: #fff;
+				border: 1px solid #0df;
+			}
 		}
 	}
 }

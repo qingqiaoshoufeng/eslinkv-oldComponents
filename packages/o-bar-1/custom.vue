@@ -1,7 +1,7 @@
 <template lang="pug">
 .widget-part(:style="styles", v-if="data")
 	.item(v-for="(k, i) in data.value", :key="i" @click="__handleClick__(k)")
-		img.logo(:src="k.img")
+		img.logo(:src="k.img" v-if="k.img")
 		.main
 			.gas-info
 				.gas-title {{ k.name }}

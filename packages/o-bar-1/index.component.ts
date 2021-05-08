@@ -3,7 +3,7 @@ export const name = '条形占比图'
 // 组件名唯一
 export const type = 'o-bar-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.2'
+export const version = '1.0.3'
 // 自定义配置
 export const customConfig = [
 	{
@@ -22,19 +22,19 @@ export const value = {
 					value: 1233556,
 					percent: 60,
 					name: '分类一',
-					img: 'https://via.placeholder.com/150'
+					img: 'https://via.placeholder.com/150',
 				},
 				{
 					value: 69999,
 					percent: 30,
 					name: '分类二',
-					img: 'https://via.placeholder.com/150'
+					img: 'https://via.placeholder.com/150',
 				},
 				{
 					value: 45332,
 					percent: 20,
 					name: '分类三',
-					img: 'https://via.placeholder.com/150'
+					img: 'https://via.placeholder.com/150',
 				},
 			],
 		}),
