@@ -1,19 +1,21 @@
 <template lang="pug">
 .widget-part(:style="styles", v-if="data")
 	.item(v-for="(k, i) in data.value", :key="i" @click="__handleClick__(k)")
-		.gas-info
-			.gas-title {{ k.name }}
-			.gas-percent.font-num {{ k.percent.toFixed(2) }}%
-			.gas-num.font-num
-				em {{ k.value.toLocaleString() }}
-				span {{ config.config.unit }}
-		.gas-progress
-			.progress(:style="{ width: k.percent + '%' }")
+		img.logo(:src="k.img")
+		.main
+			.gas-info
+				.gas-title {{ k.name }}
+				.gas-percent.font-num {{ k.percent.toFixed(2) }}%
+				.gas-num.font-num
+					em {{ k.value.toLocaleString() }}
+					span {{ config.config.unit }}
+			.gas-progress
+				.progress(:style="{ width: k.percent + '%' }")
 </template>
 <script lang="ts">
 import { Component } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
-import { value, customConfig } from './index.component'
+import { value, customConfig } from './index.component.ts'
 import { widgetMixin } from 'eslinkv-sdk'
 
 @Component
@@ -26,8 +28,17 @@ export default class OBar1 extends mixins(widgetMixin) {
 <style lang="scss" scoped>
 .item {
 	margin-bottom: 22px;
+	display: flex;
 	&:last-child {
 		margin-bottom: 0;
+	}
+	.logo {
+		width: 54px;
+		height: 54px;
+		margin-right: 16px;
+	}
+	.main {
+		flex: 1;
 	}
 	.gas-info {
 		display: flex;

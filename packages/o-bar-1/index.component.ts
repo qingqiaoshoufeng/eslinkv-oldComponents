@@ -22,16 +22,19 @@ export const value = {
 					value: 1233556,
 					percent: 60,
 					name: '分类一',
+					img: 'https://via.placeholder.com/150'
 				},
 				{
 					value: 69999,
 					percent: 30,
 					name: '分类二',
+					img: 'https://via.placeholder.com/150'
 				},
 				{
 					value: 45332,
 					percent: 20,
 					name: '分类三',
+					img: 'https://via.placeholder.com/150'
 				},
 			],
 		}),
