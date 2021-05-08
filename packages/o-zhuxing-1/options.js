@@ -46,6 +46,47 @@ export default (data, config) => {
 			data: item.y,
 		})
 	})
+	if (data.percent) {
+		option.yAxis.push({
+			name: '%',
+			type: 'value',
+			nameTextStyle: {
+				padding: [0, 0, 0, 10],
+				color: '#fff',
+			},
+			axisTick: {
+				show: false,
+			},
+			splitNumber: 4,
+			axisLine: {
+				show: false,
+			},
+			splitLine: {
+				lineStyle: {
+					color: 'rgba(255, 255, 255,0.2)',
+				},
+			},
+			axisLabel: {
+				textStyle: {
+					color: 'rgba(255, 255, 255, 1)',
+					fontSize: 16,
+					lineHeight: 16,
+				},
+			},
+		})
+		option.series.push({
+			name: data.percent.name,
+			type: 'line',
+			yAxisIndex: 1,
+			data: data.percent.y,
+			symbol: 'emptyCircle',
+			showSymbol: false, // 是否显示 symbol, 如果 false 则只有在 tooltip hover 的时候显示。
+			itemStyle: {
+				color: config.lineColor
+			}
+		})
+		option.grid.right = 40
+	}
 	if (max !== undefined) option.grid.left += (max.toString().length - 3) * 12
 	return option
 }

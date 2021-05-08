@@ -11,6 +11,11 @@ export const customConfig = [
 		label: 'y轴单位',
 		type: 'func-input',
 	},
+	{
+		prop: 'lineColor',
+		label: '折线颜色',
+		type: 'func-color',
+	},
 ]
 // 配置
 export const value = {
@@ -24,6 +29,11 @@ export const value = {
 					name: '人口数',
 				},
 			],
+			// 有percent字段则显示折线
+			percent: {
+				y: [20, 40, 50, 42, 33, 66],
+				name: '占比'
+			}
 		}),
 	},
 	layout: {
@@ -39,6 +49,7 @@ export const value = {
 	// 自定义配置默认值
 	config: {
 		title: '数量',
+		lineColor: '#FB5325'
 	},
 	widget: {
 		componentVersion: version,
