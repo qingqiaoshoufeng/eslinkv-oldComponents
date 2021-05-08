@@ -3,13 +3,15 @@ import {getCommonOption} from "../../examples/utils";
 export default (data, config) => {
 	let max = 0
 	const value = data.value || []
+	if (!value.length) return {}
 	const option = getCommonOption(value, config)
+	option.xAxis.data = value[0].list.map(v => v.x)
 	option.tooltip.trigger = 'axis'
 	option.tooltip.axisPointer = {
 		type: 'shadow'
 	}
 	value.forEach((item, index) => {
-		max = Math.max(...[...item.y, max])
+		max = Math.max(...[...item.list.map(v => v.value), max])
 		option.series.push({
 			type: 'bar',
 			name: item.name,
@@ -47,7 +49,7 @@ export default (data, config) => {
 					]),
 				},
 			},
-			data: item.y,
+			data: item.list,
 		})
 	})
 	if (data.percent) {
@@ -82,7 +84,7 @@ export default (data, config) => {
 			name: data.percent.name,
 			type: 'line',
 			yAxisIndex: 1,
-			data: data.percent.y,
+			data: data.percent.list,
 			symbol: 'emptyCircle',
 			showSymbol: false, // 是否显示 symbol, 如果 false 则只有在 tooltip hover 的时候显示。
 			itemStyle: {

@@ -27,7 +27,10 @@ export default class OZhuxing1 extends mixins(widgetMixin) {
 				this.setOption(data, this.config.config)
 				this.instance.off('click')
 				this.instance.on('click', params => {
-					this.__handleClick__(params)
+					this.__handleClick__({
+						bar: data.value.map(v => v.list[params.dataIndex]),
+						percent: data.percent.list[params.dataIndex]
+					})
 				})
 			})
 		}
