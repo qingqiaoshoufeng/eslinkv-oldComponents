@@ -1,12 +1,12 @@
 <template lang="pug">
 .widget-part(:style="styles")
 	.chart(:id="id")
-	.unit {{ config.config.unit }}
+	.unit(:style="{[config.config.unitPosition]: 0}") {{ config.config.unit }}
 </template>
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
-import { value, customConfig } from './index.component'
+import { value, customConfig } from './index.component.ts'
 import { widgetMixin } from 'eslinkv-sdk'
 import options from './options'
 
@@ -48,7 +48,6 @@ export default class OLine1 extends mixins(widgetMixin) {
 .unit {
 	position: absolute;
 	right: 0;
-	bottom: 0;
 	color: #fff;
 }
 </style>

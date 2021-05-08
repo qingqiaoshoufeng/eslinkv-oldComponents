@@ -12,6 +12,12 @@ export const customConfig = [
 		type: 'func-input',
 	},
 	{
+		prop: 'unitPosition',
+		label: '单位位置',
+		type: 'func-select',
+		options: ['top', 'bottom']
+	},
+	{
 		prop: 'title1',
 		label: '标题',
 		type: 'func-input',
@@ -61,6 +67,7 @@ export const value = {
 	// 自定义配置默认值
 	config: {
 		unit: '万m³',
+		unitPosition: 'bottom',
 		title1: '区域',
 		title2: '销售气量',
 		startAngle: 270,
