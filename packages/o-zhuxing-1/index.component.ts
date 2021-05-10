@@ -3,7 +3,7 @@ export const name = '单轴图'
 // 组件名唯一
 export const type = 'o-zhuxing-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.6'
+export const version = '1.0.7'
 // 自定义配置
 export const customConfig = [
 	{
@@ -27,28 +27,28 @@ export const value = {
 					list: [
 						{
 							x: '08/12',
-							value: 250
+							value: 250,
 						},
 						{
 							x: '08/13',
-							value: 350
+							value: 350,
 						},
 						{
 							x: '08/14',
-							value: 120
+							value: 120,
 						},
 						{
 							x: '08/15',
-							value: 290
+							value: 290,
 						},
 						{
 							x: '08/16',
-							value: 240
+							value: 240,
 						},
 						{
 							x: '08/17',
-							value: 250
-						}
+							value: 250,
+						},
 					],
 					name: '人口数',
 				},
