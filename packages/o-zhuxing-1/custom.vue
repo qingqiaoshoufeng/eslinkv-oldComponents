@@ -1,12 +1,12 @@
 <template lang="pug">
-.widget-part(:style="styles" v-if="data")
+.widget-part(:style="styles", v-if="data")
 	.legend(v-if="data.percent")
 		.item(v-for="(k, i) in data.value")
-			.color(:style="{background: config.config.colorTheme.colorDisk[i]}")
-			span {{k.name}}
+			.color(:style="{ background: config.config.colorTheme.colorDisk[i] }")
+			span {{ k.name }}
 		.item
-			.colorline(:style="{background: config.config.lineColor}")
-			span {{data.percent.name}}
+			.colorline(:style="{ background: config.config.lineColor }")
+			span {{ data.percent.name }}
 	.o-zhuxing-1(:id="id")
 </template>
 <script lang="ts">
@@ -28,8 +28,12 @@ export default class OZhuxing1 extends mixins(widgetMixin) {
 				this.instance.off('click')
 				this.instance.on('click', params => {
 					this.__handleClick__({
-						bar: data.value.map(v => v.list[params.dataIndex]),
-						percent: data.percent.list[params.dataIndex]
+						bar: data.value
+							? data.value.map(v => v.list[params.dataIndex])[0]
+							: null,
+						percent: data.percent
+							? data.percent.list[params.dataIndex]
+							: null,
 					})
 				})
 			})
@@ -59,7 +63,7 @@ export default class OZhuxing1 extends mixins(widgetMixin) {
 	justify-content: center;
 	font-size: 16px;
 	line-height: 16px;
-	color: #FFFFFF;
+	color: #ffffff;
 	.item {
 		display: flex;
 		align-items: center;
