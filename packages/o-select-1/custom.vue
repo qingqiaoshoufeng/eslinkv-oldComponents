@@ -1,35 +1,55 @@
 <template lang="pug">
-.widget-part(:style="styles" v-if="data")
+.widget-part(:style="styles", v-if="data")
 	ul.list
 		li(
-			v-for="(k, i) in data"
-			:key="i"
-			@click="change(k)"
-			:class="{active: k.value === selectValue}"
-		) {{ k.label }}
+			v-for="(k, i) in data",
+			:key="i",
+			@click="change(k)",
+			:class="{ active: k.value === selectValue }") {{ k.label }}
 </template>
 <script lang="ts">
-import { Component } from 'vue-property-decorator'
+import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component'
 import { widgetMixin } from 'eslinkv-sdk'
 
 @Component
-export default class Widget extends mixins(widgetMixin) {
+export default class OSelect1 extends mixins(widgetMixin) {
 	selectValue = ''
+	selectLabel = ''
 
-	change (row) {
+	change(row) {
 		this.selectValue = row.value
-		this.emitComponentUpdate(row.value)
+		this.__handleClick__(row)
 	}
-	
+
+	@Watch('data', { deep: true, immediate: true })
+	onDataChange(val) {
+		if (val) {
+			val.forEach(item => {
+				if (item.value === this.selectValue)
+					this.selectLabel = item.label
+			})
+		}
+	}
+
+	@Watch('config.config.defaultValue', { deep: true, immediate: true })
+	onDataChange(val) {
+		if (val) {
+			this.selectValue = this.config.config.defaultValue
+			this.data.forEach(item => {
+				if (item.value === this.selectValue)
+					this.selectLabel = item.label
+			})
+			this.__handleClick__({
+				value: this.selectValue,
+				label: this.selectLabel,
+			})
+		}
+	}
+
 	created() {
 		this.configValue = this.parseConfigValue(value, customConfig)
-		this.selectValue = this.configValue.config.defaultValue
-	}
-
-	mounted() {
-		this.emitComponentUpdate(this.selectValue)
 	}
 }
 </script>
@@ -46,24 +66,24 @@ export default class Widget extends mixins(widgetMixin) {
 		font-size: 18px;
 		color: rgba(255, 255, 255, 0.75);
 		background: #023066;
-		border: 1px solid #205A9E;
+		border: 1px solid #205a9e;
 		border-right-width: 0;
-		
+
 		&:last-child {
 			border-right-width: 1px;
 		}
-		
+
 		&.active {
 			font-weight: 600;
-			color: #FEFFFF;
-			background: #205A9E;
-			border-color: #00DDFF;
+			color: #feffff;
+			background: #205a9e;
+			border-color: #00ddff;
 		}
-		
+
 		&:not(:last-child).active:after {
 			content: '';
 			display: block;
-			background: #00DDFF;
+			background: #00ddff;
 			width: 1px;
 			position: absolute;
 			right: -1px;

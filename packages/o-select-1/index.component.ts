@@ -3,7 +3,7 @@ export const name = '选项卡1'
 // 组件名唯一
 export const type = 'o-select-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.0'
+export const version = '1.0.1'
 // 自定义配置
 export const customConfig = [
 	{
@@ -37,7 +37,7 @@ export const value = {
 	},
 	// 自定义配置默认值
 	config: {
-		defaultValue: '1'
+		defaultValue: '1',
 	},
 	widget: {
 		componentVersion: version,

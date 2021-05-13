@@ -22,7 +22,7 @@ import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 
 @Component
-export default class Widget extends mixins(widgetMixin) {
+export default class OSelect4 extends mixins(widgetMixin) {
 	selectValue = ''
 	selectLabel = ''
 
@@ -46,13 +46,13 @@ export default class Widget extends mixins(widgetMixin) {
 	onDataChange(val) {
 		if (val) {
 			this.selectValue = this.config.config.defaultValue
-			this.__handleClick__({
-				value: this.selectValue,
-				label: this.selectLabel,
-			})
 			this.data.forEach(item => {
 				if (item.value === this.selectValue)
 					this.selectLabel = item.label
+			})
+			this.__handleClick__({
+				value: this.selectValue,
+				label: this.selectLabel,
 			})
 		}
 	}
