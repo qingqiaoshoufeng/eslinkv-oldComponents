@@ -2,9 +2,9 @@ export default (data, config) => {
 	const value = data.value || []
 	let total = 0
 	if (value.length) {
-		total = value.reduce((p, n) => {
+		total = value.reduce((p, n, index) => {
 			return (Number(p) || 0) + Number(n.value)
-		})
+		}, 0)
 	}
 	const option = {
 		title: {
