@@ -111,8 +111,8 @@ export default class OSelect3 extends mixins(widgetMixin) {
 		span {
 			margin-right: auto;
 			margin-left: 8px;
-			font-size: 16px;
-			line-height: 16px;
+			font-size: 20px;
+			line-height: 20px;
 		}
 
 		img {
@@ -121,10 +121,10 @@ export default class OSelect3 extends mixins(widgetMixin) {
 	}
 
 	li {
-		height: 32px;
+		height: 40px;
 		padding-right: 8px;
-		font-size: 16px;
-		line-height: 32px;
+		font-size: 20px;
+		line-height: 40px;
 		color: #fff;
 		transition: all 0.3s;
 

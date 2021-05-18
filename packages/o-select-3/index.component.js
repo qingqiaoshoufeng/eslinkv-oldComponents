@@ -6,7 +6,7 @@ exports.name = '选项卡3'
 // 组件名唯一
 exports.type = 'o-select-3'
 // 检测当前组件名，版本唯一，类似npm发布策略
-exports.version = '1.0.4'
+exports.version = '1.0.5'
 // 自定义配置
 exports.customConfig = [
 	{
