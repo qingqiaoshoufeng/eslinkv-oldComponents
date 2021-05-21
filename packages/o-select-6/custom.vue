@@ -2,7 +2,7 @@
 	.widget-part(:style="styles" v-if="data")
 		.left.active(@click="back")
 		.main {{ time }}
-		.right.active(@click="next")
+		.right(@click="next" :class="{active: !disabled}")
 </template>
 <script lang="ts">
 import { widgetMixin } from 'eslinkv-sdk'
@@ -19,6 +19,10 @@ export default class OSelect5 extends mixins(widgetMixin) {
 			this.__handleClick__(val)
 		}
 	}
+	
+	get disabled () {
+		return this.time === this.formatTime(new Date())
+	}
 
 	back() {
 		let year = new Date(this.time).getFullYear()
@@ -32,6 +36,7 @@ export default class OSelect5 extends mixins(widgetMixin) {
 	}
 
 	next() {
+		if (this.disabled) return
 		let year = new Date(this.time).getFullYear()
 		let month:any = new Date(this.time).getMonth() + 2
 		if (month === 13) {
