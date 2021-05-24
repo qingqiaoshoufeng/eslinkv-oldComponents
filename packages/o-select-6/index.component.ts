@@ -18,6 +18,7 @@ export const value = {
 		data: JSON.stringify({})
 	},
 	config: {
+		offset: 0
 	},
 	widget: {
 		componentVersion: version,
@@ -26,4 +27,9 @@ export const value = {
 }
 
 export const customConfig = [
+	{
+		prop: 'offset',
+		label: '偏移月份',
+		type: 'func-number',
+	},
 ]

@@ -47,16 +47,26 @@ export default class OSelect5 extends mixins(widgetMixin) {
 		this.time = `${year}.${month}`
 	}
 	
-	formatTime (date) {
-		const year = date.getFullYear()
+	formatTime (date, offset = 0) {
+		let year = date.getFullYear()
 		let month:any = date.getMonth() + 1
+		if (offset) {
+			month += offset
+			if (month <= 0) {
+				year--
+				month += 12
+			} else if (month > 12) {
+				year++
+				month %= 12
+			}
+		}
 		month = month > 9 ? month : `0${month}`
 		return `${year}.${month}`
 	}
 
 	created() {
-		this.time = this.formatTime(new Date())
 		this.configValue = this.parseConfigValue(value, customConfig)
+		this.time = this.formatTime(new Date(), this.configValue.config.offset)
 	}
 }
 </script>
