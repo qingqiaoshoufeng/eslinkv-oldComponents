@@ -60,12 +60,10 @@ export default class OSelect3 extends mixins(widgetMixin) {
 		if (val) {
 			this.selectValue = this.config.config.defaultValue
 			this.data.forEach(item => {
-				if (item.value === this.selectValue)
+				if (item.value === this.selectValue) {
 					this.selectLabel = item.label
-			})
-			this.__handleClick__({
-				value: this.selectValue,
-				label: this.selectLabel,
+					this.__handleClick__(item)
+				}
 			})
 		}
 	}

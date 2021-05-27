@@ -1,7 +1,7 @@
 <template lang="pug">
 .widget-part(:style="styles", v-if="data")
 	ul.list
-		li(
+		li.pointer(
 			v-for="(k, i) in data",
 			:key="i",
 			@click="change(k)",
@@ -38,12 +38,10 @@ export default class OSelect2 extends mixins(widgetMixin) {
 		if (val) {
 			this.selectValue = this.config.config.defaultValue
 			this.data.forEach(item => {
-				if (item.value === this.selectValue)
+				if (item.value === this.selectValue) {
 					this.selectLabel = item.label
-			})
-			this.__handleClick__({
-				value: this.selectValue,
-				label: this.selectLabel,
+					this.__handleClick__(item)
+				}
 			})
 		}
 	}

@@ -95,11 +95,8 @@ export default class OSelect5 extends mixins(widgetMixin) {
 			this.data.forEach(item => {
 				if (item.value === this.selectValue) {
 					this.selectLabel = item.label
+					this.__handleClick__(item)
 				}
-			})
-			this.__handleClick__({
-				value: this.selectValue,
-				label: this.selectLabel,
 			})
 		}
 	}

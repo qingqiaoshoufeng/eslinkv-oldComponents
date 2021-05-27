@@ -47,12 +47,10 @@ export default class OSelect4 extends mixins(widgetMixin) {
 		if (val) {
 			this.selectValue = this.config.config.defaultValue
 			this.data.forEach(item => {
-				if (item.value === this.selectValue)
+				if (item.value === this.selectValue) {
 					this.selectLabel = item.label
-			})
-			this.__handleClick__({
-				value: this.selectValue,
-				label: this.selectLabel,
+					this.__handleClick__(item)
+				}
 			})
 		}
 	}
@@ -72,7 +70,8 @@ export default class OSelect4 extends mixins(widgetMixin) {
 		font-weight: normal;
 
 		span {
-			width: 88px;
+			min-width: 88px;
+			padding: 0 8px;
 			height: 32px;
 			margin-right: 8px;
 			font-size: 18px;
