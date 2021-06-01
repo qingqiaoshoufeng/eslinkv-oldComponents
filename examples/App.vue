@@ -5,12 +5,10 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Provide } from 'vue-property-decorator'
-import { dScreen, platform, dDetail } from 'eslinkv-sdk'
+import { dScreen, dDetail } from 'eslinkv-sdk'
 
 @Component({ components: { dScreen, dDetail } })
 export default class App extends Vue {
-	platform = platform.state
-
 	@Provide('kanboardEditor') kanboardEditor = this
 }
 </script>

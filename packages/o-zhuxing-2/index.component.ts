@@ -3,13 +3,18 @@ export const name = '多轴图'
 // 组件名唯一
 export const type = 'o-zhuxing-2'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.3'
+export const version = '1.0.4'
 // 自定义配置
 export const customConfig = [
 	{
 		prop: 'title',
 		label: 'y轴单位',
 		type: 'func-input',
+	},
+	{
+		prop: 'left',
+		label: '缩进',
+		type: 'func-number',
 	},
 ]
 // 配置
@@ -44,6 +49,7 @@ export const value = {
 	// 自定义配置默认值
 	config: {
 		title: '数量',
+		left: 0,
 	},
 	widget: {
 		componentVersion: version,

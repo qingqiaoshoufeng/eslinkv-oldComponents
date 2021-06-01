@@ -1,4 +1,4 @@
-import {getCommonOption} from "../../examples/utils";
+import { getCommonOption } from '../../examples/utils'
 
 export default (data, config) => {
 	let max = 0
@@ -17,5 +17,6 @@ export default (data, config) => {
 		})
 	})
 	if (max !== undefined) option.grid.left += (max.toString().length - 3) * 12
+	option.grid.left += config.left
 	return option
 }

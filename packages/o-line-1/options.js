@@ -22,14 +22,14 @@ export default (data, config) => {
 					dataBackground: {
 						areaStyle: {
 							color: '#023066',
-							opacity: 1
+							opacity: 1,
 						},
 						lineStyle: {
-							color: '#184E8D'
-						}
-					}
+							color: '#184E8D',
+						},
+					},
 				},
-				{ type: 'inside' }
+				{ type: 'inside' },
 			]
 		}
 		option.series.push({
@@ -39,27 +39,29 @@ export default (data, config) => {
 			lineStyle: {
 				color,
 			},
-			areaStyle: config.area ? {
-				normal: {
-					color: new echarts.graphic.LinearGradient(
-						0,
-						0,
-						0,
-						1,
-						[
-							{
-								offset: 0,
-								color: hexToRgba(color, 0.6),
-							},
-							{
-								offset: 1,
-								color: hexToRgba(color, 0),
-							},
-						],
-						false,
-					),
-				},
-			} : null,
+			areaStyle: config.area
+				? {
+						normal: {
+							color: new echarts.graphic.LinearGradient(
+								0,
+								0,
+								0,
+								1,
+								[
+									{
+										offset: 0,
+										color: hexToRgba(color, 0.6),
+									},
+									{
+										offset: 1,
+										color: hexToRgba(color, 0),
+									},
+								],
+								false,
+							),
+						},
+				  }
+				: null,
 			symbol: 'emptyCircle',
 			showSymbol: false, // 是否显示 symbol, 如果 false 则只有在 tooltip hover 的时候显示。
 			itemStyle: {
@@ -69,5 +71,6 @@ export default (data, config) => {
 		})
 	})
 	if (max !== undefined) option.grid.left += (max.toString().length - 3) * 12
+	option.grid.left += config.left
 	return option
 }

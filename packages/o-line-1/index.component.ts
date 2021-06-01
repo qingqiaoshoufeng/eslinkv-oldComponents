@@ -3,13 +3,18 @@ export const name = '面积图'
 // 组件名唯一
 export const type = 'o-line-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.0'
+export const version = '1.0.1'
 // 自定义配置
 export const customConfig = [
 	{
 		prop: 'title',
 		label: 'y轴单位',
 		type: 'func-input',
+	},
+	{
+		prop: 'left',
+		label: '缩进',
+		type: 'func-number',
 	},
 	{
 		prop: 'smooth',
@@ -62,6 +67,7 @@ export const value = {
 		smooth: true,
 		area: true,
 		datazoom: false,
+		left: 0,
 	},
 	widget: {
 		componentVersion: version,

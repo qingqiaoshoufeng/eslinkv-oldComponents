@@ -6,13 +6,18 @@ exports.name = '面积图'
 // 组件名唯一
 exports.type = 'o-line-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-exports.version = '1.0.0'
+exports.version = '1.0.1'
 // 自定义配置
 exports.customConfig = [
 	{
 		prop: 'title',
 		label: 'y轴单位',
 		type: 'func-input',
+	},
+	{
+		prop: 'left',
+		label: '缩进',
+		type: 'func-number',
 	},
 	{
 		prop: 'smooth',
@@ -65,6 +70,7 @@ exports.value = {
 		smooth: true,
 		area: true,
 		datazoom: false,
+		left: 0,
 	},
 	widget: {
 		componentVersion: exports.version,
