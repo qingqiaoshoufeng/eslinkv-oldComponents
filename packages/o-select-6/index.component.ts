@@ -3,7 +3,7 @@ export const name = '选项卡6'
 // 组件名唯一
 export const type = 'o-select-6'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.2'
+export const version = '1.0.3'
 export const value = {
 	layout: {
 		size: {

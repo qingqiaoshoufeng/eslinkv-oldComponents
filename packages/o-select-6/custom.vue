@@ -5,10 +5,11 @@
 		.right(@click="next" :class="{active: !disabled}")
 </template>
 <script lang="ts">
-import { widgetMixin } from 'eslinkv-sdk'
+import { widgetMixin } from '@eslinkv/vue2'
 import { customConfig, value } from './index.component'
 import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
+
 @Component
 export default class OSelect5 extends mixins(widgetMixin) {
 	time:number|string = 0
@@ -66,7 +67,7 @@ export default class OSelect5 extends mixins(widgetMixin) {
 
 	created() {
 		this.configValue = this.parseConfigValue(value, customConfig)
-		this.time = this.formatTime(new Date(), this.configValue.config.offset)
+		this.time = this.formatTime(new Date(), this.config.config.offset)
 	}
 }
 </script>
