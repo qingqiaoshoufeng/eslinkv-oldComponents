@@ -2,18 +2,25 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import { Message, Modal } from 'view-design'
-import 'eslinkv-sdk/lib/eslinkv-sdk.css'
-import { custom } from 'eslinkv-sdk'
-Vue.prototype.$Message = Message
-Vue.prototype.$Modal = Modal
+import '@eslinkv/core/lib/core.css'
+import '@eslinkv/vue2/lib/v2.css'
 
-const components = {}
-const snapshots = {}
-const widgetsObject = []
+import { Editor } from '@eslinkv/core'
+const editor: Editor = Editor.Instance()
+const components: Record<string, unknown> = {}
+const snapshots: Record<string, unknown> = {}
+const widgetsObject: {
+	componentId: number
+	componentConfig: Record<string, unknown>
+	componentTitle: string
+	componentEnTitle: string
+	componentAvatar: string
+	market: boolean
+}[] = []
 const conf = require.context('../packages', true, /\.(component.ts)$/)
 const component = require.context('../packages', true, /custom\.(vue)$/)
 const snapshot = require.context('../packages', true, /snapshot\.(jpg|png)$/)
-snapshot.keys().forEach(name => {
+snapshot.keys().forEach((name: string) => {
 	const title = name.split('/')[1]
 	snapshots[title] = snapshot(name)
 })
@@ -29,9 +36,9 @@ conf.keys().forEach(name => {
 		widgetsObject.push({
 			componentId: Date.now(),
 			componentConfig,
-			componentTitle: typeTwo,
+			componentTitle: typeTwo.replace('hangran-', ''),
 			componentEnTitle: typeTwo,
-			componentAvatar,
+			componentAvatar: componentAvatar as string,
 			market: false,
 		})
 	}
@@ -53,10 +60,12 @@ const obj = {
 		],
 	},
 }
-custom.actions.setCustomComponents(components)
-custom.actions.setCustomWidgets(obj)
+editor.setLocalComponents(components)
+editor.setLocalWidgets(obj)
 
 Vue.config.productionTip = false
+Vue.prototype.$Message = Message
+Vue.prototype.$Modal = Modal
 
 new Vue({
 	router,

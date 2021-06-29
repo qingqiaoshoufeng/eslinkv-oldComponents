@@ -1,11 +1,6 @@
 declare module 'vue/types/vue' {
 	interface Vue {
-		$api: any
-		$agent: any
-		$sysApi: any
-
 		emitComponentUpdate: any
-		kanboardEditor: any
 		configSource: any
 		configValue: any
 		parseConfigSource: any
@@ -14,3 +9,11 @@ declare module 'vue/types/vue' {
 		styles: any
 	}
 }
+
+declare global {
+	interface Window {
+		eslinkV: any
+		echarts: any
+	}
+}
+

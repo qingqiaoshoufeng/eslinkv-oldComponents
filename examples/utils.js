@@ -120,33 +120,37 @@ export function getCommonOption(value, config) {
 			},
 			data: value[0] && value[0].x,
 		},
-		yAxis: [{
-            name: config.title,
-            type: 'value',
-            nameTextStyle: {
-                padding: [0, 40, 0, 0],
-                color: '#fff',
-            },
-            axisTick: {
-                show: false,
-            },
-            splitNumber: 4,
-            axisLine: {
-                show: false,
-            },
-            splitLine: {
-                lineStyle: {
-                    color: 'rgba(255, 255, 255,0.2)',
-                },
-            },
-            axisLabel: {
-                textStyle: {
-                    color: 'rgba(255, 255, 255, 1)',
-                    fontSize: 16,
-                    lineHeight: 16,
-                },
-            },
-        }],
+		yAxis: [
+			{
+				scale:config.scale,
+				max: config.max || null,
+				name: config.title,
+				type: 'value',
+				nameTextStyle: {
+					padding: [0, 40, 0, 0],
+					color: '#fff',
+				},
+				axisTick: {
+					show: false,
+				},
+				splitNumber: 4,
+				axisLine: {
+					show: false,
+				},
+				splitLine: {
+					lineStyle: {
+						color: 'rgba(255, 255, 255,0.2)',
+					},
+				},
+				axisLabel: {
+					textStyle: {
+						color: 'rgba(255, 255, 255, 1)',
+						fontSize: 16,
+						lineHeight: 16,
+					},
+				},
+			},
+		],
 		series: [],
 	}
 }

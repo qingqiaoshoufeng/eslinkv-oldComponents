@@ -3,7 +3,7 @@ export const name = '面积图'
 // 组件名唯一
 export const type = 'o-line-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.1'
+export const version = '1.0.2'
 // 自定义配置
 export const customConfig = [
 	{
@@ -29,6 +29,11 @@ export const customConfig = [
 	{
 		prop: 'datazoom',
 		label: '区域缩放',
+		type: 'func-switch',
+	},
+	{
+		prop: 'scale',
+		label: 'y轴是否从0开始',
 		type: 'func-switch',
 	},
 ]
@@ -68,6 +73,7 @@ export const value = {
 		area: true,
 		datazoom: false,
 		left: 0,
+		scale: false,
 	},
 	widget: {
 		componentVersion: version,
