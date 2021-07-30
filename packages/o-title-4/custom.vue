@@ -1,5 +1,5 @@
 <template lang="pug">
-.widget-part(:style="styles", v-if="data")
+widget-normal(:value="value", :customConfig="customConfig")
 	.fn-flex.flex-row.o-title-4.pos-r
 		.o-title-4-icon-left
 		.o-title-4-icon-right
@@ -7,16 +7,16 @@
 		h2 {{ config.config.title ? config.config.title : data.title }}
 </template>
 <script lang="ts">
-const { widgetMixin } = eslinkV
+import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import { Component } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component'
 
-@Component
-export default class extends mixins(widgetMixin) {
-	async created() {
-		this.configValue = this.parseConfigValue(value, customConfig)
-	}
+@Component({ components: { widgetNormal } })
+export default class extends mixins(widgetNormalMixin) {
+value = value
+customConfig = customConfig
+	
 }
 </script>
 <style lang="scss" scoped>

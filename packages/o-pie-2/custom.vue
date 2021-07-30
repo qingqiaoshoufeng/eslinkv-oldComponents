@@ -1,24 +1,27 @@
 <template lang="pug">
-.widget-part(:style="styles" v-if="data")
-	.chart(:id="id")
-	ul.circle-legend.fn-flex.flex-column
-		li(v-for="(k, i) in data.value")
-			.circle-legend-color(
-				:style="{ borderColor: config.config.colorTheme.colorDisk[i] }")
-			.circle-legend-name {{ k.name }}
-			.circle-legend-num
-				.font-num {{ k.count.toLocaleString() }}
-			.circle-legend-unit {{ k.unit }}
+widget-normal(:value="value", :customConfig="customConfig")
+	.main(v-if="config.config.colorTheme")
+		.chart(:id="id")
+		ul.circle-legend.fn-flex.flex-column
+			li(v-for="(k, i) in data.value")
+				.circle-legend-color(
+					:style="{ borderColor: config.config.colorTheme.colorDisk[i] }")
+				.circle-legend-name {{ k.name }}
+				.circle-legend-num
+					.font-num {{ k.count.toLocaleString() }}
+				.circle-legend-unit {{ k.unit }}
 </template>
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component'
-import { widgetMixin } from 'eslinkv-sdk'
+import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import options from './options'
 
-@Component
-export default class OPie2 extends mixins(widgetMixin) {
+@Component({ components: { widgetNormal } })
+export default class OPie2 extends mixins(widgetNormalMixin) {
+	value = value
+	customConfig = customConfig
 	@Watch('data', { deep: true, immediate: true })
 	onDataChange(val) {
 		if (this.id) {
@@ -34,15 +37,13 @@ export default class OPie2 extends mixins(widgetMixin) {
 		const o = options(data, config)
 		this.instance && this.instance.setOption(o)
 	}
-
-	created() {
-		this.configValue = this.parseConfigValue(value, customConfig, true)
-	}
 }
 </script>
 <style lang="scss" scoped>
-.widget-part {
+.main {
 	display: flex;
+	height: 100%;
+	width: 100%;
 }
 .chart {
 	flex: none;

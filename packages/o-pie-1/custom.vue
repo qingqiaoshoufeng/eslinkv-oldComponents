@@ -1,5 +1,5 @@
 <template lang="pug">
-.widget-part(:style="styles")
+widget-normal(:value="value", :customConfig="customConfig", :eventTypes="eventTypes")
 	.chart(:id="id")
 	.unit(:style="{[config.config.unitPosition]: 0}") {{ config.config.unit }}
 </template>
@@ -7,11 +7,15 @@
 import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component.ts'
-import { widgetMixin } from 'eslinkv-sdk'
+import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import options from './options'
 
-@Component
-export default class OLine1 extends mixins(widgetMixin) {
+@Component({ components: { widgetNormal } })
+export default class OLine1 extends mixins(widgetNormalMixin) {
+	eventTypes = [{ key: 'click', label: '点击事件' }]
+	value = value
+	customConfig = customConfig
+	
 	@Watch('data', { deep: true, immediate: true })
 	onDataChange(val) {
 		if (this.id) {
@@ -21,7 +25,7 @@ export default class OLine1 extends mixins(widgetMixin) {
 				this.setOption(data, this.config.config)
 				this.instance.off('click')
 				this.instance.on('click', params => {
-					this.__handleClick__(params.data)
+					this.__handleEvent__('click', params.data)
 				})
 			})
 		}
@@ -30,10 +34,6 @@ export default class OLine1 extends mixins(widgetMixin) {
 	setOption(data, config) {
 		const o = options(data, config)
 		this.instance && this.instance.setOption(o)
-	}
-
-	created() {
-		this.configValue = this.parseConfigValue(value, customConfig, true)
 	}
 }
 </script>

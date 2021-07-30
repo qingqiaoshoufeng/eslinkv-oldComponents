@@ -1,6 +1,6 @@
 <template lang="pug">
-.widget-part(:style="styles", v-if="data")
-	.legend(v-if="data.percent")
+widget-normal(:value="value", :customConfig="customConfig" :eventTypes="eventTypes")
+	.legend(v-if="data.percent &&  config.config.colorTheme")
 		.item(v-for="(k, i) in data.value")
 			.color(:style="{ background: config.config.colorTheme.colorDisk[i] }")
 			span {{ k.name }}
@@ -13,11 +13,14 @@
 import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component.ts'
-import { widgetMixin } from 'eslinkv-sdk'
+import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import options from './options'
 
-@Component
-export default class OZhuxing1 extends mixins(widgetMixin) {
+@Component({ components: { widgetNormal } })
+export default class OZhuxing1 extends mixins(widgetNormalMixin) {
+	value = value
+	customConfig = customConfig
+	eventTypes = [{ key: 'click', label: '点击事件' }]
 	@Watch('data', { deep: true, immediate: true })
 	onDataChange(val) {
 		if (this.id) {
@@ -27,7 +30,7 @@ export default class OZhuxing1 extends mixins(widgetMixin) {
 				this.setOption(data, this.config.config)
 				this.instance.off('click')
 				this.instance.on('click', params => {
-					this.__handleClick__({
+					this.__handleEvent__('click', {
 						bar: data.value
 							? data.value.map(v => v.list[params.dataIndex])[0]
 							: null,
@@ -45,9 +48,7 @@ export default class OZhuxing1 extends mixins(widgetMixin) {
 		this.instance && this.instance.setOption(o)
 	}
 
-	created() {
-		this.configValue = this.parseConfigValue(value, customConfig, true)
-	}
+	
 }
 </script>
 <style lang="scss" scoped>

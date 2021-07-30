@@ -1,15 +1,17 @@
 <template lang="pug">
-.widget-part(:style="styles")
+widget-normal(:value="value", :customConfig="customConfig")
 	.o-map-gaode(:id="id")
 </template>
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component'
-import { widgetMixin } from 'eslinkv-sdk'
+import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 
-@Component
-export default class OLine2 extends mixins(widgetMixin) {
+@Component({ components: { widgetNormal } })
+export default class OLine2 extends mixins(widgetNormalMixin) {
+	value = value
+	customConfig = customConfig
 	mapLoader(plugins, key, version) {
 		return new Promise((resolve, reject) => {
 			if (window.AMap) {
@@ -50,9 +52,7 @@ export default class OLine2 extends mixins(widgetMixin) {
 		}
 	}
 
-	created() {
-		this.configValue = this.parseConfigValue(value, customConfig, true)
-	}
+	
 }
 </script>
 <style lang="scss" scoped>

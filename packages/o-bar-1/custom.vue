@@ -1,6 +1,6 @@
 <template lang="pug">
-.widget-part(:style="styles", v-if="data")
-	.item(v-for="(k, i) in data.value", :key="i" @click="__handleClick__(k)")
+widget-normal(:value="value", :customConfig="customConfig" :eventTypes="eventTypes")
+	.item(v-for="(k, i) in data.value", :key="i" @click="__handleEvent__('click', k)")
 		img.logo(:src="k.img" v-if="k.img")
 		.main
 			.gas-info
@@ -16,13 +16,13 @@
 import { Component } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component.ts'
-import { widgetMixin } from 'eslinkv-sdk'
+import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 
-@Component
-export default class OBar1 extends mixins(widgetMixin) {
-	created() {
-		this.configValue = this.parseConfigValue(value, customConfig)
-	}
+@Component({ components: { widgetNormal } })
+export default class OBar1 extends mixins(widgetNormalMixin) {
+	value = value
+	customConfig = customConfig
+	eventTypes = [{ key: 'click', label: '点击事件' }]
 }
 </script>
 <style lang="scss" scoped>

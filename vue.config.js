@@ -42,7 +42,6 @@ module.exports = {
 		config.externals = [
 			{
 				vue: 'Vue',
-				// 'eslinkv-sdk': 'eslinkV',
 				'vue-router': 'VueRouter',
 				echarts: 'echarts',
 				'vue-class-component': 'VueClassComponent',

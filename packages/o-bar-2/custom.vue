@@ -1,5 +1,5 @@
 <template lang="pug">
-.widget-part(:style="styles" v-if="data")
+widget-normal(:value="value", :customConfig="customConfig")
 	.item(v-for="(k, i) in data.value" :key="i")
 		.gas-info
 			.gas-title {{ k.name }}
@@ -11,13 +11,12 @@
 import { Component } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component'
-import { widgetMixin } from 'eslinkv-sdk'
+import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 
-@Component
-export default class OBar2 extends mixins(widgetMixin) {
-	created() {
-		this.configValue = this.parseConfigValue(value, customConfig)
-	}
+@Component({ components: { widgetNormal } })
+export default class OBar2 extends mixins(widgetNormalMixin) {
+	value = value
+	customConfig = customConfig
 }
 </script>
 <style lang="scss" scoped>

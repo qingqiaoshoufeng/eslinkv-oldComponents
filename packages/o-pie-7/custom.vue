@@ -1,5 +1,5 @@
 <template>
-	<div class="widget-part pos-r" :style="styles" v-if="data">
+	<widgetNormal :value="value" :customConfig="customConfig">
 		<div class="h-ring-1" :id="id" />
 		<ul
 			class="h-ring-1-icon pos-a"
@@ -14,7 +14,7 @@
 				:style="{ transform: `rotate(${3.6 * index}deg)` }"
 			/>
 		</ul>
-		<div class="pos-a h-ring-1-legend-box">
+		<div class="pos-a h-ring-1-legend-box" v-if="config.config.colorTheme">
 			<ul class="h-ring-1-legend" :style="legengdTransform">
 				<li
 					class="fn-flex flex-row"
@@ -37,17 +37,19 @@
 				</li>
 			</ul>
 		</div>
-	</div>
+	</widgetNormal>
 </template>
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component'
-import { widgetMixin } from 'eslinkv-sdk'
+import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import options from './options'
 
-@Component
-export default class OPie7 extends mixins(widgetMixin) {
+@Component({ components: { widgetNormal } })
+export default class OPie7 extends mixins(widgetNormalMixin) {
+	value = value
+	customConfig = customConfig
 	icon = new Int8Array(100)
 	showSize =  4
 	
@@ -126,9 +128,7 @@ export default class OPie7 extends mixins(widgetMixin) {
 		}, 1000)
 	}
 
-	created() {
-		this.configValue = this.parseConfigValue(value, customConfig, true)
-	}
+	
 }
 </script>
 <style lang="scss" scoped>

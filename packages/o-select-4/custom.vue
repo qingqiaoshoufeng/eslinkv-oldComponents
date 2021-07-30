@@ -1,5 +1,5 @@
 <template>
-	<div class="widget-part pos-r" :style="styles" v-if="data">
+	<widget-normal :value="value" :customConfig="customConfig" :eventTypes="eventTypes">
 		<div class="o-select-4 fn-flex flex-row pos-r">
 			<h2 class="fn-flex flex-row">
 				<span
@@ -12,24 +12,27 @@
 				</span>
 			</h2>
 		</div>
-	</div>
+	</widget-normal>
 </template>
 <script lang="ts">
 import { customConfig } from './index.component'
-import { widgetMixin } from 'eslinkv-sdk'
+import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import { value } from './index.component'
 import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 
-@Component
-export default class OSelect4 extends mixins(widgetMixin) {
+@Component({ components: { widgetNormal } })
+export default class OSelect4 extends mixins(widgetNormalMixin) {
+	value = value
+	customConfig = customConfig
+	eventTypes = [{ key: 'click', label: '点击事件' }]
 	selectValue = ''
 	selectLabel = ''
 
 	change(row) {
 		this.selectValue = row.value
 		this.selectLabel = row.label
-		this.__handleClick__(row)
+		this.__handleEvent__('click', row)
 	}
 
 	@Watch('data', { deep: true, immediate: true })
@@ -49,15 +52,13 @@ export default class OSelect4 extends mixins(widgetMixin) {
 			this.data.forEach(item => {
 				if (item.value === this.selectValue) {
 					this.selectLabel = item.label
-					this.__handleClick__(item)
+					this.__handleEvent__('click', item)
 				}
 			})
 		}
 	}
 
-	created() {
-		this.configValue = this.parseConfigValue(value, customConfig)
-	}
+	
 }
 </script>
 <style lang="scss" scoped>

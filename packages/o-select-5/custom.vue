@@ -1,5 +1,5 @@
 <template>
-	<div class="widget-part o-select-5" :style="styles" v-if="data">
+	<widget-normal :value="value" :customConfig="customConfig" :eventTypes="eventTypes">
 		<div class="tab">
 			<div
 				class="swiper"
@@ -33,15 +33,18 @@
 				<span class="right"></span>
 			</div>
 		</div>
-	</div>
+	</widget-normal>
 </template>
 <script lang="ts">
-import { widgetMixin } from 'eslinkv-sdk'
+import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import { customConfig, value } from './index.component'
 import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
-@Component
-export default class OSelect5 extends mixins(widgetMixin) {
+@Component({ components: { widgetNormal } })
+export default class OSelect5 extends mixins(widgetNormalMixin) {
+	value = value
+	customConfig = customConfig
+	eventTypes = [{ key: 'click', label: '点击事件' }]
 	selectIndex = 0
 	offsetX = 0
 	selectLabel = ''
@@ -60,7 +63,7 @@ export default class OSelect5 extends mixins(widgetMixin) {
 	change(item) {
 		this.selectValue = item.value
 		this.selectLabel = item.label
-		this.__handleClick__(item)
+		this.__handleEvent__('click', item)
 	}
 	getOffset() {
 		if (!this.$refs.scroll) return
@@ -95,15 +98,13 @@ export default class OSelect5 extends mixins(widgetMixin) {
 			this.data.forEach(item => {
 				if (item.value === this.selectValue) {
 					this.selectLabel = item.label
-					this.__handleClick__(item)
+					this.__handleEvent__('click', item)
 				}
 			})
 		}
 	}
 
-	created() {
-		this.configValue = this.parseConfigValue(value, customConfig)
-	}
+	
 }
 </script>
 <style lang="scss" scoped>

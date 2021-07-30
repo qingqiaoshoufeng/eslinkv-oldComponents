@@ -1,18 +1,19 @@
 <template lang="pug">
-.widget-part.o-img(:style="styles")
-	img(:src="config && config.config.img")
+widget-normal(:value="value", :customConfig="customConfig")
+	.o-img
+		img(:src="config && config.config.img")
 </template>
 <script lang="ts">
 import { Component } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component'
-import { widgetMixin } from 'eslinkv-sdk'
+import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 
-@Component
-export default class OBar2 extends mixins(widgetMixin) {
-	created() {
-		this.configValue = this.parseConfigValue(value, customConfig)
-	}
+@Component({ components: { widgetNormal } })
+export default class OBar2 extends mixins(widgetNormalMixin) {
+value = value
+customConfig = customConfig
+	
 }
 </script>
 <style lang="scss" scoped>

@@ -1,5 +1,5 @@
 <template lang="pug">
-.widget-part(:style="styles", v-if="data")
+widget-normal(:value="value", :customConfig="customConfig" :eventTypes="eventTypes")
 	ul.list
 		li.pointer(
 			v-for="(k, i) in data",
@@ -11,16 +11,19 @@
 import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component'
-import { widgetMixin } from 'eslinkv-sdk'
+import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 
-@Component
-export default class OSelect1 extends mixins(widgetMixin) {
+@Component({ components: { widgetNormal } })
+export default class OSelect1 extends mixins(widgetNormalMixin) {
+	value = value
+	customConfig = customConfig
+	eventTypes = [{ key: 'click', label: '点击事件' }]
 	selectValue = ''
 	selectLabel = ''
 
 	change(row) {
 		this.selectValue = row.value
-		this.__handleClick__(row)
+		this.__handleEvent__('click', row)
 	}
 
 	@Watch('data', { deep: true, immediate: true })
@@ -40,15 +43,13 @@ export default class OSelect1 extends mixins(widgetMixin) {
 			this.data.forEach(item => {
 				if (item.value === this.selectValue) {
 					this.selectLabel = item.label
-					this.__handleClick__(item)
+					this.__handleEvent__('click', item)
 				}
 			})
 		}
 	}
 
-	created() {
-		this.configValue = this.parseConfigValue(value, customConfig)
-	}
+	
 }
 </script>
 <style lang="scss" scoped>

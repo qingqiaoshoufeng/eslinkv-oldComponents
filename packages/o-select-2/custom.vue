@@ -1,8 +1,5 @@
 <template lang="pug">
-widget-normal(
-	:value="value",
-	:customConfig="customConfig",
-	:eventTypes="eventTypes")
+widget-normal(:value="value", :customConfig="customConfig" :eventTypes="eventTypes")
 	ul.list
 		li.pointer(
 			v-for="(k, i) in data",
@@ -15,15 +12,13 @@ import { Component, Watch } from 'vue-property-decorator'
 import { value, customConfig } from './index.component'
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 
-@Component({
-	components: { widgetNormal },
-})
-export default class OSelect2 extends widgetNormalMixin {
-	selectValue = ''
-	selectLabel = ''
+@Component({ components: { widgetNormal } })
+export default class OSelect2 extends mixins(widgetNormalMixin) {
 	value = value
 	customConfig = customConfig
 	eventTypes = [{ key: 'click', label: '点击事件' }]
+	selectValue = ''
+	selectLabel = ''
 
 	change(row) {
 		this.selectValue = row.value
@@ -52,6 +47,8 @@ export default class OSelect2 extends widgetNormalMixin {
 			})
 		}
 	}
+
+	
 }
 </script>
 <style lang="scss" scoped>

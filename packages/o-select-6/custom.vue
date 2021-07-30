@@ -1,23 +1,26 @@
 <template lang="pug">
-	.widget-part(:style="styles" v-if="data")
+	widget-normal(:value="value", :customConfig="customConfig" :eventTypes="eventTypes")
 		.left.active(@click="back")
 		.main {{ time }}
 		.right(@click="next" :class="{active: !disabled}")
 </template>
 <script lang="ts">
-import { widgetMixin } from '@eslinkv/vue2'
+import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import { customConfig, value } from './index.component'
 import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 
-@Component
-export default class OSelect5 extends mixins(widgetMixin) {
+@Component({ components: { widgetNormal } })
+export default class OSelect5 extends mixins(widgetNormalMixin) {
+	value = value
+	customConfig = customConfig
+	eventTypes = [{ key: 'click', label: '点击事件' }]
 	time:number|string = 0
 
 	@Watch('time', { deep: true, immediate: true })
 	onDataChange(val) {
 		if (val) {
-			this.__handleClick__(val)
+			this.__handleEvent__('click', val)
 		}
 	}
 	
@@ -66,7 +69,6 @@ export default class OSelect5 extends mixins(widgetMixin) {
 	}
 
 	created() {
-		this.configValue = this.parseConfigValue(value, customConfig)
 		this.time = this.formatTime(new Date(), this.config.config.offset)
 	}
 }
