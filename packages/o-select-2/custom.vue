@@ -11,6 +11,7 @@ widget-normal(:value="value", :customConfig="customConfig" :eventTypes="eventTyp
 import { Component, Watch } from 'vue-property-decorator'
 import { value, customConfig } from './index.component'
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
+import { mixins } from 'vue-class-component'
 
 @Component({ components: { widgetNormal } })
 export default class OSelect2 extends mixins(widgetNormalMixin) {
