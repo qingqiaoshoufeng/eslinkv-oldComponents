@@ -6,7 +6,7 @@ exports.name = '半圆环进度图'
 // 组件名唯一
 exports.type = 'o-pie-4'
 // 检测当前组件名，版本唯一，类似npm发布策略
-exports.version = '1.0.1'
+exports.version = '1.0.2'
 // 自定义配置
 exports.customConfig = [
 	{

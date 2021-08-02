@@ -1,10 +1,13 @@
+'use strict'
+exports.__esModule = true
+exports.customConfig = exports.value = exports.version = exports.type = exports.name = void 0
 // 组件中文名唯一
-export const name = '选项卡6'
+exports.name = '选项卡6'
 // 组件名唯一
-export const type = 'o-select-6'
+exports.type = 'o-select-6'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.4'
-export const value = {
+exports.version = '1.0.4'
+exports.value = {
 	layout: {
 		size: {
 			width: 134,
@@ -21,12 +24,11 @@ export const value = {
 		offset: 0,
 	},
 	widget: {
-		componentVersion: version,
-		name,
+		componentVersion: exports.version,
+		name: exports.name,
 	},
 }
-
-export const customConfig = [
+exports.customConfig = [
 	{
 		prop: 'offset',
 		label: '偏移月份',

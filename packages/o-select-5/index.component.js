@@ -6,7 +6,7 @@ exports.name = '选项卡5'
 // 组件名唯一
 exports.type = 'o-select-5'
 // 检测当前组件名，版本唯一，类似npm发布策略
-exports.version = '1.0.1'
+exports.version = '1.0.2'
 exports.value = {
 	layout: {
 		size: {

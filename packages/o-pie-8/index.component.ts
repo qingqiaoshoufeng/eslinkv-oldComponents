@@ -3,7 +3,7 @@ export const name = '水球图'
 // 组件名唯一
 export const type = 'o-pie-8'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.0'
+export const version = '1.0.1'
 // 自定义配置
 export const customConfig = [
 	{
@@ -25,14 +25,14 @@ export const customConfig = [
 		prop: 'fontColor',
 		label: '文字颜色',
 		type: 'func-color',
-	}
+	},
 ]
 // 配置
 export const value = {
 	api: {
 		// 接口请求数据默认值
 		data: JSON.stringify({
-			percent: 0.6
+			percent: 0.6,
 		}),
 	},
 	layout: {

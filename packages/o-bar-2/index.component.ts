@@ -3,7 +3,7 @@ export const name = '条形进度图'
 // 组件名唯一
 export const type = 'o-bar-2'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.2'
+export const version = '1.0.3'
 // 自定义配置
 export const customConfig = []
 // 配置
