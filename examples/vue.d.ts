@@ -9,11 +9,10 @@ declare module 'vue/types/vue' {
 		styles: any
 	}
 }
-
+export {}
 declare global {
 	interface Window {
 		eslinkV: any
 		echarts: any
 	}
 }
-
