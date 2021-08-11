@@ -28,9 +28,6 @@ export const value = {
 			width: 250,
 			height: 32,
 		},
-		position: {
-			value: 'relative',
-		},
 	},
 	// 自定义配置默认值
 	config: {
