@@ -5,7 +5,7 @@ widget-normal(:value="value", :customConfig="customConfig")
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
-import { value, customConfig } from './index.component'
+import { value, customConfig } from './index.component.ts'
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import options from './options'
 
@@ -20,6 +20,16 @@ customConfig = customConfig
 			this.$nextTick(() => {
 				this.instance = echarts.init(document.getElementById(this.id))
 				this.setOption(data, this.config.config)
+				this.instance.off('click')
+				this.instance.on('click', params => {
+					const res = data.value[params.seriesIndex]
+					const req = {
+						name: res.name,
+						x: res.x[params.dataIndex],
+						y: res.y[params.dataIndex],
+					}
+					this.__handleEvent__('click', req)
+				})
 			})
 		}
 	}

@@ -3,7 +3,7 @@ export const name = '多轴图'
 // 组件名唯一
 export const type = 'o-zhuxing-2'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.5'
+export const version = '1.0.6'
 // 自定义配置
 export const customConfig = [
 	{
@@ -15,6 +15,11 @@ export const customConfig = [
 		prop: 'left',
 		label: '缩进',
 		type: 'func-number',
+	},
+	{
+		prop: 'isLinearGradient',
+		label: '是否渐变',
+		type: 'func-switch',
 	},
 ]
 // 配置
@@ -50,6 +55,7 @@ export const value = {
 	config: {
 		title: '数量',
 		left: 0,
+		isLinearGradient: false,
 	},
 	widget: {
 		componentVersion: version,
