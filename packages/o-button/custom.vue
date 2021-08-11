@@ -3,7 +3,7 @@ widget-normal(
 	:value="value",
 	:customConfig="customConfig",
 	:eventTypes="eventTypes")
-	h2.fn-flex(
+	h2.fn-flex.pointer(
 		@click="__handleEvent__('click')",
 		:style="{ backgroundColor: config.config.backgroundColor, color: config.config.color }") {{ config.config.title }}
 </template>
@@ -28,5 +28,8 @@ h2 {
 	width: 100%;
 	align-items: center;
 	justify-content: center;
+	&:hover {
+		opacity: 0.9;
+	}
 }
 </style>
