@@ -28,6 +28,16 @@ export const customConfig = [
 		type: 'func-input',
 	},
 	{
+		prop: 'fontSize',
+		label: '字体大小',
+		type: 'func-input',
+	},
+	{
+		prop: 'top',
+		label: '标题top值(%)',
+		type: 'func-number',
+	},
+	{
 		prop: 'startAngle',
 		label: '起始角度',
 		type: 'func-number',
@@ -71,6 +81,8 @@ export const value = {
 		title1: '区域',
 		title2: '销售气量',
 		startAngle: 270,
+		fontSize: 24,
+		top: 46
 	},
 	event: {
 		scene: [

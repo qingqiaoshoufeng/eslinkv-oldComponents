@@ -11,15 +11,15 @@ export default (data, config) => {
 			text: config.title1,
 			subtext: config.title2,
 			left: 'center',
-			top: config.title2 ? '46%' : '47%',
+			top: config.top + '%',
 			textStyle: {
 				color: '#fff',
-				fontSize: 24,
+				fontSize: config.fontSize,
 				fontWeight: 600,
 			},
 			subtextStyle: {
 				color: '#fff',
-				fontSize: 24,
+				fontSize: config.fontSize,
 				fontWeight: 600,
 			},
 		},
