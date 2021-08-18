@@ -30,10 +30,9 @@ import { customConfig } from './index.component'
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import { value } from './index.component'
 import { Component, Watch } from 'vue-property-decorator'
-import { mixins } from 'vue-class-component'
 
 @Component({ components: { widgetNormal } })
-export default class OSelect3 extends mixins(widgetNormalMixin) {
+export default class extends widgetNormalMixin {
 	value = value
 	customConfig = customConfig
 	eventTypes = [{ key: 'click', label: '点击事件' }]

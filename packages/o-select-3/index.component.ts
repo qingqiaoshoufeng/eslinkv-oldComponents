@@ -3,7 +3,7 @@ export const name = '选项卡3'
 // 组件名唯一
 export const type = 'o-select-3'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.8'
+export const version = '1.0.9'
 // 自定义配置
 export const customConfig = [
 	{
