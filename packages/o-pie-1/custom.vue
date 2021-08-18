@@ -5,13 +5,12 @@ widget-normal(:value="value", :customConfig="customConfig", :eventTypes="eventTy
 </template>
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator'
-import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component.ts'
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import options from './options'
 
 @Component({ components: { widgetNormal } })
-export default class OLine1 extends mixins(widgetNormalMixin) {
+export default class OLine1 extends widgetNormalMixin {
 	eventTypes = [{ key: 'click', label: '点击事件' }]
 	value = value
 	customConfig = customConfig
