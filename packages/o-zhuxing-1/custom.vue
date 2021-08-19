@@ -11,13 +11,12 @@ widget-normal(:value="value", :customConfig="customConfig" :eventTypes="eventTyp
 </template>
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator'
-import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component.ts'
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import options from './options'
 
 @Component({ components: { widgetNormal } })
-export default class OZhuxing1 extends mixins(widgetNormalMixin) {
+export default class extends widgetNormalMixin {
 	value = value
 	customConfig = customConfig
 	eventTypes = [{ key: 'click', label: '点击事件' }]
