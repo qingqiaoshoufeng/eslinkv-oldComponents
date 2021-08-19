@@ -36,6 +36,11 @@ export const customConfig = [
 		label: 'y轴是否从0开始',
 		type: 'func-switch',
 	},
+	{
+		prop: 'interval',
+		label: 'x轴标签自适应',
+		type: 'input',
+	},
 ]
 // 配置
 export const value = {
@@ -73,6 +78,7 @@ export const value = {
 		area: true,
 		datazoom: false,
 		left: 0,
+		interval: 'auto',
 		scale: false,
 	},
 	widget: {
