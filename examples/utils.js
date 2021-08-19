@@ -111,7 +111,6 @@ export function getCommonOption(value, config) {
 				},
 			},
 			axisLabel: {
-				interval: 0,
 				textStyle: {
 					color: 'rgba(255, 255, 255, 1)',
 					fontSize: 16,
