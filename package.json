@@ -7,7 +7,7 @@
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build",
 		"lib": "vue-cli-service build --target lib --dest lib packages/index.js",
-		"commit": "git add .&&git cz",
+		"commit": "git add .&&git-cz",
 		"submit": "esp submit"
 	},
 	"dependencies": {
@@ -46,6 +46,8 @@
 		"babel-eslint": "^10.1.0",
 		"babel-plugin-import": "^1.13.0",
 		"compression-webpack-plugin": "^6.0.2",
+		"commitizen": "^4.2.3",
+		"commitlint-config-cz": "^0.13.2",
 		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^7.23.0",
 		"eslint-plugin-flowtype": "^5.4.0",
@@ -60,6 +62,7 @@
 		"lint-staged": "^10.5.4",
 		"node-sass": "^4.14.1",
 		"prettier": "^2.2.1",
+		"git-cz": "^4.7.6",
 		"pug": "^3.0.0",
 		"pug-plain-loader": "^1.0.0",
 		"sass-loader": "^10.0.3",
@@ -74,17 +77,17 @@
 	},
 	"husky": {
 		"hooks": {
-			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-			"pre-commit": "lint-staged"
+			"pre-commit": "lint-staged",
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
 		}
 	},
 	"config": {
 		"commitizen": {
-			"path": "./node_modules/cz-conventional-changelog"
+			"path": "git-cz"
 		}
 	},
 	"_customHasUsedEsStandard": true,
 	"lint-staged": {
-		"*.{js,jsx,ts,tsx,html,css,vue,less,scss}": "prettier  --plugin-search-dir ./node_modules --write"
+		"*.{js,ts,css,vue,scss}": "prettier  --plugin-search-dir ./node_modules --config .prettierrc --write"
 	}
 }
