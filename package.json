@@ -14,11 +14,12 @@
 		"@babel/polyfill": "^7.12.1",
 		"@babel/runtime": "^7.12.5",
 		"@babel/runtime-corejs3": "^7.13.10",
-		"@eslinkv/core": "^1.0.40",
-		"@eslinkv/vue2": "^1.0.41",
+		"@eslinkv/core": "^1.0.55",
+		"@eslinkv/vue2": "^1.0.58",
 		"babel-polyfill": "^6.26.0",
 		"core-js": "^3.6.5",
 		"date-fns": "^2.23.0",
+		"es-amap": "^0.1.31",
 		"lodash": "^4.17.20",
 		"portal-vue": "^2.1.7",
 		"view-design": "^4.6.1",
@@ -89,6 +90,5 @@
 		}
 	},
 	"_customHasUsedEsStandard": true,
-	"lint-staged": {
-	}
+	"lint-staged": {}
 }

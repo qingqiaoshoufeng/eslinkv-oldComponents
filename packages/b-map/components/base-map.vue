@@ -1,0 +1,477 @@
+<template lang="pug">
+.base-map
+	es-amap.base-map-container(
+		v-bind="mapConfig",
+		:style="{ transform: reverseTransform }")
+		//- line图层
+		//- es-loca(v-if="lineReady", v-bind="lineLayerConfig")
+		//- 	es-loca-data(:data="lineLayerData", :options="{ lnglat: lineLayerLngLat }")
+		//- 	es-loca-option(:options="lineLayerOption")
+		//- icon图层
+		es-loca(v-if="iconReady", v-bind="iconLayerConfig")
+			es-loca-data(
+				:data="iconLayerData",
+				:options="{ lnglat: iconLayerLnglat }")
+			es-loca-option(:options="iconLayerOption")
+		//- 站点区域
+		es-polygon(
+			v-for="(path, station) in areaDataMap",
+			:key="station",
+			fillColor="rgb(96, 230, 255)",
+			strokeColor="#60E6FF",
+			:strokeWeight="2",
+			:fillOpacity="0.3",
+			:path="path")
+		es-path-simplifier(
+			:stepSpace="customConfig.stepSpace",
+			:lineWidth="customConfig.borderWidth",
+			:data="lineLayerData",
+			v-if="lineReady") 
+		slot
+	//- 图例
+	.legend(v-if="false")
+		.item(
+			v-for="(legend, prop) in legendConfig",
+			:key="prop",
+			@click="legendClick(prop)",
+			:class="legend.visible ? '' : 'hide'")
+			b-icon(:name="legend.icon", :size="22")
+			.label {{ legend.label }}
+	.legend
+		.legend-top
+			.legend-top-item
+				.box
+				span 运行
+			.legend-top-item
+				.box
+				span 服务
+		.legend-main
+			.lmt
+				.item
+					b-icon(name="icon-gongsi", :size="22")
+					.label ccc
+				.item
+					b-icon(name="icon-cigaoya", :size="22")
+					.label xxx
+			.lmb
+				.item
+					b-icon(name="icon-gongsi", :size="22")
+					.label ccc
+				.item
+					b-icon(name="icon-cigaoya", :size="22")
+					.label xxx
+			
+	//- 地图图层切换
+	.layers-radio-group
+		.radio(
+			:class="curMapLayer === 'TileLayer' ? 'active' : ''",
+			@click="changeLayer('TileLayer')")
+			.text 二维地图
+		.radio(
+			:class="curMapLayer === 'Satellite' ? 'active' : ''",
+			@click="changeLayer('Satellite')")
+			.text 卫星地图
+		.radio(
+			:class="curMapLayer === 'Satellite' ? 'active' : ''",
+			@click="changeLayer('Satellite')")
+			.text 卫星地图
+</template>
+<script>
+import { EsAmap, EsLoca, EsLocaData, EsLocaOption, EsPolygon } from 'es-amap'
+import EsPathSimplifier from './es-path-simplifier'
+import { loadJs } from '../../../examples/utils.js'
+import bIcon from '../components/b-icon.vue'
+export default {
+	name: 'base-map',
+	components: {
+		EsAmap,
+		EsPolygon,
+		EsLoca,
+		EsLocaData,
+		EsLocaOption,
+		EsPathSimplifier,
+		bIcon,
+	},
+	props: {
+		mapConfig: {
+			type: Object,
+			default() {
+				return {}
+			},
+		},
+		legendConfig: {
+			type: Object,
+			default() {
+				return {}
+			},
+		},
+		iconDataMap: {
+			type: Object,
+			default() {
+				return {}
+			},
+		},
+		lineDataMap: {
+			type: Object,
+			default() {
+				return {}
+			},
+		},
+		areaDataMap: {
+			type: Object,
+			default() {
+				return {}
+			},
+		},
+		customConfig: {
+			type: Object,
+			default() {
+				return {
+					size: 20,
+					selectedSize: 28,
+					borderWidth: 6,
+				}
+			},
+		},
+	},
+	async created() {
+		let { size, selectedSize, borderWidth } = this.customConfig
+		this.iconLayerOption.style.size = size
+		this.iconLayerOption.selectStyle.size = selectedSize
+		this.lineLayerOption.style.borderWidth = borderWidth
+		await loadJs(
+			'//at.alicdn.com/t/font_2654012_8bvzpl9g8qg.js',
+			'huaxin_iconfont',
+		)
+		setTimeout(() => {
+			this.transSVGToBase64()
+		}, 0)
+	},
+	mounted() {
+		this.updateSize()
+		window.addEventListener('resize', this.updateSize)
+	},
+	beforeDestroy() {
+		window.removeEventListener('resize', this.updateSize)
+	},
+	watch: {
+		iconDataMap: {
+			handler(val) {
+				if (val && JSON.stringify(val) !== '{}') {
+					this.handleIconLayerData()
+					this.iconReady = true
+				}
+			},
+			deep: true,
+			immediate: true,
+		},
+		lineDataMap: {
+			handler(val) {
+				if (JSON.stringify(val) !== '{}') {
+					this.handleLineLayerData()
+					this.lineReady = true
+				}
+			},
+			immediate: true,
+		},
+	},
+	data() {
+		return {
+			curMapLayer: 'TileLayer',
+			reverseTransform: 'scale(1, 1) translate3d(0px, 0px, 0px)',
+			iconReady: false,
+			lineReady: false,
+			// 管线图层
+			lineLayerConfig: {
+				zIndex: 99,
+				layerName: 'LineLayer',
+				isHideZoomChange: true,
+				events: {
+					init: layer => {
+						this.$nextTick(() => {
+							layer.setFitView()
+						})
+					},
+				},
+			},
+			lineLayerData: [],
+			lineLayerOption: {
+				style: {
+					borderWidth: 6,
+					opacity: 1,
+					color: v => {
+						return v.value.color || '#fff'
+					},
+				},
+			},
+			lineLayerLngLat(data) {
+				return data.value.position.nodeList
+			},
+			// 管线图层 --结束
+			// icon图层
+			iconLayerConfig: {
+				zIndex: 110,
+				layerName: 'IconLayer',
+				eventSupport: true,
+				isHideZoomChange: true,
+				events: {
+					mouseover: e => {
+						this.$emit('icon-hover', e.rawData)
+					},
+					mouseleave: e => {
+						this.$emit('icon-hover')
+					},
+					click: e => {
+						this.$emit('icon-hover')
+						this.$emit('icon-click', e.rawData)
+					},
+				},
+			},
+			iconLayerLnglat(data) {
+				return data.value.position
+			},
+			iconLayerOption: {
+				source: ({ value = {} }) => {
+					return this.iconSourceMap[value.type]
+				},
+				style: {
+					size: 28,
+				},
+				selectStyle: {
+					size: 40,
+				},
+			},
+			iconLayerData: [],
+			// icon图层 --结束
+		}
+	},
+	methods: {
+		//获取数据并处理
+		legendClick(prop) {
+			let { visible, layer = '' } = this.legendConfig[prop]
+			// eslint-disable-next-line vue/no-mutating-props
+			this.legendConfig[prop].visible = !visible
+			this.$emit('legend-click', prop, !visible)
+			// 管线图层
+			if (layer === 'line') {
+				return this.handleLineLayerData()
+			}
+			// icon图层
+			if (layer === 'icon') {
+				return this.handleIconLayerData()
+			}
+		},
+		handleLineLayerData() {
+			let lineLayerData = []
+			Object.keys(this.legendConfig)
+				.filter(prop => {
+					let { layer, visible } = this.legendConfig[prop]
+					return layer === 'line'
+				})
+				.forEach(prop => {
+					let { visible } = this.legendConfig[prop]
+					let data = this.lineDataMap[prop] || {}
+					data.visible = visible
+					lineLayerData.push(this.lineDataMap[prop])
+				})
+			this.lineLayerData = Object.freeze(lineLayerData)
+		},
+		handleIconLayerData() {
+			let iconLayerData = []
+			Object.keys(this.legendConfig)
+				.filter(prop => {
+					let { layer, visible } = this.legendConfig[prop]
+					return (layer === 'icon') & visible
+				})
+				.forEach(prop => {
+					let data = this.iconDataMap[prop]
+					data && iconLayerData.push(...data)
+				})
+			this.iconLayerData = Object.freeze(iconLayerData)
+		},
+		//蒋iconfont的字体图标改为base64位
+		transSVGToBase64() {
+			let { legendConfig } = this
+			let iconSourceMap = {}
+			Object.keys(legendConfig).forEach(prop => {
+				let { icon } = legendConfig[prop]
+				if (icon) {
+					let symbol = document.getElementById(icon)
+					if (!symbol) return false
+					let svg =
+						'<svg  width="200" height="200" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">' +
+						symbol.innerHTML +
+						'</svg>'
+					const image64 =
+						'data:image/svg+xml;base64,' + window.btoa(svg) //svg内容中不能有中文字符
+					iconSourceMap[prop] = image64
+				}
+			})
+			this.iconSourceMap = iconSourceMap
+		},
+		updateSize() {
+			let transform = document.getElementById('screen').style.transform
+			if (transform) {
+				const reg = /(?:\d+\.?\d*(?!px|d))/g
+				this.reverseTransform = transform.replace(reg, v => {
+					return 1 / Number(v)
+				})
+			}
+		},
+		changeLayer(layerName) {
+			if (this.curMapLayer === layerName) {
+				return false
+			}
+			this.curMapLayer = layerName
+			let amapRoot = this.$parent.$parent.$amap
+			if (amapRoot) {
+				//保留loca层
+				let layersLoca = amapRoot.getLayers().filter(layer => {
+					return layer.CLASS_NAME.indexOf('Loca') > -1 || layer.CLASS_NAME.indexOf('Custom') > -1
+				})
+				let layer =
+					layerName !== 'TileLayer'
+						? new AMap.TileLayer[layerName]()
+						: new AMap.TileLayer()
+				amapRoot.setLayers([layer, ...layersLoca])
+			}
+		},
+	},
+}
+</script>
+<style lang="scss" scoped>
+.base-map {
+	width: 100%;
+	height: 100%;
+	font-size: 16px;
+	color: #fff;
+	position: relative;
+	background: #234860;
+	&-container {
+		width: 100%;
+		height: 100%;
+	}
+	.legend {
+		width: 1410px;
+		height: 360px;
+		position: absolute;
+		bottom: 170px;
+		left: 50%;
+		transform: translateX(-50%);
+		white-space: nowrap;
+		display: flex;
+		border-radius: 24px;
+		border: 4px solid #74FFF2;
+		background: #071F36;
+		padding: 27px 0;
+		user-select: none;
+		.legend-top {
+			width: 190px;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			align-items: center;
+			.legend-top-item {
+				font-size: 24px;
+				line-height: 24px;
+				color: #FFFFFF;
+				display: flex;
+				align-items: center;
+				&:first-child{
+					margin-bottom: 40px;
+				}
+				.box {
+					margin-right: 32px;
+					border: 2px solid #74FFF2;
+					width: 25px;
+					height: 25px;
+				}
+			}
+		}
+		.legend-main {
+			flex: 1;
+			border-left: 4px dashed rgba(255, 255, 255, 0.5);
+			padding: 0 40px;
+			.lmt {
+				display: flex;
+				padding-bottom: 17px;
+			}
+			.lmb {
+				display: flex;
+				padding-top: 35px;
+				border-top:  4px dashed rgba(255, 255, 255, 0.2);
+			}
+			.item {
+				align-items: center;
+				display: flex;
+				cursor: pointer;
+				&:active,
+				&.hide {
+					opacity: 0.6;
+				}
+				.label {
+					font-size: 24px;
+					line-height: 24px;
+					margin-left: 8px;
+					display: inline-block;
+				}
+				&:not(:first-of-type) {
+					margin-left: 16px;
+				}
+			}
+		}
+	}
+	.layers-radio-group {
+		position: absolute;
+		right: 400px;
+		bottom: 170px;
+		> .radio {
+			width: 224px;
+			height: 100px;
+			background: #071F36;
+			border: 4px solid #74FFF2;
+			border-radius: 24px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 36px;
+			line-height: 36px;
+			opacity: 0.5;
+			&:not(:last-child) {
+				margin-bottom: 24px;
+			}
+			&:hover,
+			&.active {
+				opacity: 1;
+			}
+		}
+	}
+}
+</style>
+<style lang="scss">
+.base-map-container {
+	> div {
+		height: 100%;
+	}
+}
+.amap-logo,
+.amap-copyright {
+	display: none !important;
+}
+.amap-container {
+	background: transparent !important;
+}
+//内部做了偏移，防止遮挡
+.amap-marker {
+	pointer-events: none;
+	.amap-marker-content {
+		pointer-events: none;
+		.overlay {
+			pointer-events: all !important;
+		}
+		svg {
+			pointer-events: all !important;
+		}
+	}
+}
+</style>
