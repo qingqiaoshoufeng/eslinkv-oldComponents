@@ -1,6 +1,8 @@
 <template lang="pug">
 widget-normal.b-title-3.fn-flex(:value="value", :customConfig="customConfig")
-	h2 {{ config.config.title }}
+	.b-title-3-left.fn-flex.flex-column
+		h2 {{ config.config.title }}
+		h2 {{ config.config.des }}
 	h3.font-num {{ data[0].toLocaleString() }}
 </template>
 <script lang="ts">
@@ -16,9 +18,14 @@ export default class extends mixins(widgetNormalMixin) {
 }
 </script>
 <style lang="scss" scoped>
+.b-title-3-left {
+	align-items: center;
+	text-align: right;
+	margin-left: 64px;
+}
 .b-title-3 {
 	align-items: center;
-	padding: 40px;
+	padding: 40px 0;
 	border-bottom: 2px solid rgba(116, 255, 242, 1);
 	border-top: 2px solid rgba(116, 255, 242, 1);
 	background-color: rgba(5, 20, 35, 1);
@@ -45,15 +52,15 @@ export default class extends mixins(widgetNormalMixin) {
 	h2 {
 		color: rgba(116, 255, 242, 1);
 		font-weight: 600;
-		font-size: 64px;
-		line-height: 24px;
-		margin-left: 64px;
+		font-size: 36px;
+		line-height: 60px;
+		width: 100%;
 	}
 	h3 {
 		margin-left: auto;
-		margin-right: 98px;
+		margin-right: 65px;
 		font-weight: bold;
-		font-size: 144px;
+		font-size: 72px;
 		line-height: 48px;
 		color: #fff;
 	}

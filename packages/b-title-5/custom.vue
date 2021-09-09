@@ -25,17 +25,17 @@ export default class extends mixins(widgetNormalMixin) {
 	&:before {
 		position: absolute;
 		content: '';
-		width: 20px;
+		width: 15px;
 		height: 100%;
 		background: #74fff2;
 		left: 0;
 	}
 	h2 {
 		font-weight: 600;
-		font-size: 60px;
-		line-height: 44px;
+		font-size: 48px;
+		line-height: 48px;
 		color: #ffffff;
-		padding-left: 44px;
+		padding-left: 47px;
 	}
 }
 </style>

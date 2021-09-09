@@ -11,6 +11,11 @@ export const customConfig = [
 		label: '标题',
 		type: 'func-input',
 	},
+	{
+		prop: 'des',
+		label: '描述',
+		type: 'func-input',
+	},
 ]
 // 配置
 export const value = {
@@ -21,12 +26,13 @@ export const value = {
 	layout: {
 		// 宽高
 		size: {
-			width: 1142,
-			height: 243,
+			width: 623,
+			height: 182,
 		},
 	},
 	config: {
 		title: '标题',
+		des: '描述',
 	},
 	widget: {
 		componentVersion: version,

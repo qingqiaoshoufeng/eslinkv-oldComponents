@@ -21,7 +21,7 @@ export const value = {
 	layout: {
 		// 宽高
 		size: {
-			width: 1239,
+			width: 800,
 			height: 150,
 		},
 	},

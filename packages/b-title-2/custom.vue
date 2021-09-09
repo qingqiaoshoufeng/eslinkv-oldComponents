@@ -38,20 +38,20 @@ export default class extends mixins(widgetNormalMixin) {
 	&:before {
 		position: absolute;
 		content: '';
-		width: 28px;
-		height: 28px;
+		width: 16px;
+		height: 16px;
 		transform: rotate(45deg);
 		left: 0;
 		top: 50%;
-		margin-top: -14px;
+		margin-top: -9px;
 		background-color: #74fff2;
 	}
 	h2 {
 		font-weight: 600;
-		font-size: 80px;
-		line-height: 32px;
+		font-size: 48px;
+		line-height: 80px;
 		color: #fff;
-		padding-left: 60px;
+		padding-left: 10px;
 	}
 }
 </style>
