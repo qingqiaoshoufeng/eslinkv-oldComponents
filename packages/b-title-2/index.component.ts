@@ -7,17 +7,25 @@ export const version = '1.0.0'
 // 自定义配置
 export const customConfig = [
 	{
-		prop: 'title',
-		label: '标题',
-		type: 'func-input',
+		prop: 'titles',
+		label: '分组',
+		type: 'func-group',
+		children: [
+			{
+				prop: 'name',
+				label: '名称',
+				type: 'func-input',
+			},
+			{
+				prop: 'sceneId',
+				label: '场景id',
+				type: 'func-input',
+			},
+		],
 	},
 ]
 // 配置
 export const value = {
-	api: {
-		// 接口请求数据默认值
-		data: JSON.stringify([]),
-	},
 	layout: {
 		// 宽高
 		size: {
@@ -26,7 +34,10 @@ export const value = {
 		},
 	},
 	config: {
-		title: '标题',
+		titles: [{
+			name: '标题1',
+			sceneId: ''
+		}],
 	},
 	widget: {
 		componentVersion: version,
