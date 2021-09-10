@@ -9,12 +9,12 @@ widget-normal(:value="value", :customConfig="customConfig" :eventTypes="eventTyp
 </template>
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator'
+import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component'
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
-import { mixins } from 'vue-class-component'
 
 @Component({ components: { widgetNormal } })
-export default class OSelect2 extends mixins(widgetNormalMixin) {
+export default class OSelect1 extends mixins(widgetNormalMixin) {
 	value = value
 	customConfig = customConfig
 	eventTypes = [{ key: 'click', label: '点击事件' }]
@@ -55,21 +55,21 @@ export default class OSelect2 extends mixins(widgetNormalMixin) {
 <style lang="scss" scoped>
 .list {
 	display: flex;
-	justify-content: space-between;
 	li {
 		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		flex: none;
-		padding: 4px 0;
+		padding: 4px 16px;
 		font-size: 18px;
-		color: rgba(255, 255, 255, 0.75);
-
+		color: #74FFF2;
+		background: #285066;
+		border-right-width: 0;
 		&.active {
 			font-weight: 600;
-			color: #feffff;
-			border-bottom: 2px solid #00ddff;
+			color: #fff;
+			border: 1px solid #74FFF2;
 		}
 	}
 }
