@@ -90,5 +90,7 @@
 		}
 	},
 	"_customHasUsedEsStandard": true,
-	"lint-staged": {}
+	"lint-staged": {
+		"*.{js,ts,css,vue,scss}": "prettier  --plugin-search-dir ./node_modules --config .prettierrc --write"
+	}
 }
