@@ -62,8 +62,9 @@ export default (data, config) => {
 						},
 				  }
 				: null,
-			symbol: 'emptyCircle',
-			showSymbol: false, // 是否显示 symbol, 如果 false 则只有在 tooltip hover 的时候显示。
+			symbolSize: 16,
+			symbol: config.lineIcon || 'emptyCircle',
+			showSymbol: !!config.lineIcon,
 			itemStyle: {
 				color: color,
 			},
