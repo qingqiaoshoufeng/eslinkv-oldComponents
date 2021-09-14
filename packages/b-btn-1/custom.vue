@@ -5,11 +5,11 @@
 		:eventTypes="eventTypes"
 	>
 		<div class="b-btn-1" @click="handleClick">
-			<img src="./Vector.png" alt="" />
+			<img src="./snapshot.png" alt="" />
 		</div>
 	</widget-normal>
 </template>
-<script lang="ts">
+<script>
 import { value, customConfig } from './index.component'
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 
