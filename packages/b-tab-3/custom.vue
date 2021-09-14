@@ -1,9 +1,11 @@
 <template>
 	<widget-normal :value="value" class="b-tab-3 fn-flex">
 		<div
-			v-for="item in data"
-			:key="item.id"
-			:class="{ active: item.id === editor.currentSceneIndex }"
+			v-for="(item, index) in data"
+			:key="index"
+			:class="{
+				active: item.id.indexOf(editor.currentSceneIndex) !== -1,
+			}"
 			@click="change(item.id)"
 		>
 			<span>{{ item.label }}</span>
@@ -23,7 +25,7 @@ export default class extends mixins(widgetNormalMixin) {
 	editor = Editor.Instance()
 
 	change(id) {
-		this.editor.selectSceneIndex(id)
+		id.length > 0 && this.editor.selectSceneIndex(id[0])
 	}
 }
 </script>
