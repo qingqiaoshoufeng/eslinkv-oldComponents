@@ -19,10 +19,7 @@ export default {
 	components: { widgetNormal },
 	data() {
 		return {
-			eventTypes: [
-				{ key: 'click', label: '点击事件-隐藏' },
-				{ key: 'click1', label: '点击事件-显示' },
-			],
+			eventTypes: [{ key: 'click', label: '点击事件' }],
 			value,
 			customConfig,
 			showFlag: true,
@@ -30,15 +27,7 @@ export default {
 	},
 	methods: {
 		handleClick() {
-			if (this.showFlag) {
-				// 隐藏
-				this.__handleEvent__('click')
-				this.showFlag = false
-			} else {
-				this.__handleEvent__('click1')
-				// 显示
-				this.showFlag = true
-			}
+			this.__handleEvent__('click')
 		},
 	},
 }
@@ -50,6 +39,7 @@ export default {
 	img {
 		width: 100%;
 		height: 100%;
+		cursor: pointer;
 	}
 }
 </style>
