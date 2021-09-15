@@ -1,5 +1,5 @@
 // 组件中文名唯一
-export const name = '标题一'
+export const name = 'b-动态2'
 // 组件名唯一
 export const type = 'b-widget-2'
 // 检测当前组件名，版本唯一，类似npm发布策略

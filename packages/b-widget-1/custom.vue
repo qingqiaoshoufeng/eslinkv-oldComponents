@@ -1,7 +1,5 @@
 <template lang="pug">
-widget-normal.main(
-	:value="value",
-	:customConfig="customConfig")
+widget-normal.main(:value="value", :customConfig="customConfig")
 	.board
 		.item
 			.label {{ config.config.title1 }}
@@ -19,7 +17,7 @@ widget-normal.main(
 		.center(ref="chart")
 		.deal-item
 			.font-num.yellow {{ data.num6 }}
-			.label {{ config.config.title4 }}
+			.label {{ config.config.title6 }}
 </template>
 <script lang="ts">
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
@@ -32,9 +30,9 @@ import getOption from './options'
 export default class extends mixins(widgetNormalMixin) {
 	value = value
 	customConfig = customConfig
-	
+
 	@Watch('data', { immediate: true, deep: true })
-	dataChange (val) {
+	dataChange(val) {
 		if (this.id) {
 			this.$nextTick(() => {
 				this.instance = echarts.init(this.$refs.chart)
@@ -61,7 +59,7 @@ export default class extends mixins(widgetNormalMixin) {
 	}
 	.label {
 		font-size: 36px;
-		color: #FFFFFF;
+		color: #ffffff;
 		line-height: 16px;
 		margin-bottom: 72px;
 	}
@@ -69,10 +67,10 @@ export default class extends mixins(widgetNormalMixin) {
 		font-weight: 500;
 		font-size: 64px;
 		line-height: 16px;
-		color: #FFFFFF;
+		color: #ffffff;
 		font-family: font-num;
 		&.color {
-			color: #74FFF2;
+			color: #74fff2;
 		}
 	}
 }
@@ -85,14 +83,16 @@ export default class extends mixins(widgetNormalMixin) {
 			font-weight: 500;
 			font-size: 64px;
 			line-height: 1;
-			color: #74FFF2;
+			color: #74fff2;
 			margin-bottom: 20px;
-			&.yellow { color: #F3DB72; }
+			&.yellow {
+				color: #f3db72;
+			}
 		}
 		.label {
 			line-height: 1;
 			font-size: 36px;
-			color: #FFFFFF;
+			color: #ffffff;
 		}
 	}
 	.center {

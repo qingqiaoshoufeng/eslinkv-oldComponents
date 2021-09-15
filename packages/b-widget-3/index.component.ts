@@ -1,7 +1,7 @@
 // 组件中文名唯一
-export const name = '标题一'
+export const name = 'b-列表'
 // 组件名唯一
-export const type = 'b-widget-2'
+export const type = 'b-widget-3'
 // 检测当前组件名，版本唯一，类似npm发布策略
 export const version = '1.0.0'
 // 自定义配置
@@ -45,8 +45,7 @@ export const value = {
 			height: 480,
 		},
 	},
-	config: {
-	},
+	config: {},
 	widget: {
 		componentVersion: version,
 		name,
