@@ -32,7 +32,7 @@
 					<label class="ellipsis">{{ item.title }}</label>
 					<a>{{ item.des }}</a>
 					<span>
-						{{ item.value }}{{ config.config.suffix }}
+						{{ (item.value * 100 / total).toFixed(1) }}{{ config.config.suffix }}
 					</span>
 				</li>
 			</ul>
@@ -52,6 +52,10 @@ export default class OPie7 extends mixins(widgetNormalMixin) {
 	customConfig = customConfig
 	icon = new Int8Array(100)
 	showSize =  4
+	
+	get total () {
+		return this.data.value.reduce((p, n) => p + n.value, 0)
+	}
 	
 	get legengdTransform() {
 		if (this.data) {
