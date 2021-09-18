@@ -4,24 +4,26 @@
 		v-bind="mapConfig",
 		:style="{ transform: reverseTransform }")
 		//- line图层
-		//- es-loca(v-if="lineReady", v-bind="lineLayerConfig")
-		//- 	es-loca-data(:data="lineLayerData", :options="{ lnglat: lineLayerLngLat }")
-		//- 	es-loca-option(:options="lineLayerOption")
-		//- icon图层
-		es-loca(v-if="iconReady", v-bind="iconLayerConfig")
+		es-loca(v-if="lineReady", v-bind="lineLayerConfig")
 			es-loca-data(
-				:data="iconLayerData",
-				:options="{ lnglat: iconLayerLnglat }")
-			es-loca-option(:options="iconLayerOption")
-		//- 站点区域
-		es-polygon(
-			v-for="(path, station) in areaDataMap",
-			:key="station",
-			fillColor="rgb(96, 230, 255)",
-			strokeColor="#60E6FF",
-			:strokeWeight="2",
-			:fillOpacity="0.3",
-			:path="path")
+				:data="lineLayerData",
+				:options="{ lnglat: lineLayerLngLat }")
+			es-loca-option(:options="lineLayerOption")
+		//- icon图层
+		//- es-loca(v-if="iconReady", v-bind="iconLayerConfig")
+		//- 	es-loca-data(
+		//- 		:data="iconLayerData",
+		//- 		:options="{ lnglat: iconLayerLnglat }")
+		//- 	es-loca-option(:options="iconLayerOption")
+		//- //- 站点区域
+		//- es-polygon(
+		//- 	v-for="(path, station) in areaDataMap",
+		//- 	:key="station",
+		//- 	fillColor="rgb(96, 230, 255)",
+		//- 	strokeColor="#60E6FF",
+		//- 	:strokeWeight="2",
+		//- 	:fillOpacity="0.3",
+		//- 	:path="path")
 		es-path-simplifier(
 			:stepSpace="customConfig.stepSpace",
 			:lineWidth="customConfig.borderWidth",
@@ -29,14 +31,6 @@
 			v-if="lineReady") 
 		slot
 	//- 图例
-	.legend(v-if="false")
-		.item(
-			v-for="(legend, prop) in legendConfig",
-			:key="prop",
-			@click="legendClick(prop)",
-			:class="legend.visible ? '' : 'hide'")
-			b-icon(:name="legend.icon", :size="22")
-			.label {{ legend.label }}
 	.legend
 		.legend-top
 			.legend-top-item
@@ -47,20 +41,22 @@
 				span 服务
 		.legend-main
 			.lmt
-				.item
-					b-icon(name="icon-gongsi", :size="22")
-					.label ccc
-				.item
-					b-icon(name="icon-cigaoya", :size="22")
-					.label xxx
+				.item(
+					v-for="(legend, prop) in legendTopConfig",
+					:key="prop",
+					@click="legendClick(prop)",
+					:class="legend.visible ? '' : 'hide'")
+					.line(v-if="legend.color", :style="{ 'border-color': legend.color }")
+					b-icon(v-if="legend.icon", :name="legend.icon", :size="22")
+					.label {{ legend.label }}
 			.lmb
-				.item
-					b-icon(name="icon-gongsi", :size="22")
-					.label ccc
-				.item
-					b-icon(name="icon-cigaoya", :size="22")
-					.label xxx
-			
+				.item(
+					v-for="(legend, prop) in legendBottomConfig",
+					:key="prop",
+					@click="legendClick(prop)",
+					:class="legend.visible ? '' : 'hide'")
+					b-icon(:name="legend.icon", :size="22")
+					.label {{ legend.label }}
 	//- 地图图层切换
 	.layers-radio-group
 		.radio(
@@ -70,7 +66,7 @@
 		.radio(
 			:class="curMapLayer === 'Satellite' ? 'active' : ''",
 			@click="changeLayer('Satellite')")
-			.text 卫星地图
+			.text 三维地图
 		.radio(
 			:class="curMapLayer === 'Satellite' ? 'active' : ''",
 			@click="changeLayer('Satellite')")
@@ -99,7 +95,13 @@ export default {
 				return {}
 			},
 		},
-		legendConfig: {
+		legendTopConfig: {
+			type: Object,
+			default() {
+				return {}
+			},
+		},
+		legendBottomConfig: {
 			type: Object,
 			default() {
 				return {}
@@ -140,8 +142,8 @@ export default {
 		this.iconLayerOption.selectStyle.size = selectedSize
 		this.lineLayerOption.style.borderWidth = borderWidth
 		await loadJs(
-			'//at.alicdn.com/t/font_2654012_8bvzpl9g8qg.js',
-			'huaxin_iconfont',
+			'//at.alicdn.com/t/font_2801166_h51o8309r1h.js',
+			'huachen_iconfont',
 		)
 		setTimeout(() => {
 			this.transSVGToBase64()
@@ -327,7 +329,10 @@ export default {
 			if (amapRoot) {
 				//保留loca层
 				let layersLoca = amapRoot.getLayers().filter(layer => {
-					return layer.CLASS_NAME.indexOf('Loca') > -1 || layer.CLASS_NAME.indexOf('Custom') > -1
+					return (
+						layer.CLASS_NAME.indexOf('Loca') > -1 ||
+						layer.CLASS_NAME.indexOf('Custom') > -1
+					)
 				})
 				let layer =
 					layerName !== 'TileLayer'
@@ -361,8 +366,8 @@ export default {
 		white-space: nowrap;
 		display: flex;
 		border-radius: 24px;
-		border: 4px solid #74FFF2;
-		background: #071F36;
+		border: 4px solid #74fff2;
+		background: #071f36;
 		padding: 27px 0;
 		user-select: none;
 		.legend-top {
@@ -374,15 +379,15 @@ export default {
 			.legend-top-item {
 				font-size: 24px;
 				line-height: 24px;
-				color: #FFFFFF;
+				color: #ffffff;
 				display: flex;
 				align-items: center;
-				&:first-child{
+				&:first-child {
 					margin-bottom: 40px;
 				}
 				.box {
 					margin-right: 32px;
-					border: 2px solid #74FFF2;
+					border: 2px solid #74fff2;
 					width: 25px;
 					height: 25px;
 				}
@@ -394,14 +399,17 @@ export default {
 			padding: 0 40px;
 			.lmt {
 				display: flex;
+				flex-wrap: wrap;
 				padding-bottom: 17px;
 			}
 			.lmb {
 				display: flex;
+				flex-wrap: wrap;
 				padding-top: 35px;
-				border-top:  4px dashed rgba(255, 255, 255, 0.2);
+				border-top: 4px dashed rgba(255, 255, 255, 0.2);
 			}
 			.item {
+				height: 40px;
 				align-items: center;
 				display: flex;
 				cursor: pointer;
@@ -409,27 +417,33 @@ export default {
 				&.hide {
 					opacity: 0.6;
 				}
+				.line {
+					width: 40px;
+					height: 0px;
+					border: 12px solid;
+				}
 				.label {
 					font-size: 24px;
 					line-height: 24px;
-					margin-left: 8px;
+					margin-left: 16px;
 					display: inline-block;
 				}
-				&:not(:first-of-type) {
-					margin-left: 16px;
-				}
+				margin-right: 36px;
+				// &:not(:first-of-type) {
+				// 	margin-left: 16px;
+				// }
 			}
 		}
 	}
 	.layers-radio-group {
 		position: absolute;
-		right: 400px;
+		right: 900px;
 		bottom: 170px;
 		> .radio {
 			width: 224px;
 			height: 100px;
-			background: #071F36;
-			border: 4px solid #74FFF2;
+			background: #071f36;
+			border: 4px solid #74fff2;
 			border-radius: 24px;
 			display: flex;
 			align-items: center;

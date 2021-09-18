@@ -29,8 +29,8 @@ export default {
 	},
 	created() {
 		loadJs(
-			'//at.alicdn.com/t/font_2654012_8bvzpl9g8qg.js',
-			'huaxin_iconfont',
+			'//at.alicdn.com/t/font_2801166_h51o8309r1h.js',
+			'huachen_iconfont',
 		)
 	},
 	computed: {
@@ -42,7 +42,7 @@ export default {
 				return `#${name}`
 			}
 		},
-	}
+	},
 }
 </script>
 

@@ -8,7 +8,8 @@ widget-normal.pos-r(
 		:iconDataMap="iconDataMap",
 		:areaDataMap="areaDataMap",
 		:mapConfig="mapConfig",
-		:legendConfig="legendConfig",
+		:legendTopConfig="legendTopConfig",
+		:legendBottomConfig="legendBottomConfig",
 		:customConfig="innerConfig",
 		@icon-click="handleIconClick",
 		@icon-hover="handleIconHover",
@@ -50,7 +51,7 @@ widget-normal.pos-r(
 import { EsMarker } from 'es-amap'
 import { widgetMixin, widgetNormal } from '@eslinkv/vue2'
 import { value, customConfig } from './index.component'
-import { legendConfig, videoUrl } from './config'
+import { legendTopConfig, legendBottomConfig, videoUrl } from './config'
 import bIcon from './components/b-icon.vue'
 import baseMap from './components/base-map.vue'
 import {
@@ -81,7 +82,8 @@ export default {
 			value,
 			customConfig,
 			// 图例配置
-			legendConfig: legendConfig,
+			legendTopConfig: legendTopConfig,
+			legendBottomConfig: legendBottomConfig,
 			lineDataMap: {},
 			iconDataMap: {},
 			areaDataMap: {},
@@ -214,7 +216,7 @@ export default {
 				zhongya = res2.data || []
 				this.lineDataMap = Object.freeze({
 					gaoya: {
-						...this.legendConfig.gaoya,
+						...this.legendConfig.gaoyaPoints,
 						position: gaoya,
 					},
 					cigaoya: {
@@ -222,7 +224,7 @@ export default {
 						position: cigaoya,
 					},
 					zhongya: {
-						...this.legendConfig.zhongya,
+						...this.legendConfig.zhongyaPoints,
 						position: zhongya,
 					},
 				})

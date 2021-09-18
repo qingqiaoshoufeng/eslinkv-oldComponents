@@ -1,8 +1,8 @@
-const API = '/huaxin'
+const API = '/huachen'
 
-let ajax = (url: string) => {
+const ajax = (url: string) => {
 	return new Promise((resolve, reject) => {
-		let xhr = new XMLHttpRequest()
+		const xhr = new XMLHttpRequest()
 		xhr.open('get', url, true)
 		xhr.setRequestHeader(
 			'content-Type',

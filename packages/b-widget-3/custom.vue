@@ -10,9 +10,9 @@ widget-normal(
 	.tool
 		i-select.levels(v-model="type", @on-change="changeLevel")
 			i-option(value="全部", key="全部") 全部
-			i-option(value="一级", key="一级") 一级
-			i-option(value="二级", key="二级") 二级
-			i-option(value="三级", key="三级") 三级
+			i-option(value="一般", key="一般") 一般
+			i-option(value="紧急", key="紧急") 紧急
+			i-option(value="蹲守", key="蹲守") 蹲守
 		.filter-item
 			div(
 				@click="changeRepairState(1)",
@@ -20,15 +20,23 @@ widget-normal(
 			div(
 				@click="changeRepairState(0)",
 				:class="repairState === 0 ? 'active' : ''") 已处理{{ data.handledNumber }}
-	ul.list
-		li(v-for="(k, i) in data.list")
-			.row1
-				.icon
-				.name {{ k.hiddenName }}
-				.time {{ k.hiddenTime }}
-			.row2
-				.address {{ k.address }}
-				.state(:class="k.hiddenStatus === '未处理' ? 'unhandled' : ''") {{ k.hiddenStatus }}
+	.list(
+		:style="{ height: '100%', overflow: 'hidden' }",
+		@mouseover="stop = true",
+		@mouseleave="stop = false")
+		transition-group.list-group(name="hidden-list", ref="hidden")
+			.list-item(
+				v-for="item in list",
+				:key="item.index",
+				@click="getItem(item)")
+				.row1
+					.icon
+					.name {{ item.hiddenName }}
+					.time {{ item.hiddenTime }}
+				.row2
+					.address {{ item.address }}
+					.state(:class="item.hiddenStatus === '未处理' ? 'unhandled' : ''") {{ item.hiddenStatus }}
+	.empty(v-if="!data.list || !data.list.length") 暂无数据
 </template>
 <script lang="ts">
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
@@ -51,12 +59,43 @@ export default class extends mixins(widgetNormalMixin) {
 	repairState = 1
 	type = '全部'
 	tabState = 0
+	stop = false
+	timer = null
+	timerout = null
+	list = []
+	@Watch('data', { deep: true, immediate: true })
+	onDataValueChange(val): void {
+		this.list = JSON.parse(JSON.stringify(this.data.list))
+		this.list.forEach((item, i) => {
+			item.index = i
+		})
+		if (this.timer) clearInterval(this.timer)
+		if (this.timerout) clearTimeout(this.timerout)
+		this.timerout = setTimeout(() => {
+			let { offsetHeight, scrollHeight } = this.$refs.hidden.$el
+			if (scrollHeight > offsetHeight) {
+				this.start()
+			}
+		}, 1000)
+	}
 
 	@Watch('config.config.tabDefaultValue', { deep: true, immediate: true })
-	onDataChange(val) {
+	onDataChange(val): void {
 		if (!isNaN(val) && val !== '') {
 			this.chooseTab(Number(val))
 		}
+	}
+
+	start() {
+		if (this.timer) clearInterval(this.timer)
+		this.timer = setInterval(() => {
+			if (!this.stop) {
+				let p = this.list.shift()
+				setTimeout(() => {
+					this.list.push(p)
+				}, 1000)
+			}
+		}, 3000)
 	}
 
 	// tab切换
@@ -74,7 +113,15 @@ export default class extends mixins(widgetNormalMixin) {
 	// 单选框切换
 	changeRepairState(val) {
 		this.repairState = val
-		this.__handleEvent__('click2')
+		this.__handleEvent__('click2', val)
+	}
+
+	getItem(item) {
+		this.__handleEvent__('click4', item)
+	}
+
+	beforeDestroy() {
+		if (this.timer) clearInterval(this.timer)
 	}
 }
 </script>
@@ -211,78 +258,105 @@ export default class extends mixins(widgetNormalMixin) {
 	}
 }
 .list {
-	li {
-		padding: 40px 25px 40px 0;
-		background: rgba(40, 80, 102, 0.5);
-		margin-top: 39px;
-	}
-	.row1 {
-		display: flex;
-		align-items: center;
-		.icon {
-			width: 50px;
-			height: 50px;
-			background: #205a9e;
-			margin-left: 30px;
-			margin-right: 18px;
-		}
-		.name {
-			width: 470px;
-			text-align: left;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			font-size: 48px;
-			line-height: 50px;
-			color: #feffff;
-		}
-		.time {
-			flex: 1;
-			font-size: 36px;
-			line-height: 36px;
-			text-align: right;
-			color: #ffffff;
-		}
-	}
-	.row2 {
-		margin-top: 32px;
-		display: flex;
-		padding-left: 98px;
-		.address {
-			width: 600px;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			font-size: 36px;
-			line-height: 36px;
-			text-align: left;
-			color: rgba(255, 255, 255, 0.75);
-		}
-		.state {
-			flex: 1;
-			font-size: 36px;
-			line-height: 36px;
-			text-align: right;
-			color: #74fff2;
-			position: relative;
-			&:before {
-				content: '';
-				display: block;
-				position: absolute;
-				width: 22px;
-				height: 22px;
-				border-radius: 50%;
-				background: #74fff2;
-				left: 15px;
-				top: 10px;
+	position: relative;
+	.list-group {
+		display: block;
+		overflow: hidden;
+		height: 100%;
+		.list-item {
+			padding: 40px 25px 40px 0;
+			background: rgba(40, 80, 102, 0.5);
+			margin-top: 39px;
+			transition: all 1200ms;
+			.row1 {
+				display: flex;
+				align-items: center;
+				.icon {
+					width: 50px;
+					height: 50px;
+					background: #205a9e;
+					margin-left: 30px;
+					margin-right: 18px;
+				}
+				.name {
+					width: 470px;
+					text-align: left;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					font-size: 48px;
+					line-height: 50px;
+					color: #feffff;
+				}
+				.time {
+					flex: 1;
+					font-size: 36px;
+					line-height: 36px;
+					text-align: right;
+					color: #ffffff;
+				}
 			}
-			&.unhandled {
-				color: #ff3317;
-				&:before {
-					background: #ff3317;
+			.row2 {
+				margin-top: 32px;
+				display: flex;
+				padding-left: 98px;
+				.address {
+					width: 600px;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					font-size: 36px;
+					line-height: 36px;
+					text-align: left;
+					color: rgba(255, 255, 255, 0.75);
+				}
+				.state {
+					flex: 1;
+					font-size: 36px;
+					line-height: 36px;
+					text-align: right;
+					color: #74fff2;
+					position: relative;
+					&:before {
+						content: '';
+						display: block;
+						position: absolute;
+						width: 22px;
+						height: 22px;
+						border-radius: 50%;
+						background: #74fff2;
+						left: 15px;
+						top: 10px;
+					}
+					&.unhandled {
+						color: #ff3317;
+						&:before {
+							background: #ff3317;
+						}
+					}
 				}
 			}
 		}
+	}
+
+	.empty {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		color: #fff;
+		font-size: 16px;
+	}
+	.hidden-list-leave-to,
+	.hidden-list-enter-from {
+		opacity: 0;
+		transform: translateY(-40px);
+	}
+	.hidden-list-leave-active,
+	.hidden-list-enter-active {
+		position: absolute;
+		right: 0;
+		left: 0;
 	}
 }
 </style>

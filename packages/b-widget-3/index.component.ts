@@ -3,7 +3,7 @@ export const name = 'b-列表'
 // 组件名唯一
 export const type = 'b-widget-3'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.3'
+export const version = '1.0.5'
 // 自定义配置
 export const customConfig = [
 	{
@@ -36,31 +36,61 @@ export const value = {
 			unhandledNumber: 0,
 			list: [
 				{
-					hiddenName: '巡检隐患',
+					hiddenName: '巡检隐患1',
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '未处理',
 				},
 				{
-					hiddenName: '工地看护',
+					hiddenName: '工地看护2',
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '已处理',
 				},
 				{
-					hiddenName: '巡检隐患',
+					hiddenName: '巡检隐患3',
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '未处理',
 				},
 				{
-					hiddenName: '第三方破坏',
+					hiddenName: '第三方破坏4',
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '已处理',
 				},
 				{
-					hiddenName: '工地看护',
+					hiddenName: '工地看护5',
+					hiddenTime: '11-03 08:23:27',
+					address: '宁围镇镇宁路1400号',
+					hiddenStatus: '未处理',
+				},
+				{
+					hiddenName: '巡检隐患6',
+					hiddenTime: '11-03 08:23:27',
+					address: '宁围镇镇宁路1400号',
+					hiddenStatus: '未处理',
+				},
+				{
+					hiddenName: '工地看护7',
+					hiddenTime: '11-03 08:23:27',
+					address: '宁围镇镇宁路1400号',
+					hiddenStatus: '已处理',
+				},
+				{
+					hiddenName: '巡检隐患8',
+					hiddenTime: '11-03 08:23:27',
+					address: '宁围镇镇宁路1400号',
+					hiddenStatus: '未处理',
+				},
+				{
+					hiddenName: '第三方破坏9',
+					hiddenTime: '11-03 08:23:27',
+					address: '宁围镇镇宁路1400号',
+					hiddenStatus: '已处理',
+				},
+				{
+					hiddenName: '工地看护10',
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '未处理',
@@ -72,7 +102,10 @@ export const value = {
 		// 宽高
 		size: {
 			width: 881,
-			height: 480,
+			height: 1660,
+		},
+		position: {
+			value: 'relative',
 		},
 	},
 	config: {
@@ -91,4 +124,5 @@ export const eventTypes = [
 	{ key: 'click1', label: '点击事件-tab' },
 	{ key: 'click2', label: '点击事件-是否处理' },
 	{ key: 'click3', label: '点击事件-切换等级' },
+	{ key: 'click4', label: '点击事件-隐患详情' },
 ]

@@ -1,5 +1,8 @@
 <template lang="pug">
-widget-normal(:value="value", :customConfig="customConfig" :eventTypes="eventTypes")
+widget-normal(
+	:value="value",
+	:customConfig="customConfig",
+	:eventTypes="eventTypes")
 	.o-zhuxing-2(:id="id")
 </template>
 <script lang="ts">
@@ -13,7 +16,7 @@ export default class extends widgetNormalMixin {
 	value = value
 	customConfig = customConfig
 	eventTypes = [{ key: 'click', label: '点击事件' }]
-	
+
 	@Watch('data', { deep: true, immediate: true })
 	onDataChange(val) {
 		if (this.id) {
@@ -25,12 +28,20 @@ export default class extends widgetNormalMixin {
 		}
 	}
 
+	@Watch('config.config.title')
+	onTitleChange(val) {
+		if (this.id) {
+			this.$nextTick(() => {
+				this.instance = echarts.init(document.getElementById(this.id))
+				this.setOption(this.data, this.config.config)
+			})
+		}
+	}
+
 	setOption(data, config) {
 		const o = options(data, config)
 		this.instance && this.instance.setOption(o)
 	}
-
-	
 }
 </script>
 <style lang="scss" scoped>
