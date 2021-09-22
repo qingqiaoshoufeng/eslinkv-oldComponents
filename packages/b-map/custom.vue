@@ -101,6 +101,8 @@ export default {
 				zoom: 10,
 				center: [118.11304, 39.755102],
 				mapStyle: 'amap://styles/ac47cc8f74c19bfe0c78102b50452460',
+				viewMode: '3D', //开启3D视图,默认为关闭
+				buildingAnimation: true, //楼块出现是否带动画
 				events: {
 					init: map => {
 						this.$amap = map

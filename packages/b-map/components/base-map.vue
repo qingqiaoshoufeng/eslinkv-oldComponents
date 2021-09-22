@@ -64,8 +64,8 @@
 			@click="changeLayer('TileLayer')")
 			.text 二维地图
 		.radio(
-			:class="curMapLayer === 'Satellite' ? 'active' : ''",
-			@click="changeLayer('Satellite')")
+			:class="curMapLayer === 'ThreeD' ? 'active' : ''",
+			@click="changeLayer('ThreeD')")
 			.text 三维地图
 		.radio(
 			:class="curMapLayer === 'Satellite' ? 'active' : ''",
@@ -329,11 +329,23 @@ export default {
 			if (amapRoot) {
 				//保留loca层
 				let layersLoca = amapRoot.getLayers().filter(layer => {
+					console.log('====================================')
+					console.log(layer.CLASS_NAME)
+					console.log('====================================')
 					return (
 						layer.CLASS_NAME.indexOf('Loca') > -1 ||
 						layer.CLASS_NAME.indexOf('Custom') > -1
 					)
 				})
+				console.log('====================================')
+				console.log(
+					this,
+					this.$parent,
+					this.$parent.$parent,
+					amapRoot,
+					layersLoca,
+				)
+				console.log('====================================')
 				let layer =
 					layerName !== 'TileLayer'
 						? new AMap.TileLayer[layerName]()

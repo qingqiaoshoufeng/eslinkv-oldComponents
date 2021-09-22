@@ -9,17 +9,17 @@ widget-normal(
 		.tab-item(:class="tabState === 2 ? 'active' : ''", @click="chooseTab(2)") {{ config.config.title3 }}
 	.tool
 		i-select.levels(v-model="type", @on-change="changeLevel")
-			i-option(value="全部", key="全部") 全部
-			i-option(value="一般", key="一般") 一般
-			i-option(value="紧急", key="紧急") 紧急
-			i-option(value="蹲守", key="蹲守") 蹲守
+			i-option(value= '0', key="全部") 全部
+			i-option(value= '1', key="一般") 一般
+			i-option(value= '2', key="紧急") 紧急
+			i-option(value= '3', key="蹲守") 蹲守
 		.filter-item
 			div(
 				@click="changeRepairState(1)",
 				:class="repairState === 1 ? 'active' : ''") 未处理{{ data.unhandledNumber }}
 			div(
-				@click="changeRepairState(0)",
-				:class="repairState === 0 ? 'active' : ''") 已处理{{ data.handledNumber }}
+				@click="changeRepairState(2)",
+				:class="repairState === 2 ? 'active' : ''") 已处理{{ data.handledNumber }}
 	.list(
 		:style="{ height: '100%', overflow: 'hidden' }",
 		@mouseover="stop = true",
@@ -57,7 +57,7 @@ export default class extends mixins(widgetNormalMixin) {
 	eventTypes = eventTypes
 	customConfig = customConfig
 	repairState = 1
-	type = '全部'
+	type = '0'
 	tabState = 0
 	stop = false
 	timer = null
@@ -106,18 +106,18 @@ export default class extends mixins(widgetNormalMixin) {
 
 	// 下拉选择器切换
 	changeLevel(val) {
-		//
-		this.__handleEvent__('click3', val)
+		this.type = val
+		this.__handleEvent__('click3', { level: val, state: this.repairState })
 	}
 
 	// 单选框切换
 	changeRepairState(val) {
 		this.repairState = val
-		this.__handleEvent__('click2', val)
+		this.__handleEvent__('click2', { level: this.type, state: val })
 	}
 
 	getItem(item) {
-		this.__handleEvent__('click4', item)
+		this.__handleEvent__('click4', item.id)
 	}
 
 	beforeDestroy() {

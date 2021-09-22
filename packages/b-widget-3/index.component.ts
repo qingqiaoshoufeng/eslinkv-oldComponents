@@ -3,7 +3,7 @@ export const name = 'b-列表'
 // 组件名唯一
 export const type = 'b-widget-3'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.5'
+export const version = '1.0.7'
 // 自定义配置
 export const customConfig = [
 	{
@@ -22,7 +22,7 @@ export const customConfig = [
 		type: 'func-input',
 	},
 	{
-		prop: 'text3',
+		prop: 'title3',
 		label: '标题3',
 		type: 'func-input',
 	},
@@ -40,60 +40,70 @@ export const value = {
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '未处理',
+					id: '1',
 				},
 				{
 					hiddenName: '工地看护2',
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '已处理',
+					id: '2',
 				},
 				{
 					hiddenName: '巡检隐患3',
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '未处理',
+					id: '3',
 				},
 				{
 					hiddenName: '第三方破坏4',
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '已处理',
+					id: '4',
 				},
 				{
 					hiddenName: '工地看护5',
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '未处理',
+					id: '5',
 				},
 				{
 					hiddenName: '巡检隐患6',
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '未处理',
+					id: '6',
 				},
 				{
 					hiddenName: '工地看护7',
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '已处理',
+					id: '7',
 				},
 				{
 					hiddenName: '巡检隐患8',
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '未处理',
+					id: '8',
 				},
 				{
 					hiddenName: '第三方破坏9',
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '已处理',
+					id: '9',
 				},
 				{
 					hiddenName: '工地看护10',
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '未处理',
+					id: '10',
 				},
 			],
 		}),
