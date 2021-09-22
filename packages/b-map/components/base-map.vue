@@ -4,11 +4,11 @@
 		v-bind="mapConfig",
 		:style="{ transform: reverseTransform }")
 		//- line图层
-		es-loca(v-if="lineReady", v-bind="lineLayerConfig")
-			es-loca-data(
-				:data="lineLayerData",
-				:options="{ lnglat: lineLayerLngLat }")
-			es-loca-option(:options="lineLayerOption")
+		//- es-loca(v-if="lineReady", v-bind="lineLayerConfig")
+		//- 	es-loca-data(
+		//- 		:data="lineLayerData",
+		//- 		:options="{ lnglat: lineLayerLngLat }")
+		//- 	es-loca-option(:options="lineLayerOption")
 		//- icon图层
 		//- es-loca(v-if="iconReady", v-bind="iconLayerConfig")
 		//- 	es-loca-data(
@@ -16,14 +16,14 @@
 		//- 		:options="{ lnglat: iconLayerLnglat }")
 		//- 	es-loca-option(:options="iconLayerOption")
 		//- //- 站点区域
-		//- es-polygon(
-		//- 	v-for="(path, station) in areaDataMap",
-		//- 	:key="station",
-		//- 	fillColor="rgb(96, 230, 255)",
-		//- 	strokeColor="#60E6FF",
-		//- 	:strokeWeight="2",
-		//- 	:fillOpacity="0.3",
-		//- 	:path="path")
+		es-polygon(
+			v-for="(path, station) in areaDataMap",
+			:key="station",
+			fillColor="rgb(96, 230, 255)",
+			strokeColor="#60E6FF",
+			:strokeWeight="2",
+			:fillOpacity="0.3",
+			:path="path")
 		es-path-simplifier(
 			:stepSpace="customConfig.stepSpace",
 			:lineWidth="customConfig.borderWidth",
@@ -44,7 +44,7 @@
 				.item(
 					v-for="(legend, prop) in legendTopConfig",
 					:key="prop",
-					@click="legendClick(prop)",
+					@click="legendClick(prop, 'Top')",
 					:class="legend.visible ? '' : 'hide'")
 					.line(v-if="legend.color", :style="{ 'border-color': legend.color }")
 					b-icon(v-if="legend.icon", :name="legend.icon", :size="22")
@@ -53,7 +53,7 @@
 				.item(
 					v-for="(legend, prop) in legendBottomConfig",
 					:key="prop",
-					@click="legendClick(prop)",
+					@click="legendClick(prop, 'Bottom')",
 					:class="legend.visible ? '' : 'hide'")
 					b-icon(:name="legend.icon", :size="22")
 					.label {{ legend.label }}
@@ -63,10 +63,10 @@
 			:class="curMapLayer === 'TileLayer' ? 'active' : ''",
 			@click="changeLayer('TileLayer')")
 			.text 二维地图
-		.radio(
-			:class="curMapLayer === 'ThreeD' ? 'active' : ''",
-			@click="changeLayer('ThreeD')")
-			.text 三维地图
+		//- .radio(
+		//- 	:class="curMapLayer === 'ThreeD' ? 'active' : ''",
+		//- 	@click="changeLayer('ThreeD')")
+		//- 	.text 三维地图
 		.radio(
 			:class="curMapLayer === 'Satellite' ? 'active' : ''",
 			@click="changeLayer('Satellite')")
@@ -249,40 +249,40 @@ export default {
 	},
 	methods: {
 		//获取数据并处理
-		legendClick(prop) {
-			let { visible, layer = '' } = this.legendConfig[prop]
+		legendClick(prop, type) {
+			let { visible, layer = '' } = this[`legend${type}Config`][prop]
 			// eslint-disable-next-line vue/no-mutating-props
-			this.legendConfig[prop].visible = !visible
+			this[`legend${type}Config`][prop].visible = !visible
 			this.$emit('legend-click', prop, !visible)
 			// 管线图层
 			if (layer === 'line') {
-				return this.handleLineLayerData()
+				return this.handleLineLayerData(type)
 			}
 			// icon图层
 			if (layer === 'icon') {
-				return this.handleIconLayerData()
+				return this.handleIconLayerData(type)
 			}
 		},
-		handleLineLayerData() {
+		handleLineLayerData(type) {
 			let lineLayerData = []
-			Object.keys(this.legendConfig)
+			Object.keys(this[`legend${type}Config`])
 				.filter(prop => {
-					let { layer, visible } = this.legendConfig[prop]
+					let { layer, visible } = this[`legend${type}Config`][prop]
 					return layer === 'line'
 				})
 				.forEach(prop => {
-					let { visible } = this.legendConfig[prop]
+					let { visible } = this[`legend${type}Config`][prop]
 					let data = this.lineDataMap[prop] || {}
 					data.visible = visible
 					lineLayerData.push(this.lineDataMap[prop])
 				})
 			this.lineLayerData = Object.freeze(lineLayerData)
 		},
-		handleIconLayerData() {
+		handleIconLayerData(type) {
 			let iconLayerData = []
-			Object.keys(this.legendConfig)
+			Object.keys(this[`legend${type}Config`])
 				.filter(prop => {
-					let { layer, visible } = this.legendConfig[prop]
+					let { layer, visible } = this[`legend${type}Config`][prop]
 					return (layer === 'icon') & visible
 				})
 				.forEach(prop => {

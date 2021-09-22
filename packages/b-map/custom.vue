@@ -51,7 +51,7 @@ widget-normal.pos-r(
 import { EsMarker } from 'es-amap'
 import { widgetMixin, widgetNormal } from '@eslinkv/vue2'
 import { value, customConfig } from './index.component'
-import { legendTopConfig, legendBottomConfig, videoUrl } from './config'
+import { legendTopConfig, legendBottomConfig } from './config'
 import bIcon from './components/b-icon.vue'
 import baseMap from './components/base-map.vue'
 import {

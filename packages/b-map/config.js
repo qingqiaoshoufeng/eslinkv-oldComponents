@@ -201,4 +201,4 @@ export const legendBottomConfig = {
 	},
 }
 
-export const videoUrl = 'https://my.eslink.com/home?id=01671901&parentId=0167'
+// export const videoUrl = 'https://my.eslink.com/home?id=01671901&parentId=0167'
