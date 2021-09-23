@@ -19,13 +19,27 @@ const ajax = (url: string) => {
 	})
 }
 
+// 地图管线信息
 export function mapLineResult(data) {
 	const url = `${API}/gis/mapLineResult?type=${data}`
 	return ajax(url)
 }
 
+// 地图点位信息
 export function mapPointResult() {
 	const url = `${API}/gis/mapPointResult`
+	return ajax(url)
+}
+
+// 压力远传采集点位
+export function pressureCollectList() {
+	const url = `${API}/patrol/pressureCollectList`
+	return ajax(url)
+}
+
+// 压力远传采集点位明细
+export function pressureCollectDetail(data) {
+	const url = `${API}/patrol/pressureCollectDetail?gatewayDeviceNo=${data}`
 	return ajax(url)
 }
 

@@ -74,7 +74,7 @@ export default {
 			curMapLayer: 'TileLayer',
 			eventTypes: [
 				{ key: 'click', label: '点击事件' },
-				{ key: 'click1', label: '打开视频弹窗' },
+				// { key: 'click1', label: '打开视频弹窗' },
 				{ key: 'click2', label: '打开巡检隐患弹窗' },
 				{ key: 'click3', label: '打开管道气LNG用户弹窗' },
 			],
@@ -84,6 +84,7 @@ export default {
 			// 图例配置
 			legendTopConfig: legendTopConfig,
 			legendBottomConfig: legendBottomConfig,
+			// 管线信息
 			lineDataMap: {},
 			iconDataMap: {},
 			areaDataMap: {},
@@ -101,8 +102,8 @@ export default {
 				zoom: 10,
 				center: [118.11304, 39.755102],
 				mapStyle: 'amap://styles/ac47cc8f74c19bfe0c78102b50452460',
-				viewMode: '3D', //开启3D视图,默认为关闭
-				buildingAnimation: true, //楼块出现是否带动画
+				// viewMode: '3D', //开启3D视图,默认为关闭
+				// buildingAnimation: true, //楼块出现是否带动画
 				events: {
 					init: map => {
 						this.$amap = map
@@ -194,6 +195,7 @@ export default {
 		})
 	},
 	methods: {
+		// 地图点位
 		async mapPoint() {
 			let point = await mapPointResult().then(res => {
 				return res.data || []
@@ -207,26 +209,29 @@ export default {
 			})
 			this.iconDataMap = Object.freeze(iconDataMap)
 		},
+		// 管线信息  高压、中压、低压
 		async mapLine() {
 			let gaoya = mapLineResult('high')
-			let cigaoya = mapLineResult('sub-high')
+			// let cigaoya = mapLineResult('sub-high')
 			let zhongya = mapLineResult('medium')
-			Promise.all([gaoya, cigaoya, zhongya]).then(res => {
-				let [res0, res1, res2] = res
+			// Promise.all([gaoya, cigaoya, zhongya]).then(res => {
+			Promise.all([gaoya, zhongya]).then(res => {
+				// let [res0, res1, res2] = res
+				let [res0, res1] = res
 				gaoya = res0.data || []
-				cigaoya = res1.data || []
-				zhongya = res2.data || []
+				zhongya = res1.data || []
+				// cigaoya = res1.data || []
 				this.lineDataMap = Object.freeze({
 					gaoya: {
-						...this.legendConfig.gaoyaPoints,
+						...this.legendTopConfig.gaoya,
 						position: gaoya,
 					},
-					cigaoya: {
-						...this.legendConfig.cigaoya,
-						position: cigaoya,
-					},
+					// cigaoya: {
+					// 	...this.legendConfig.cigaoya,
+					// 	position: cigaoya,
+					// },
 					zhongya: {
-						...this.legendConfig.zhongyaPoints,
+						...this.legendTopConfig.zhongya,
 						position: zhongya,
 					},
 				})
@@ -317,6 +322,10 @@ export default {
 						hasDetail: true,
 					}
 					Object.assign(val, jsons)
+
+					const position = [Number(val.lon), Number(val.lat)]
+					val.position = position
+
 					this.activeOverlay = val
 					this.$amap && this.$amap.setCenter(val.position)
 				}

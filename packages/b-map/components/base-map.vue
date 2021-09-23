@@ -10,12 +10,12 @@
 		//- 		:options="{ lnglat: lineLayerLngLat }")
 		//- 	es-loca-option(:options="lineLayerOption")
 		//- icon图层
-		//- es-loca(v-if="iconReady", v-bind="iconLayerConfig")
-		//- 	es-loca-data(
-		//- 		:data="iconLayerData",
-		//- 		:options="{ lnglat: iconLayerLnglat }")
-		//- 	es-loca-option(:options="iconLayerOption")
-		//- //- 站点区域
+		es-loca(v-if="iconReady", v-bind="iconLayerConfig")
+			es-loca-data(
+				:data="iconLayerData",
+				:options="{ lnglat: iconLayerLnglat }")
+			es-loca-option(:options="iconLayerOption")
+		//- 站点区域
 		es-polygon(
 			v-for="(path, station) in areaDataMap",
 			:key="station",
@@ -157,6 +157,7 @@ export default {
 		window.removeEventListener('resize', this.updateSize)
 	},
 	watch: {
+		// 地图点位
 		iconDataMap: {
 			handler(val) {
 				if (val && JSON.stringify(val) !== '{}') {
@@ -167,6 +168,7 @@ export default {
 			deep: true,
 			immediate: true,
 		},
+		// 管线
 		lineDataMap: {
 			handler(val) {
 				if (JSON.stringify(val) !== '{}') {
@@ -263,6 +265,7 @@ export default {
 				return this.handleIconLayerData(type)
 			}
 		},
+		// 管线
 		handleLineLayerData(type) {
 			let lineLayerData = []
 			Object.keys(this[`legend${type}Config`])
@@ -272,12 +275,14 @@ export default {
 				})
 				.forEach(prop => {
 					let { visible } = this[`legend${type}Config`][prop]
+					// 管线数据
 					let data = this.lineDataMap[prop] || {}
 					data.visible = visible
 					lineLayerData.push(this.lineDataMap[prop])
 				})
 			this.lineLayerData = Object.freeze(lineLayerData)
 		},
+		// 地图点位
 		handleIconLayerData(type) {
 			let iconLayerData = []
 			Object.keys(this[`legend${type}Config`])
@@ -286,6 +291,7 @@ export default {
 					return (layer === 'icon') & visible
 				})
 				.forEach(prop => {
+					// prop与iconDataMap的key对应
 					let data = this.iconDataMap[prop]
 					data && iconLayerData.push(...data)
 				})
@@ -293,10 +299,24 @@ export default {
 		},
 		//蒋iconfont的字体图标改为base64位
 		transSVGToBase64() {
-			let { legendConfig } = this
+			let { legendTopConfig, legendBottomConfig } = this
 			let iconSourceMap = {}
-			Object.keys(legendConfig).forEach(prop => {
-				let { icon } = legendConfig[prop]
+			Object.keys(legendTopConfig).forEach(prop => {
+				let { icon } = legendTopConfig[prop]
+				if (icon) {
+					let symbol = document.getElementById(icon)
+					if (!symbol) return false
+					let svg =
+						'<svg  width="200" height="200" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">' +
+						symbol.innerHTML +
+						'</svg>'
+					const image64 =
+						'data:image/svg+xml;base64,' + window.btoa(svg) //svg内容中不能有中文字符
+					iconSourceMap[prop] = image64
+				}
+			})
+			Object.keys(legendBottomConfig).forEach(prop => {
+				let { icon } = legendBottomConfig[prop]
 				if (icon) {
 					let symbol = document.getElementById(icon)
 					if (!symbol) return false

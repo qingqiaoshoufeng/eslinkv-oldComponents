@@ -14,17 +14,30 @@ export default (data, config) => {
 			symbol: 'none',
 			symbolSize: 5,
 			data: item.y,
-			itemStyle: {}
+			itemStyle: {},
 		}
 		if (config.isLinearGradient) {
-			const color = config.colorTheme.colorDisk[index % config.colorTheme.colorDisk.length]
-			req.itemStyle.color = new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-				offset: 0,
-				color: color // 0% 处的颜色
-			}, {
-				offset: 1,
-				color: 'transparent' // 100% 处的颜色
-			}], false)
+			const color =
+				config.colorTheme.colorDisk[
+					index % config.colorTheme.colorDisk.length
+				]
+			req.itemStyle.color = new echarts.graphic.LinearGradient(
+				0,
+				0,
+				0,
+				1,
+				[
+					{
+						offset: 0,
+						color: color, // 0% 处的颜色
+					},
+					{
+						offset: 1,
+						color: 'transparent', // 100% 处的颜色
+					},
+				],
+				false,
+			)
 		}
 		option.series.push(req)
 	})
@@ -36,6 +49,11 @@ export default (data, config) => {
 			lineHeight: 16,
 		},
 	})
+
+	// x 坐标 日期倾斜
+	option.xAxis.axisLabel.interval = 0
+	option.xAxis.axisLabel.rotate = 30
+
 	option.yAxis.push({
 		name: '%',
 		nameTextStyle: {

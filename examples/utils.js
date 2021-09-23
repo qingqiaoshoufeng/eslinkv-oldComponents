@@ -72,7 +72,7 @@ export function getCommonOption(value, config) {
 		grid: {
 			top: 40,
 			left: 40,
-			bottom: 30,
+			bottom: 46,
 			right: 0,
 		},
 		color: config.colorTheme.colorDisk,
@@ -122,7 +122,7 @@ export function getCommonOption(value, config) {
 		},
 		yAxis: [
 			{
-				scale:config.scale,
+				scale: config.scale,
 				max: config.max || null,
 				name: config.title,
 				type: 'value',

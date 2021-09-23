@@ -1,19 +1,19 @@
 export const legendTopConfig = {
-	gaoyaPoints: {
+	gaoya: {
 		label: '高压管网',
 		// icon: 'icon-gaoya',
 		visible: true,
 		layer: 'line',
 		color: '#41FFBB',
 	},
-	zhongyaPoints: {
+	zhongya: {
 		label: '中压管网',
 		// icon: 'icon-cigaoya',
 		visible: true,
 		layer: 'line',
 		color: '#D736FF',
 	},
-	diyaPoints: {
+	diya: {
 		label: '低压管网',
 		// icon: 'icon-zhongya',
 		visible: true,
