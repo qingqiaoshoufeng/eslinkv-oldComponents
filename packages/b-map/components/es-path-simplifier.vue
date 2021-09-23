@@ -48,7 +48,8 @@ export default {
 							data: position,
 							autoSetFitView: false,
 							getPath: function (pathData, pathIndex) {
-								return pathData.nodeList
+								return pathData
+								// return pathData.nodeList
 							},
 							clickToSelectPath: false,
 							onTopWhenSelected: false,

@@ -10,8 +10,8 @@ widget-normal(
 	.tool
 		i-select.levels(v-model="type", @on-change="changeLevel")
 			i-option(value= '0', key="全部") 全部
-			i-option(value= '1', key="一般") 一般
-			i-option(value= '2', key="紧急") 紧急
+			i-option(value= '1', key="紧急") 紧急
+			i-option(value= '2', key="一般") 一般
 			i-option(value= '3', key="蹲守") 蹲守
 		.filter-item
 			div(
@@ -30,13 +30,13 @@ widget-normal(
 				:key="item.index",
 				@click="getItem(item)")
 				.row1
-					.icon
+					b-icon(:name="item.hiddenLevel==='紧急'?'icon-erjixunjianyinhuan': item.hiddenLevel==='一般'?'icon-sanjixunjianyinhuan': item.hiddenLevel==='蹲守'?'icon-xunjianyinhuanyizhenggai':''", :size="48")
 					.name {{ item.hiddenName }}
 					.time {{ item.hiddenTime }}
 				.row2
 					.address {{ item.address }}
 					.state(:class="item.hiddenStatus === '未处理' ? 'unhandled' : ''") {{ item.hiddenStatus }}
-	.empty(v-if="!data.list || !data.list.length") 暂无数据
+		.empty(v-if="!list || !list.length") 暂无数据
 </template>
 <script lang="ts">
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
@@ -44,12 +44,13 @@ import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { value, customConfig, eventTypes } from './index.component'
 import { Select, Option } from 'view-design'
-
+import bIcon from './components/b-icon.vue'
 @Component({
 	components: {
 		widgetNormal,
 		'i-select': Select,
 		'i-option': Option,
+		bIcon,
 	},
 })
 export default class extends mixins(widgetNormalMixin) {
@@ -352,7 +353,7 @@ export default class extends mixins(widgetNormalMixin) {
 		left: 50%;
 		transform: translate(-50%, -50%);
 		color: #fff;
-		font-size: 16px;
+		font-size: 24px;
 	}
 	.hidden-list-leave-to,
 	.hidden-list-enter-from {

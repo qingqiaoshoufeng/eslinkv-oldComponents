@@ -3,7 +3,7 @@ export const name = 'b-列表'
 // 组件名唯一
 export const type = 'b-widget-3'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.10'
+export const version = '1.0.12'
 // 自定义配置
 export const customConfig = [
 	{
@@ -40,6 +40,7 @@ export const value = {
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '未处理',
+					hiddenLevel: '紧急',
 					id: '1',
 				},
 				{
@@ -47,6 +48,7 @@ export const value = {
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '已处理',
+					hiddenLevel: '蹲守',
 					id: '2',
 				},
 				{
@@ -54,6 +56,7 @@ export const value = {
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '未处理',
+					hiddenLevel: '一般',
 					id: '3',
 				},
 				{
@@ -61,6 +64,7 @@ export const value = {
 					hiddenTime: '11-03 08:23:27',
 					address: '宁围镇镇宁路1400号',
 					hiddenStatus: '已处理',
+					hiddenLevel: '一般',
 					id: '4',
 				},
 			],

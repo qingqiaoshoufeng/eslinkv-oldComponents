@@ -29,14 +29,14 @@ widget-normal.pos-r(
 							:key="prop")
 							span {{ item }}:
 							span.value {{ activeOverlay[prop] }}
-					.operate-btn
-						span.more(@click="openDetail", v-if="activeOverlay.hasArtwork") 查看详情
-						span.more(@click="openRiskDetail", v-else-if="activeOverlay.hasDetail") 查看详情
-						span.more(
-							@click="openUserDetail",
-							v-else-if="activeOverlay.type == 'businessUserPoints' || activeOverlay.type == 'lngUserPoints'") 查看详情
-						span.video(v-if="activeOverlay.hasVideo", @click="openVideo")
-							b-icon(name="icon-shipin", :size="20")
+					//- .operate-btn
+					//- 	span.more(@click="openDetail", v-if="activeOverlay.hasArtwork") 查看详情
+					//- 	span.more(@click="openRiskDetail", v-else-if="activeOverlay.hasDetail") 查看详情
+					//- 	span.more(
+					//- 		@click="openUserDetail",
+					//- 		v-else-if="activeOverlay.type == 'businessUserPoints' || activeOverlay.type == 'lngUserPoints'") 查看详情
+					//- 	span.video(v-if="activeOverlay.hasVideo", @click="openVideo")
+					//- 		b-icon(name="icon-shipin", :size="20")
 					.close-btn(@click="handleClose")
 						b-icon(name="icon-baseline-close-px", :size="20")
 				//- 地图外的列表展示
@@ -126,10 +126,11 @@ export default {
 					// inspectionType: '巡检类型',
 				},
 				hiddenTrouble: {
-					hiddenLevel: '隐患等级',
+					// hiddenLevel: '隐患等级',
 					hiddenName: '名称',
-					hiddenStatus: '状态',
+					// hiddenStatus: '状态',
 					hiddenTime: '时间',
+					address: '地址',
 				},
 				gatePoints: {
 					instantaneousFlow: '瞬时流量',
@@ -160,38 +161,29 @@ export default {
 		this.init()
 		let {
 			gaoya,
-			cigaoya,
 			zhongya,
-			companyPoints,
-			gatePoints,
-			doorStationPoints,
-			lngPoints,
-			pressurePoints,
-			pressureCabinetPoints,
-			valvePoints,
-			businessUserPoints,
-			lngUserPoints,
+			gasPressurePoints,
+			hiddenTroublePoints,
+			inspectionCarPoints,
 			inspectionPersonPoints,
-			nationalLinePoints,
+			companyPoints,
 		} = this.innerConfig
 		let legendVisMap = {
 			gaoya,
-			cigaoya,
 			zhongya,
-			companyPoints,
-			gatePoints,
-			doorStationPoints,
-			lngPoints,
-			pressurePoints,
-			pressureCabinetPoints,
-			valvePoints,
-			businessUserPoints,
-			lngUserPoints,
+			gasPressurePoints,
+			hiddenTroublePoints,
+			inspectionCarPoints,
 			inspectionPersonPoints,
-			nationalLinePoints,
+			companyPoints,
 		}
 		Object.keys(legendVisMap).forEach(prop => {
-			this.legendConfig[prop].visible = legendVisMap[prop]
+			if (this.legendTopConfig[prop]) {
+				this.legendTopConfig[prop].visible = legendVisMap[prop]
+			}
+			if (this.legendBottomConfig[prop]) {
+				this.legendBottomConfig[prop].visible = legendVisMap[prop]
+			}
 		})
 	},
 	methods: {
@@ -314,7 +306,13 @@ export default {
 	watch: {
 		data: {
 			handler(val) {
-				if (this.id && val) {
+				console.log('====================================')
+				console.log('地图获取到的巡检隐患数据', val)
+				console.log('====================================')
+				if (this.id && val && !isNaN(val.lon) && !isNaN(val.lat)) {
+					console.log('====================================')
+					console.log('id:', this.id, '地图获取到的巡检隐患数据', val)
+					console.log('====================================')
 					const jsons = {
 						custom: true,
 						type: 'hiddenTrouble',
@@ -340,11 +338,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 .overlay {
-	width: 240px;
-	background: #234860;
+	// width: 404px;
+	min-width: 400px;
+	background: #071f36;
 	position: relative;
-	border: 1px solid #8beaff;
-	padding: 12px 8px 16px 8px;
+	border: 4px solid #74fff2;
+	border-radius: 24px;
+	padding: 32px 40px;
 	transform: translate(0, calc(-50% - 36px)) !important;
 	text-align: left;
 	&::before {
@@ -376,22 +376,28 @@ export default {
 		bottom: 0;
 		right: 50%;
 		transform: translate(50%, 100%);
-		width: 1px;
-		height: 17px;
-		background: #fff;
-		&::after {
-			content: ' ';
-			display: block;
-			position: absolute;
-			bottom: 0;
-			right: 50%;
-			transform: translate(50%, 100%);
-			width: 8px;
-			height: 8px;
-			border-radius: 50%;
-			background: #8beaff;
-			border: 1px solid #fff;
-		}
+		// width: 1px;
+		// height: 17px;
+		width: 0px;
+		height: 0px;
+		border-top: 20px solid #74fff2;
+		border-bottom: 20px solid transparent;
+		border-left: 20px solid transparent;
+		border-right: 20px solid transparent;
+		// background: #fff;
+		// &::after {
+		// 	content: ' ';
+		// 	display: block;
+		// 	position: absolute;
+		// 	bottom: 0;
+		// 	right: 50%;
+		// 	transform: translate(50%, 100%);
+		// 	width: 8px;
+		// 	height: 8px;
+		// 	border-radius: 50%;
+		// 	background: #8beaff;
+		// 	border: 1px solid #fff;
+		// }
 	}
 	&-icon {
 		position: absolute;
@@ -400,18 +406,23 @@ export default {
 		transform: translate(50%, calc(100% + 30px));
 	}
 	.title {
-		color: #8beaff;
-		font-weight: bold;
-		font-size: 18px;
+		color: #fff;
+		font-weight: 600;
+		font-size: 48px;
+		line-height: 48px;
 	}
 	.address {
-		font-size: 16px;
+		font-size: 36px;
 	}
 	.detail {
 		margin-top: 6px;
 		&-item {
+			font-size: 36px;
+			line-height: 36px;
+			margin-top: 16px;
 			.value {
 				margin-left: 8px;
+				color: #ffdc45;
 			}
 		}
 	}

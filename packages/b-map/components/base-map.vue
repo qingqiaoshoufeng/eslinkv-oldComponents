@@ -83,7 +83,7 @@ export default {
 	name: 'base-map',
 	components: {
 		EsAmap,
-		EsPolygon,
+		// EsPolygon,
 		EsLoca,
 		EsLocaData,
 		EsLocaOption,
@@ -211,7 +211,8 @@ export default {
 				},
 			},
 			lineLayerLngLat(data) {
-				return data.value.position.nodeList
+				return data.value.position
+				// return data.value.position.nodeList
 			},
 			// 管线图层 --结束
 			// icon图层
@@ -268,21 +269,41 @@ export default {
 			}
 		},
 		// 管线
-		handleLineLayerData(type) {
+		handleLineLayerData(type = '') {
 			let lineLayerData = []
-			Object.keys(this[`legend${type}Config`])
-				.filter(prop => {
-					let { layer, visible } = this[`legend${type}Config`][prop]
-					return layer === 'line'
-				})
-				.forEach(prop => {
-					let { visible } = this[`legend${type}Config`][prop]
-					// 管线数据
-					let data = this.lineDataMap[prop] || {}
-					data.visible = visible
-					lineLayerData.push(this.lineDataMap[prop])
-				})
-			this.lineLayerData = Object.freeze(lineLayerData)
+			if (!type) {
+				// ----------------------------
+				// 这里是只有上半部分有线条图例的情况
+				// ----------------------------
+				Object.keys(this.legendTopConfig)
+					.filter(prop => {
+						let { layer, visible } = this.legendTopConfig[prop]
+						return layer === 'line'
+					})
+					.forEach(prop => {
+						let { visible } = this.legendTopConfig[prop]
+						// 管线数据
+						let data = this.lineDataMap[prop] || {}
+						data.visible = visible
+						lineLayerData.push(this.lineDataMap[prop])
+					})
+				this.lineLayerData = Object.freeze(lineLayerData)
+			} else {
+				Object.keys(this[`legend${type}Config`])
+					.filter(prop => {
+						let { layer, visible } =
+							this[`legend${type}Config`][prop]
+						return layer === 'line'
+					})
+					.forEach(prop => {
+						let { visible } = this[`legend${type}Config`][prop]
+						// 管线数据
+						let data = this.lineDataMap[prop] || {}
+						data.visible = visible
+						lineLayerData.push(this.lineDataMap[prop])
+					})
+				this.lineLayerData = Object.freeze(lineLayerData)
+			}
 		},
 		// 地图点位
 		handleIconLayerData(type) {
