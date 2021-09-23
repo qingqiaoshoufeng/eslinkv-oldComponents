@@ -255,7 +255,7 @@ export default {
 			//2.line
 			this.mapLine()
 			//3. area
-			this.mapArea()
+			// this.mapArea()
 		},
 		handleIconClick(overlay, triggerType) {
 			if (this.arrData.includes(overlay.type)) {

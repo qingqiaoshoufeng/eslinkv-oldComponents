@@ -16,10 +16,10 @@ widget-normal(
 		.filter-item
 			div(
 				@click="changeRepairState(1)",
-				:class="repairState === 1 ? 'active' : ''") 未处理{{ data.unhandledNumber }}
+				:class="repairState === 1 ? 'active' : ''") 未处理{{ data.unProcessed }}
 			div(
 				@click="changeRepairState(2)",
-				:class="repairState === 2 ? 'active' : ''") 已处理{{ data.handledNumber }}
+				:class="repairState === 2 ? 'active' : ''") 已处理{{ data.processed }}
 	.list(
 		:style="{ height: '100%', overflow: 'hidden' }",
 		@mouseover="stop = true",
@@ -65,7 +65,7 @@ export default class extends mixins(widgetNormalMixin) {
 	list = []
 	@Watch('data', { deep: true, immediate: true })
 	onDataValueChange(val): void {
-		this.list = JSON.parse(JSON.stringify(this.data.list))
+		this.list = JSON.parse(JSON.stringify(this.data.realTimeList))
 		this.list.forEach((item, i) => {
 			item.index = i
 		})
@@ -101,19 +101,26 @@ export default class extends mixins(widgetNormalMixin) {
 	// tab切换
 	chooseTab(val) {
 		this.tabState = val
-		this.__handleEvent__('click1', val)
+		if (val === 2) {
+			this.__handleEvent__('click1', val)
+		} else {
+			this.__handleEvent__('click5')
+		}
 	}
 
 	// 下拉选择器切换
 	changeLevel(val) {
 		this.type = val
-		this.__handleEvent__('click3', { level: val, state: this.repairState })
+		this.__handleEvent__('click3', {
+			priority: val,
+			status: this.repairState,
+		})
 	}
 
 	// 单选框切换
 	changeRepairState(val) {
 		this.repairState = val
-		this.__handleEvent__('click2', { level: this.type, state: val })
+		this.__handleEvent__('click2', { priority: this.type, status: val })
 	}
 
 	getItem(item) {
@@ -279,7 +286,7 @@ export default class extends mixins(widgetNormalMixin) {
 					margin-right: 18px;
 				}
 				.name {
-					width: 470px;
+					width: 370px;
 					text-align: left;
 					overflow: hidden;
 					text-overflow: ellipsis;

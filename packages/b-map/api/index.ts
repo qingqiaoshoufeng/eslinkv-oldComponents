@@ -31,11 +31,11 @@ export function mapPointResult() {
 	return ajax(url)
 }
 
-// 压力远传采集点位
-export function pressureCollectList() {
-	const url = `${API}/patrol/pressureCollectList`
-	return ajax(url)
-}
+// 压力远传采集点位（压力监测点）
+// export function pressureCollectList() {
+// 	const url = `${API}/patrol/pressureCollectList`
+// 	return ajax(url)
+// }
 
 // 压力远传采集点位明细
 export function pressureCollectDetail(data) {
