@@ -143,13 +143,13 @@ export default {
 		this.iconLayerOption.style.size = size
 		this.iconLayerOption.selectStyle.size = selectedSize
 		this.lineLayerOption.style.borderWidth = borderWidth
-		// await loadJs(
-		// 	'//at.alicdn.com/t/font_2801166_h51o8309r1h.js',
-		// 	'huachen_iconfont',
-		// )
-		// setTimeout(() => {
-		// 	this.transSVGToBase64()
-		// }, 0)
+		await loadJs(
+			'//at.alicdn.com/t/font_2801166_h51o8309r1h.js',
+			'huachen_iconfont',
+		)
+		setTimeout(() => {
+			this.transSVGToBase64()
+		}, 0)
 	},
 	mounted() {
 		this.updateSize()
