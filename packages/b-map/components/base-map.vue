@@ -16,14 +16,14 @@
 				:options="{ lnglat: iconLayerLnglat }")
 			es-loca-option(:options="iconLayerOption")
 		//- 站点区域
-		es-polygon(
-			v-for="(path, station) in areaDataMap",
-			:key="station",
-			fillColor="rgb(96, 230, 255)",
-			strokeColor="#60E6FF",
-			:strokeWeight="2",
-			:fillOpacity="0.3",
-			:path="path")
+		//- es-polygon(
+		//- 	v-for="(path, station) in areaDataMap",
+		//- 	:key="station",
+		//- 	fillColor="rgb(96, 230, 255)",
+		//- 	strokeColor="#60E6FF",
+		//- 	:strokeWeight="2",
+		//- 	:fillOpacity="0.3",
+		//- 	:path="path")
 		es-path-simplifier(
 			:stepSpace="customConfig.stepSpace",
 			:lineWidth="customConfig.borderWidth",
@@ -73,7 +73,9 @@
 			.text 卫星地图
 </template>
 <script>
-import { EsAmap, EsLoca, EsLocaData, EsLocaOption, EsPolygon } from 'es-amap'
+// import { EsAmap, EsLoca, EsLocaData, EsLocaOption, EsPolygon } from 'es-amap'
+import { EsAmap, EsLoca, EsLocaData, EsLocaOption } from 'es-amap'
+
 import EsPathSimplifier from './es-path-simplifier'
 import { loadJs } from '../../../examples/utils.js'
 import bIcon from '../components/b-icon.vue'
@@ -141,13 +143,13 @@ export default {
 		this.iconLayerOption.style.size = size
 		this.iconLayerOption.selectStyle.size = selectedSize
 		this.lineLayerOption.style.borderWidth = borderWidth
-		await loadJs(
-			'//at.alicdn.com/t/font_2801166_h51o8309r1h.js',
-			'huachen_iconfont',
-		)
-		setTimeout(() => {
-			this.transSVGToBase64()
-		}, 0)
+		// await loadJs(
+		// 	'//at.alicdn.com/t/font_2801166_h51o8309r1h.js',
+		// 	'huachen_iconfont',
+		// )
+		// setTimeout(() => {
+		// 	this.transSVGToBase64()
+		// }, 0)
 	},
 	mounted() {
 		this.updateSize()
@@ -349,23 +351,11 @@ export default {
 			if (amapRoot) {
 				//保留loca层
 				let layersLoca = amapRoot.getLayers().filter(layer => {
-					console.log('====================================')
-					console.log(layer.CLASS_NAME)
-					console.log('====================================')
 					return (
 						layer.CLASS_NAME.indexOf('Loca') > -1 ||
 						layer.CLASS_NAME.indexOf('Custom') > -1
 					)
 				})
-				console.log('====================================')
-				console.log(
-					this,
-					this.$parent,
-					this.$parent.$parent,
-					amapRoot,
-					layersLoca,
-				)
-				console.log('====================================')
 				let layer =
 					layerName !== 'TileLayer'
 						? new AMap.TileLayer[layerName]()
