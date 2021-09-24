@@ -27,21 +27,25 @@ import { value, customConfig } from './index.component'
 export default class extends mixins(widgetNormalMixin) {
 	value = value
 	customConfig = customConfig
-	
-	get bar1Right () {
-		const p = this.data.num3 / this.data.num1 * 100
+
+	get bar1Right() {
+		const p = (this.data.num3 / this.data.num1) * 100
 		return 100 - p + 1 + '%'
 	}
-	
-	get bar2Left () {
-		const p = this.data.num4 / this.data.num1 * 100
+
+	get bar2Left() {
+		const p = (this.data.num4 / this.data.num1) * 100
 		return 100 - p + 1 + '%'
 	}
 }
 </script>
 <style lang="scss" scoped>
-.right { text-align: right; }
-.yellow { color: #F3DB72!important; }
+.right {
+	text-align: right;
+}
+.yellow {
+	color: #f3db72 !important;
+}
 .row {
 	display: flex;
 	justify-content: space-between;
@@ -51,7 +55,11 @@ export default class extends mixins(widgetNormalMixin) {
 		width: 387px;
 		height: 252px;
 		padding: 40px 0 0 40px;
-		background: linear-gradient(90deg, #285066 0%, rgba(40, 80, 102, 0) 100%);
+		background: linear-gradient(
+			90deg,
+			#285066 0%,
+			rgba(40, 80, 102, 0) 100%
+		);
 		.font-num {
 			font-weight: bold;
 			font-size: 96px;
@@ -61,14 +69,14 @@ export default class extends mixins(widgetNormalMixin) {
 		.label {
 			font-size: 48px;
 			line-height: 48px;
-			color: #FFFFFF;
+			color: #ffffff;
 			margin-top: 32px;
 		}
 	}
 	.h2 {
 		font-size: 48px;
 		line-height: 48px;
-		color: #FFFFFF;
+		color: #ffffff;
 		margin-top: 20px;
 		margin-bottom: 24px;
 	}
@@ -76,7 +84,7 @@ export default class extends mixins(widgetNormalMixin) {
 		font-weight: 500;
 		font-size: 72px;
 		line-height: 72px;
-		color: #74FFF2;
+		color: #74fff2;
 		font-family: font-num;
 		margin-bottom: 30px;
 	}
@@ -92,8 +100,9 @@ export default class extends mixins(widgetNormalMixin) {
 		top: 0;
 		bottom: 0;
 		right: 21%;
-		background: #74FFF2;
+		background: #74fff2;
 		transform: skewX(-30deg);
+		transition: all 0.3s;
 	}
 	.bar2 {
 		position: absolute;
@@ -101,8 +110,9 @@ export default class extends mixins(widgetNormalMixin) {
 		top: 0;
 		bottom: 0;
 		right: -10px;
-		background: #F3DB72;
+		background: #f3db72;
 		transform: skewX(-30deg);
+		transition: all 0.3s;
 	}
 }
 </style>

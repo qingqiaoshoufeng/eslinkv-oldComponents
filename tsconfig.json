@@ -1,39 +1,29 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "strict": false,
-    "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "baseUrl": ".",
-    "types": [
-      "webpack-env"
-    ],
-    "paths": {
-      "@/*": [
-        "./examples/*"
-      ]
-    },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
-  },
-  "include": [
-    "examples/**/*.ts",
-    "examples/**/*.tsx",
-    "examples/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx", "src/components-map/AMap/a-map/MapContainer/MapPages/AirSupply/index.js"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "esnext",
+		"strict": false,
+		"jsx": "preserve",
+		"importHelpers": true,
+		"moduleResolution": "node",
+		"experimentalDecorators": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
+		"baseUrl": ".",
+		"types": ["webpack-env"],
+		"paths": {
+			"@/*": ["./examples/*"]
+		},
+		"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+	},
+	"include": [
+		"examples/**/*.ts",
+		"examples/**/*.tsx",
+		"examples/**/*.vue",
+		"tests/**/*.ts",
+		"tests/**/*.tsx",
+		"src/components-map/AMap/a-map/MapContainer/MapPages/AirSupply/index.js"
+	],
+	"exclude": ["node_modules"]
 }
