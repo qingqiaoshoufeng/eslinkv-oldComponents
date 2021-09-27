@@ -3,7 +3,7 @@ export const name = '切换一'
 // 组件名唯一
 export const type = 'b-tab-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.1'
+export const version = '1.0.2'
 // 自定义配置
 export const customConfig = []
 // 配置
@@ -14,14 +14,17 @@ export const value = {
 			{
 				label: '首页',
 				id: [1],
+				click: true,
 			},
 			{
 				label: '运行',
 				id: [2],
+				click: true,
 			},
 			{
 				label: '服务',
 				id: [3],
+				click: true,
 			},
 		]),
 	},

@@ -19,10 +19,31 @@ export default class extends mixins(widgetNormalMixin) {
 	value = value
 	customConfig = customConfig
 	editor = Editor.Instance()
+	// timer = null
+
+	mounted() {
+		// this.changeTab()
+	}
+
+	// 每5秒切换场景一次
+	// changeTab() {
+	// 	this.timer = setInterval(() => {
+	// 		let scene = this.data.filter(prop => {
+	// 			if (prop.id !== this.editor.currentSceneIndex) {
+	// 				return prop
+	// 			}
+	// 		})
+	// 		this.editor.selectSceneIndex(scene[0].id)
+	// 	}, 5000)
+	// }
 
 	change(id) {
 		this.editor.selectSceneIndex(id)
 	}
+
+	// beforeDestroy() {
+	// 	if (this.timer) clearInterval(this.timer)
+	// }
 }
 </script>
 <style lang="scss" scoped>

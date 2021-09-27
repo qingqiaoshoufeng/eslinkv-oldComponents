@@ -16,7 +16,7 @@ export const legendTopConfig = {
 	gasPressurePoints: {
 		label: '压力监测点',
 		icon: 'icon-yalijiancedian',
-		visible: false,
+		visible: true,
 		layer: 'icon',
 	},
 	hiddenTroublePoints: {

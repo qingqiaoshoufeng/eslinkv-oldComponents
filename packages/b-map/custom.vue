@@ -250,6 +250,9 @@ export default {
 			// this.mapArea()
 		},
 		handleIconClick(overlay, triggerType) {
+			console.log('====================================')
+			console.log('handleIconClick', overlay)
+			console.log('====================================')
 			if (this.arrData.includes(overlay.type)) {
 				stationPointsDetail([overlay.type, overlay.stationId]).then(
 					res => {
@@ -265,6 +268,9 @@ export default {
 		},
 		//鼠标hover展示name
 		handleIconHover(data) {
+			console.log('====================================')
+			console.log('handleIconHover', data)
+			console.log('====================================')
 			if (data) {
 				data.triggerType = 'hover'
 				this.activeOverlay = data
@@ -276,6 +282,9 @@ export default {
 			}
 		},
 		handleLegendClick(prop, visible) {
+			console.log('====================================')
+			console.log('handleLegendClick', visible)
+			console.log('====================================')
 			if (!visible && this.activeOverlay.type === prop) {
 				this.activeOverlay = {}
 			}

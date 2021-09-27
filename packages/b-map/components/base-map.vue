@@ -162,6 +162,9 @@ export default {
 		// 地图点位
 		iconDataMap: {
 			handler(val) {
+				console.log('====================================')
+				console.log('iconDataMap', val)
+				console.log('====================================')
 				if (val && JSON.stringify(val) !== '{}') {
 					this.handleIconLayerData()
 					this.iconReady = true
@@ -235,10 +238,30 @@ export default {
 				},
 			},
 			iconLayerLnglat(data) {
-				return data.value.position
+				console.log('====================================')
+				console.log(
+					'站点经纬度',
+					data,
+					data.value,
+					data.value.position.map(item => {
+						return item.slice(0, 10)
+					}),
+				)
+				console.log('====================================')
+				return data.value.position.map(item => {
+					return item.slice(0, 10)
+				})
 			},
 			iconLayerOption: {
 				source: ({ value = {} }) => {
+					console.log('====================================')
+					console.log(
+						'iconSourceMap',
+						value,
+						value.type,
+						this.iconSourceMap[value.type],
+					)
+					console.log('====================================')
 					return this.iconSourceMap[value.type]
 				},
 				style: {
@@ -255,6 +278,9 @@ export default {
 	methods: {
 		//获取数据并处理
 		legendClick(prop, type) {
+			console.log('====================================')
+			console.log('legendClick', prop, type)
+			console.log('====================================')
 			let { visible, layer = '' } = this[`legend${type}Config`][prop]
 			// eslint-disable-next-line vue/no-mutating-props
 			this[`legend${type}Config`][prop].visible = !visible
@@ -306,19 +332,49 @@ export default {
 			}
 		},
 		// 地图点位
-		handleIconLayerData(type) {
+		handleIconLayerData(type = '') {
 			let iconLayerData = []
-			Object.keys(this[`legend${type}Config`])
-				.filter(prop => {
-					let { layer, visible } = this[`legend${type}Config`][prop]
-					return (layer === 'icon') & visible
-				})
-				.forEach(prop => {
-					// prop与iconDataMap的key对应
-					let data = this.iconDataMap[prop]
-					data && iconLayerData.push(...data)
-				})
-			this.iconLayerData = Object.freeze(iconLayerData)
+			if (!type) {
+				Object.keys(this.legendTopConfig)
+					.filter(prop => {
+						let { layer, visible } = this.legendTopConfig[prop]
+						return (layer === 'icon') & visible
+					})
+					.forEach(prop => {
+						// prop与iconDataMap的key对应
+						// let data = this.iconDataMap[prop]
+						let data = this.iconDataMap[prop].map(item => {
+							item.position = item.position.map(i => {
+								return i.slice(0, 10)
+							})
+							return item
+						})
+						data && iconLayerData.push(...data)
+					})
+				this.iconLayerData = Object.freeze(iconLayerData)
+			} else {
+				Object.keys(this[`legend${type}Config`])
+					.filter(prop => {
+						let { layer, visible } =
+							this[`legend${type}Config`][prop]
+						return (layer === 'icon') & visible
+					})
+					.forEach(prop => {
+						// prop与iconDataMap的key对应
+						// let data = this.iconDataMap[prop]
+						let data = this.iconDataMap[prop].map(item => {
+							item.position = item.position.map(i => {
+								return i.slice(0, 10)
+							})
+							return item
+						})
+						data && iconLayerData.push(...data)
+					})
+				this.iconLayerData = Object.freeze(iconLayerData)
+			}
+			console.log('====================================')
+			console.log('站点数据', iconLayerData)
+			console.log('====================================')
 		},
 		//蒋iconfont的字体图标改为base64位
 		transSVGToBase64() {

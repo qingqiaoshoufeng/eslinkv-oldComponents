@@ -6,13 +6,13 @@ widget-normal(
 	.tab
 		.tab-item(:class="tabState === 0 ? 'active' : ''", @click="chooseTab(0)") {{ config.config.title1 }}
 		.tab-item(:class="tabState === 1 ? 'active' : ''", @click="chooseTab(1)") {{ config.config.title2 }}
-		.tab-item(:class="tabState === 2 ? 'active' : ''", @click="chooseTab(2)") {{ config.config.title3 }}
+		.tab-item(:class="'active'", @click="chooseTab(2)") {{ config.config.title3 }}
 	.tool
 		i-select.levels(v-model="type", @on-change="changeLevel")
-			i-option(value= '0', key="全部") 全部
-			i-option(value= '1', key="紧急") 紧急
-			i-option(value= '2', key="一般") 一般
-			i-option(value= '3', key="蹲守") 蹲守
+			i-option(value="0", key="全部") 全部
+			i-option(value="1", key="紧急") 紧急
+			i-option(value="2", key="一般") 一般
+			i-option(value="3", key="蹲守") 蹲守
 		.filter-item
 			div(
 				@click="changeRepairState(1)",
@@ -30,7 +30,9 @@ widget-normal(
 				:key="item.index",
 				@click="getItem(item)")
 				.row1
-					b-icon(:name="item.hiddenLevel==='紧急'?'icon-erjixunjianyinhuan': item.hiddenLevel==='一般'?'icon-sanjixunjianyinhuan': item.hiddenLevel==='蹲守'?'icon-xunjianyinhuanyizhenggai':''", :size="48")
+					b-icon(
+						:name="item.hiddenLevel === '紧急' ? 'icon-erjixunjianyinhuan' : item.hiddenLevel === '一般' ? 'icon-sanjixunjianyinhuan' : item.hiddenLevel === '蹲守' ? 'icon-xunjianyinhuanyizhenggai' : ''",
+						:size="48")
 					.name {{ item.hiddenName }}
 					.time {{ item.hiddenTime }}
 				.row2
@@ -105,7 +107,7 @@ export default class extends mixins(widgetNormalMixin) {
 		if (val === 2) {
 			this.__handleEvent__('click1', val)
 		} else {
-			this.__handleEvent__('click5')
+			// this.__handleEvent__('click5')
 		}
 	}
 
