@@ -27,6 +27,10 @@ module.exports = {
 				// 	'^/node': '/'
 				// }
 			},
+			'/huachen': {
+				target: 'https://kv-etbc.eslink.com',
+				changeOrigin: true,
+			},
 			'^/cdn': {
 				target: 'http://eslinkv.eslink.cc',
 				changeOrigin: true,

@@ -144,7 +144,7 @@ export default {
 		this.iconLayerOption.selectStyle.size = selectedSize
 		this.lineLayerOption.style.borderWidth = borderWidth
 		await loadJs(
-			'//at.alicdn.com/t/font_2801166_h51o8309r1h.js',
+			'//at.alicdn.com/t/font_2801166_0wjqoedfhpq.js',
 			'huachen_iconfont',
 		)
 		setTimeout(() => {
@@ -162,9 +162,6 @@ export default {
 		// 地图点位
 		iconDataMap: {
 			handler(val) {
-				console.log('====================================')
-				console.log('iconDataMap', val)
-				console.log('====================================')
 				if (val && JSON.stringify(val) !== '{}') {
 					this.handleIconLayerData()
 					this.iconReady = true
@@ -214,7 +211,12 @@ export default {
 				},
 			},
 			lineLayerLngLat(data) {
-				return data.value.position
+				const position = [
+					Number(data.value.lon),
+					Number(data.value.lat),
+				]
+				data.value.position = position
+				return data.value.position || [0, 0]
 				// return data.value.position.nodeList
 			},
 			// 管线图层 --结束
@@ -238,30 +240,10 @@ export default {
 				},
 			},
 			iconLayerLnglat(data) {
-				console.log('====================================')
-				console.log(
-					'站点经纬度',
-					data,
-					data.value,
-					data.value.position.map(item => {
-						return item.slice(0, 10)
-					}),
-				)
-				console.log('====================================')
-				return data.value.position.map(item => {
-					return item.slice(0, 10)
-				})
+				return data.value.position
 			},
 			iconLayerOption: {
 				source: ({ value = {} }) => {
-					console.log('====================================')
-					console.log(
-						'iconSourceMap',
-						value,
-						value.type,
-						this.iconSourceMap[value.type],
-					)
-					console.log('====================================')
 					return this.iconSourceMap[value.type]
 				},
 				style: {
@@ -278,9 +260,6 @@ export default {
 	methods: {
 		//获取数据并处理
 		legendClick(prop, type) {
-			console.log('====================================')
-			console.log('legendClick', prop, type)
-			console.log('====================================')
 			let { visible, layer = '' } = this[`legend${type}Config`][prop]
 			// eslint-disable-next-line vue/no-mutating-props
 			this[`legend${type}Config`][prop].visible = !visible
@@ -342,15 +321,28 @@ export default {
 					})
 					.forEach(prop => {
 						// prop与iconDataMap的key对应
-						// let data = this.iconDataMap[prop]
-						let data = this.iconDataMap[prop].map(item => {
-							item.position = item.position.map(i => {
-								return i.slice(0, 10)
-							})
+						let data = this.iconDataMap[prop]
+						data.map(item => {
+							const position = [
+								Number(item.lon),
+								Number(item.lat),
+							]
+							item.position = position
 							return item
 						})
+						// let data = this.iconDataMap[prop].map(item => {
+						// 	if (item.position) {
+						// 	}
+						// 	item.position = item.position.map(i => {
+						// 		return i.slice(0, 10)
+						// 	})
+						// 	return item
+						// })
 						data && iconLayerData.push(...data)
 					})
+				console.log('====================================')
+				console.log('iconLayerData', iconLayerData)
+				console.log('====================================')
 				this.iconLayerData = Object.freeze(iconLayerData)
 			} else {
 				Object.keys(this[`legend${type}Config`])
@@ -361,20 +353,28 @@ export default {
 					})
 					.forEach(prop => {
 						// prop与iconDataMap的key对应
-						// let data = this.iconDataMap[prop]
-						let data = this.iconDataMap[prop].map(item => {
-							item.position = item.position.map(i => {
-								return i.slice(0, 10)
-							})
+						let data = this.iconDataMap[prop]
+						data.map(item => {
+							const position = [
+								Number(item.lon),
+								Number(item.lat),
+							]
+							item.position = position
 							return item
 						})
+						// let data = this.iconDataMap[prop].map(item => {
+						// 	item.position = item.position.map(i => {
+						// 		return i.slice(0, 10)
+						// 	})
+						// 	return item
+						// })
 						data && iconLayerData.push(...data)
 					})
+				console.log('====================================')
+				console.log('iconLayerData', iconLayerData)
+				console.log('====================================')
 				this.iconLayerData = Object.freeze(iconLayerData)
 			}
-			console.log('====================================')
-			console.log('站点数据', iconLayerData)
-			console.log('====================================')
 		},
 		//蒋iconfont的字体图标改为base64位
 		transSVGToBase64() {
@@ -536,7 +536,7 @@ export default {
 	}
 	.layers-radio-group {
 		position: absolute;
-		right: 900px;
+		right: 940px;
 		bottom: 170px;
 		> .radio {
 			width: 224px;

@@ -18,9 +18,13 @@ widget-normal.pos-r(
 		es-marker(
 			:visible="!!activeOverlay.position",
 			anchor="center",
+			:scaleRatio="0.5",
 			:position="activeOverlay.position")
 			.overlay
-				.title {{ activeOverlay.name }}
+				.title(
+					v-if="activeOverlay.type !== 'gasPressurePoints' && activeOverlay.type !== 'hiddenTroublePoints'") {{ activeOverlay.name }}
+				.title(v-if="activeOverlay.type === 'gasPressurePoints'") {{ activeOverlay.address }}
+				.title(v-if="activeOverlay.type === 'hiddenTroublePoints'") {{ activeOverlay.hiddenName }}
 				//- 鼠标hover仅展示name
 				template(v-if="activeOverlay.triggerType !== 'hover'")
 					.detail
@@ -29,7 +33,10 @@ widget-normal.pos-r(
 							:key="prop")
 							span {{ item }}:
 							span.value {{ activeOverlay[prop] }}
-					//- .operate-btn
+					.operate-btn
+						span.more(
+							@click="openPressure",
+							v-if="activeOverlay.type === 'gasPressurePoints'") 查看详情
 					//- 	span.more(@click="openDetail", v-if="activeOverlay.hasArtwork") 查看详情
 					//- 	span.more(@click="openRiskDetail", v-else-if="activeOverlay.hasDetail") 查看详情
 					//- 	span.more(
@@ -38,7 +45,7 @@ widget-normal.pos-r(
 					//- 	span.video(v-if="activeOverlay.hasVideo", @click="openVideo")
 					//- 		b-icon(name="icon-shipin", :size="20")
 					.close-btn(@click="handleClose")
-						b-icon(name="icon-baseline-close-px", :size="20")
+						b-icon(name="icon-close", :size="20")
 				//- 地图外的列表展示
 				b-icon.overlay-icon(
 					v-if="activeOverlay.custom",
@@ -59,6 +66,7 @@ import {
 	mapPointResult,
 	mapStationArea,
 	stationPointsDetail,
+	pressureCollectDetail,
 } from './api/index.ts'
 export default {
 	name: 'b-map',
@@ -76,7 +84,7 @@ export default {
 				{ key: 'click', label: '点击事件' },
 				// { key: 'click1', label: '打开视频弹窗' },
 				{ key: 'click2', label: '打开巡检隐患弹窗' },
-				{ key: 'click3', label: '打开管道气LNG用户弹窗' },
+				{ key: 'click3', label: '打开压力监测点趋势' },
 			],
 			ready: false,
 			value,
@@ -114,42 +122,53 @@ export default {
 			activeOverlay: {},
 			//站点详情配置
 			detailMap: {
-				monitor: {
-					careLevel: '看护等级',
-					careName: '看护人',
-					careStartTime: '看护开始时间',
-					careEndTime: '看护结束时间',
-					careDescription: '看护说明',
+				gasPressurePoints: {
+					pressure: '进口压力',
 				},
-				devices: {},
-				inspection: {
-					// inspectionType: '巡检类型',
+				// monitor: {
+				// 	careLevel: '看护等级',
+				// 	careName: '看护人',
+				// 	careStartTime: '看护开始时间',
+				// 	careEndTime: '看护结束时间',
+				// 	careDescription: '看护说明',
+				// },
+				// devices: {},
+				inspectionPersonPoints: {
+					phone: '联系方式',
 				},
-				hiddenTrouble: {
+				inspectionCarPoints: {
+					name: '巡检任务名称',
+				},
+				hiddenTroublePoints: {
 					// hiddenLevel: '隐患等级',
 					hiddenName: '名称',
 					// hiddenStatus: '状态',
 					hiddenTime: '时间',
 					address: '地址',
 				},
-				gatePoints: {
-					instantaneousFlow: '瞬时流量',
-					totalFlow: '累计流量',
-					inPressure: '进口压力',
-					inTemperature: '进口温度',
-				},
-				businessUserPoints: {
-					thisYear: '今年',
-					yesterday: '昨日',
-					thisMonth: '本月',
-				},
-				lngUserPoints: {
-					thisYear: '今年',
-					yesterday: '昨日',
-					thisMonth: '本月',
-				},
+				// gatePoints: {
+				// 	instantaneousFlow: '瞬时流量',
+				// 	totalFlow: '累计流量',
+				// 	inPressure: '进口压力',
+				// 	inTemperature: '进口温度',
+				// },
+				// businessUserPoints: {
+				// 	thisYear: '今年',
+				// 	yesterday: '昨日',
+				// 	thisMonth: '本月',
+				// },
+				// lngUserPoints: {
+				// 	thisYear: '今年',
+				// 	yesterday: '昨日',
+				// 	thisMonth: '本月',
+				// },
 			},
-			arrData: ['businessUserPoints', 'lngUserPoints', 'gatePoints'],
+			arrData: [
+				// 'businessUserPoints',
+				// 'lngUserPoints',
+				// 'gatePoints',
+				'gasPressurePoints',
+			],
 		}
 	},
 	computed: {
@@ -250,17 +269,21 @@ export default {
 			// this.mapArea()
 		},
 		handleIconClick(overlay, triggerType) {
-			console.log('====================================')
-			console.log('handleIconClick', overlay)
-			console.log('====================================')
 			if (this.arrData.includes(overlay.type)) {
-				stationPointsDetail([overlay.type, overlay.stationId]).then(
-					res => {
+				if (overlay.type === 'gasPressurePoints') {
+					pressureCollectDetail(overlay.gatewayDeviceNo).then(res => {
 						Object.assign(overlay, res.data)
 						this.activeOverlay = overlay
 						// this.$amap.setCenter(overlay.position)
-					},
-				)
+					})
+				}
+				// stationPointsDetail([overlay.type, overlay.stationId]).then(
+				// 	res => {
+				// 		Object.assign(overlay, res.data)
+				// 		this.activeOverlay = overlay
+				// 		// this.$amap.setCenter(overlay.position)
+				// 	},
+				// )
 			} else {
 				this.activeOverlay = overlay
 				// this.$amap.setCenter(overlay.position)
@@ -268,9 +291,6 @@ export default {
 		},
 		//鼠标hover展示name
 		handleIconHover(data) {
-			console.log('====================================')
-			console.log('handleIconHover', data)
-			console.log('====================================')
 			if (data) {
 				data.triggerType = 'hover'
 				this.activeOverlay = data
@@ -282,9 +302,6 @@ export default {
 			}
 		},
 		handleLegendClick(prop, visible) {
-			console.log('====================================')
-			console.log('handleLegendClick', visible)
-			console.log('====================================')
 			if (!visible && this.activeOverlay.type === prop) {
 				this.activeOverlay = {}
 			}
@@ -292,25 +309,29 @@ export default {
 		handleClose() {
 			this.activeOverlay = {}
 		},
-		//母站打开详情弹窗
-		openDetail() {
-			this.__handleClick__({ value: this.activeOverlay })
-		},
-		//巡检隐患打开详情弹窗
-		openRiskDetail() {
-			this.__handleEvent__('click2', this.activeOverlay)
-		},
-		// 打开视屏监控
-		openVideo() {
-			this.__handleEvent__(
-				'click1',
-				this.activeOverlay.stationId || this.activeOverlay.name,
-			)
-		},
-		//打开管道气、lng用户详情
-		openUserDetail() {
+		// 打开压力监测点
+		openPressure() {
 			this.__handleEvent__('click3', this.activeOverlay)
 		},
+		// //母站打开详情弹窗
+		// openDetail() {
+		// 	this.__handleClick__({ value: this.activeOverlay })
+		// },
+		// //巡检隐患打开详情弹窗
+		// openRiskDetail() {
+		// 	this.__handleEvent__('click2', this.activeOverlay)
+		// },
+		// // 打开视屏监控
+		// openVideo() {
+		// 	this.__handleEvent__(
+		// 		'click1',
+		// 		this.activeOverlay.stationId || this.activeOverlay.name,
+		// 	)
+		// },
+		// //打开管道气、lng用户详情
+		// openUserDetail() {
+		// 	this.__handleEvent__('click3', this.activeOverlay)
+		// },
 	},
 	watch: {
 		data: {
@@ -348,7 +369,8 @@ export default {
 <style lang="scss" scoped>
 .overlay {
 	// width: 404px;
-	min-width: 400px;
+	// min-width: 400px;
+	min-width: 527px;
 	background: #071f36;
 	position: relative;
 	border: 4px solid #74fff2;
@@ -356,30 +378,30 @@ export default {
 	padding: 32px 40px;
 	transform: translate(0, calc(-50% - 36px)) !important;
 	text-align: left;
-	&::before {
-		content: ' ';
-		display: block;
-		position: absolute;
-		top: -1px;
-		left: -1px;
-		width: 8px;
-		height: 8px;
-		box-sizing: border-box;
-		border-top: 2px solid #fff;
-		border-left: 2px solid #fff;
-	}
-	&::after {
-		content: ' ';
-		display: block;
-		position: absolute;
-		bottom: -1px;
-		right: -1px;
-		width: 8px;
-		height: 8px;
-		box-sizing: border-box;
-		border-right: 2px solid #fff;
-		border-bottom: 2px solid #fff;
-	}
+	// &::before {
+	// 	content: ' ';
+	// 	display: block;
+	// 	position: absolute;
+	// 	top: -1px;
+	// 	left: -1px;
+	// 	width: 8px;
+	// 	height: 8px;
+	// 	box-sizing: border-box;
+	// 	border-top: 2px solid #fff;
+	// 	border-left: 2px solid #fff;
+	// }
+	// &::after {
+	// 	content: ' ';
+	// 	display: block;
+	// 	position: absolute;
+	// 	bottom: -1px;
+	// 	right: -1px;
+	// 	width: 8px;
+	// 	height: 8px;
+	// 	box-sizing: border-box;
+	// 	border-right: 2px solid #fff;
+	// 	border-bottom: 2px solid #fff;
+	// }
 	.line {
 		position: absolute;
 		bottom: 0;
@@ -436,12 +458,12 @@ export default {
 		}
 	}
 	.close-btn {
-		top: -32px;
+		top: -52px;
 		box-sizing: border-box;
 		right: 0;
 		position: absolute;
-		background: #234860;
-		border: 1px solid #8beaff;
+		background: #071f36;
+		border: 2px solid #74fff2;
 		width: 24px;
 		height: 24px;
 		display: flex;
@@ -454,13 +476,17 @@ export default {
 	.more {
 		vertical-align: middle;
 		display: inline-block;
-		width: 80px;
+		width: 176px;
+		height: 52px;
 		text-align: center;
-		line-height: 30px;
-		background: #3288a4;
-		border: 1px solid #8beaff;
+		line-height: 52px;
+		margin-top: 10px;
+		background: #0057a9;
+		// border: 1px solid #8beaff;
 		box-sizing: border-box;
-		border-radius: 4px;
+		font-size: 36px;
+		// border-radius: 4px;
+		border-radius: 8px;
 		cursor: pointer;
 		&:active {
 			opacity: 0.6;

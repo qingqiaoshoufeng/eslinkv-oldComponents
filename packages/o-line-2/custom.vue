@@ -13,7 +13,7 @@ import options from './options'
 export default class OLine2 extends mixins(widgetNormalMixin) {
 	value = value
 	customConfig = customConfig
-	
+
 	@Watch('data', { deep: true, immediate: true })
 	onDataChange(val) {
 		if (this.id) {
@@ -24,13 +24,20 @@ export default class OLine2 extends mixins(widgetNormalMixin) {
 			})
 		}
 	}
+	@Watch('config.config', { deep: true, immediate: true })
+	onConfigChange(val) {
+		if (this.id) {
+			this.$nextTick(() => {
+				this.instance = echarts.init(document.getElementById(this.id))
+				this.setOption(this.data, this.config.config)
+			})
+		}
+	}
 
 	setOption(data, config) {
 		const o = options(data, config)
 		this.instance && this.instance.setOption(o)
 	}
-
-	
 }
 </script>
 <style lang="scss" scoped>

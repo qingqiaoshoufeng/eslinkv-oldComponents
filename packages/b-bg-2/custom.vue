@@ -16,7 +16,7 @@ export default class extends mixins(widgetNormalMixin) {
 .b-bg-2 {
 	background: linear-gradient(
 		-90deg,
-		#071f36 59.05%,
+		#071f36 69.05%,
 		rgba(7, 31, 54, 0) 100%
 	);
 }

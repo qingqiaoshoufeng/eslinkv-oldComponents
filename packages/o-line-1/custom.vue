@@ -1,5 +1,8 @@
 <template lang="pug">
-widget-normal(:value="value", :customConfig="customConfig" :eventTypes="eventTypes")
+widget-normal(
+	:value="value",
+	:customConfig="customConfig",
+	:eventTypes="eventTypes")
 	.chart(:id="id")
 </template>
 <script lang="ts">
@@ -13,13 +16,15 @@ export default class extends widgetNormalMixin {
 	value = value
 	customConfig = customConfig
 	eventTypes = [{ key: 'click', label: '点击事件' }]
-	
+
 	@Watch('data', { deep: true, immediate: true })
 	onDataChange(val) {
 		if (this.id) {
 			const data = { ...val }
 			this.$nextTick(() => {
-				this.instance = window.echarts.init(document.getElementById(this.id))
+				this.instance = window.echarts.init(
+					document.getElementById(this.id),
+				)
 				this.setOption(data, this.config.config)
 				this.instance.off('click')
 				this.instance.on('click', (params: any) => {
@@ -35,16 +40,27 @@ export default class extends widgetNormalMixin {
 		}
 	}
 
+	@Watch('config.config', { deep: true, immediate: true })
+	onConfigChange(val) {
+		if (this.id) {
+			const data = { ...val }
+			this.$nextTick(() => {
+				this.instance = window.echarts.init(
+					document.getElementById(this.id),
+				)
+				this.setOption(data, this.config.config)
+			})
+		}
+	}
+
 	setOption(data, config) {
 		const o = options(data, config)
 		this.instance && this.instance.setOption(o)
 	}
-
-	
 }
 </script>
 <style lang="scss" scoped>
-.chart{
+.chart {
 	height: 100%;
 }
 </style>
