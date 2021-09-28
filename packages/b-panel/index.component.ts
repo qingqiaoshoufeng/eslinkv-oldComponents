@@ -3,7 +3,7 @@ export const name = 'b-box-panel'
 // 组件名唯一
 export const type = 'b-panel-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.0'
+export const version = '1.0.1'
 // 配置
 export const value = {
 	api: {

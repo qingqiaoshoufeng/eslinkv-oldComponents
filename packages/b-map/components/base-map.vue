@@ -338,9 +338,6 @@ export default {
 						// })
 						data && iconLayerData.push(...data)
 					})
-				console.log('====================================')
-				console.log('iconLayerData', iconLayerData)
-				console.log('====================================')
 				this.iconLayerData = Object.freeze(iconLayerData)
 			} else {
 				Object.keys(this[`legend${type}Config`])
@@ -368,9 +365,6 @@ export default {
 						// })
 						data && iconLayerData.push(...data)
 					})
-				console.log('====================================')
-				console.log('iconLayerData', iconLayerData)
-				console.log('====================================')
 				this.iconLayerData = Object.freeze(iconLayerData)
 			}
 		},
@@ -429,7 +423,7 @@ export default {
 				position: 'absolute',
 				right: 0,
 				left: 0,
-				top:0,
+				top: 0,
 				bottom: 0,
 				margin: 'auto',
 			}

@@ -337,13 +337,7 @@ export default {
 	watch: {
 		data: {
 			handler(val) {
-				console.log('====================================')
-				console.log('地图获取到的巡检隐患数据', val)
-				console.log('====================================')
 				if (this.id && val && !isNaN(val.lon) && !isNaN(val.lat)) {
-					console.log('====================================')
-					console.log('id:', this.id, '地图获取到的巡检隐患数据', val)
-					console.log('====================================')
 					const jsons = {
 						custom: true,
 						type: 'hiddenTroublePoints',

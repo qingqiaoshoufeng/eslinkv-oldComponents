@@ -3,7 +3,7 @@ export const name = 'b-地图'
 // 组件名唯一
 export const type = 'b-map'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.50'
+export const version = '1.0.51'
 export const value = {
 	api: { data: {} },
 	layout: {

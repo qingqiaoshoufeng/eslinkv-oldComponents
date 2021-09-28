@@ -14,6 +14,7 @@ export default class extends mixins(widgetNormalMixin) {
 </script>
 <style lang="scss" scoped>
 .b-bg-2 {
+	pointer-events: none;
 	background: linear-gradient(
 		-90deg,
 		#071f36 69.05%,

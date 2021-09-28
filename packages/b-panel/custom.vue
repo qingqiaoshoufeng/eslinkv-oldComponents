@@ -66,6 +66,7 @@ export default {
 		}
 	}
 	.close-btn {
+		cursor: pointer;
 		top: -52px;
 		box-sizing: border-box;
 		right: 0;
