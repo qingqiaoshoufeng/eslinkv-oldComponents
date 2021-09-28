@@ -4,8 +4,10 @@ widget-normal(
 	:customConfig="customConfig",
 	:eventTypes="eventTypes")
 	.tab
-		.tab-item(:class="tabState === 0 ? 'active' : ''", @click="chooseTab(0)") {{ config.config.title1 }}
-		.tab-item(:class="tabState === 1 ? 'active' : ''", @click="chooseTab(1)") {{ config.config.title2 }}
+		//- .tab-item(:class="tabState === 0 ? 'active' : ''", @click="chooseTab(0)") {{ config.config.title1 }}
+		//- .tab-item(:class="tabState === 1 ? 'active' : ''", @click="chooseTab(1)") {{ config.config.title2 }}
+		.tab-item(:class="tabState === 0 ? '' : ''") {{ config.config.title1 }}
+		.tab-item(:class="tabState === 1 ? '' : ''") {{ config.config.title2 }}
 		.tab-item(:class="'active'", @click="chooseTab(2)") {{ config.config.title3 }}
 	.tool
 		i-select.levels(v-model="type", @on-change="changeLevel")
@@ -277,7 +279,11 @@ export default class extends mixins(widgetNormalMixin) {
 			padding: 40px 25px 40px 0;
 			background: rgba(40, 80, 102, 0.5);
 			margin-top: 39px;
-			transition: all 1200ms;
+			transition: transform 1200ms;
+			cursor: pointer;
+			&:hover {
+				background: #051423;
+			}
 			.row1 {
 				display: flex;
 				align-items: center;

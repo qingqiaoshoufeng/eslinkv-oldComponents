@@ -32,7 +32,7 @@ widget-normal.pos-r(
 							v-for="(item, prop) in detailMap[activeOverlay.type]",
 							:key="prop")
 							span {{ item }}:
-							span.value {{ activeOverlay[prop] }}
+							span.value {{ activeOverlay[prop] }}{{ activeOverlay.type === 'gasPressurePoints' ? 'MPa' : '' }}
 					.operate-btn
 						span.more(
 							@click="openPressure",
@@ -114,6 +114,7 @@ export default {
 				// buildingAnimation: true, //楼块出现是否带动画
 				events: {
 					init: map => {
+						map.setDefaultCursor('pointer')
 						this.$amap = map
 						window.sss = map
 					},
@@ -345,7 +346,7 @@ export default {
 					console.log('====================================')
 					const jsons = {
 						custom: true,
-						type: 'hiddenTrouble',
+						type: 'hiddenTroublePoints',
 						name: '巡检隐患',
 						hasDetail: true,
 					}
