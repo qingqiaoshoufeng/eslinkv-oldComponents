@@ -23,10 +23,13 @@ widget-normal(
 				@click="changeRepairState(2)",
 				:class="repairState === 2 ? 'active' : ''") 已处理{{ data.processed }}
 	.list(
+		v-if="list && list.length > 0",
 		:style="{ height: '100%', overflow: 'hidden' }",
 		@mouseover="stop = true",
 		@mouseleave="stop = false")
-		transition-group.list-group(name="hidden-list", ref="hidden")
+		transition-group.list-group(
+			:name="showList ? 'hidden-list' : ''",
+			ref="hidden")
 			.list-item(
 				v-for="item in list",
 				:key="item.index",
@@ -67,12 +70,16 @@ export default class extends mixins(widgetNormalMixin) {
 	stop = false
 	timer = null
 	timerout = null
+	showList = true
 	list = []
 	@Watch('data', { deep: true, immediate: true })
 	onDataValueChange(val): void {
 		this.list = JSON.parse(JSON.stringify(this.data.realTimeList))
 		this.list.forEach((item, i) => {
 			item.index = i
+		})
+		this.$nextTick(() => {
+			this.showList = true
 		})
 		if (this.timer) clearInterval(this.timer)
 		if (this.timerout) clearTimeout(this.timerout)
@@ -106,6 +113,7 @@ export default class extends mixins(widgetNormalMixin) {
 	// tab切换
 	chooseTab(val) {
 		this.tabState = val
+		this.list = []
 		if (val === 2) {
 			this.__handleEvent__('click1', val)
 		} else {
@@ -115,7 +123,9 @@ export default class extends mixins(widgetNormalMixin) {
 
 	// 下拉选择器切换
 	changeLevel(val) {
+		this.showList = false
 		this.type = val
+		this.list = []
 		this.__handleEvent__('click3', {
 			priority: val,
 			status: this.repairState,
@@ -124,7 +134,9 @@ export default class extends mixins(widgetNormalMixin) {
 
 	// 单选框切换
 	changeRepairState(val) {
+		this.showList = false
 		this.repairState = val
+		this.list = []
 		this.__handleEvent__('click2', { priority: this.type, status: val })
 	}
 
@@ -279,7 +291,7 @@ export default class extends mixins(widgetNormalMixin) {
 			padding: 40px 25px 40px 0;
 			background: rgba(40, 80, 102, 0.5);
 			margin-top: 39px;
-			transition: transform 1200ms;
+			transition: all 1200ms;
 			cursor: pointer;
 			&:hover {
 				background: #051423;
