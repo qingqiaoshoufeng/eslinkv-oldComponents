@@ -1,8 +1,6 @@
 <template lang="pug">
 .base-map
-	es-amap.base-map-container(
-		v-bind="mapConfig",
-		:style="{ transform: reverseTransform }")
+	es-amap.base-map-container(v-bind="mapConfig", :style="mapStyle")
 		//- line图层
 		//- es-loca(v-if="lineReady", v-bind="lineLayerConfig")
 		//- 	es-loca-data(
@@ -183,8 +181,8 @@ export default {
 	},
 	data() {
 		return {
+			mapStyle: {},
 			curMapLayer: 'TileLayer',
-			reverseTransform: 'scale(1, 1) translate3d(0px, 0px, 0px)',
 			iconReady: false,
 			lineReady: false,
 			// 管线图层
@@ -412,11 +410,28 @@ export default {
 		},
 		updateSize() {
 			let transform = document.getElementById('screen').style.transform
+			let { offsetWidth, offsetHeight } = this.$el
+			let scaleX = 1
+			let scaleY = 1
 			if (transform) {
-				const reg = /(?:\d+\.?\d*(?!px|d))/g
-				this.reverseTransform = transform.replace(reg, v => {
-					return 1 / Number(v)
-				})
+				let start = transform.indexOf('scale(')
+				let end = transform.indexOf(')')
+				let scaleArr = transform.slice(start + 6, end).split(',')
+				scaleX = 1 / (scaleArr[0] || 1)
+				scaleY = 1 / (scaleArr[1] || 1)
+			}
+			let width = offsetWidth / scaleX
+			let height = offsetHeight / scaleY
+			this.mapStyle = {
+				transform: `scale(${scaleX}, ${scaleY}) translate3d(0px, 0px, 0px)`,
+				width: width + 'px',
+				height: height + 'px',
+				position: 'absolute',
+				right: 0,
+				left: 0,
+				top:0,
+				bottom: 0,
+				margin: 'auto',
 			}
 		},
 		changeLayer(layerName) {
