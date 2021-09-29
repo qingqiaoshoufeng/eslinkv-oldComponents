@@ -51,7 +51,6 @@
 				.item(
 					v-for="(legend, prop) in legendBottomConfig",
 					:key="prop",
-					@click="legendClick(prop, 'Bottom')",
 					:class="legend.visible ? '' : 'hide'")
 					b-icon(:name="legend.icon", :size="22")
 					.label {{ legend.label }}

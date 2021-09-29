@@ -135,7 +135,7 @@ export default {
 				// },
 				// devices: {},
 				inspectionPersonPoints: {
-					phone: '联系方式',
+					// phone: '联系方式',
 				},
 				inspectionCarPoints: {
 					name: '巡检任务名称',
