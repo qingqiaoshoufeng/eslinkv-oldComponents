@@ -13,6 +13,13 @@ export const legendTopConfig = {
 		layer: 'line',
 		color: '#D736FF',
 	},
+	diya: {
+		label: '低压管网',
+		// icon: 'icon-cigaoya',
+		visible: true,
+		layer: 'line',
+		color: '#364AFF',
+	},
 	gasPressurePoints: {
 		label: '压力监测点',
 		icon: 'icon-yalijiancedian',

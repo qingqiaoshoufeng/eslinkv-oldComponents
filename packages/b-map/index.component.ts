@@ -3,7 +3,7 @@ export const name = 'b-地图'
 // 组件名唯一
 export const type = 'b-map'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.52'
+export const version = '1.0.54'
 export const value = {
 	api: { data: {} },
 	layout: {
@@ -26,6 +26,7 @@ export const value = {
 		stepSpace: 50,
 		gaoya: true,
 		zhongya: true,
+		diya: true,
 		gasPressurePoints: true,
 		hiddenTroublePoints: true,
 		inspectionCarPoints: true,
@@ -63,6 +64,11 @@ export const customConfig = [
 	{
 		prop: 'zhongya',
 		label: '中压管网',
+		type: 'func-switch',
+	},
+	{
+		prop: 'diya',
+		label: '低压管网',
 		type: 'func-switch',
 	},
 	{

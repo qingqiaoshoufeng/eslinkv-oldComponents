@@ -182,6 +182,7 @@ export default {
 		let {
 			gaoya,
 			zhongya,
+			diya,
 			gasPressurePoints,
 			hiddenTroublePoints,
 			inspectionCarPoints,
@@ -191,6 +192,7 @@ export default {
 		let legendVisMap = {
 			gaoya,
 			zhongya,
+			diya,
 			gasPressurePoints,
 			hiddenTroublePoints,
 			inspectionCarPoints,
@@ -224,30 +226,37 @@ export default {
 		// 管线信息  高压、中压、低压
 		async mapLine() {
 			let gaoya = mapLineResult('high')
-			// let cigaoya = mapLineResult('sub-high')
 			let zhongya = mapLineResult('medium')
-			// Promise.all([gaoya, cigaoya, zhongya]).then(res => {
-			Promise.all([gaoya, zhongya]).then(res => {
-				// let [res0, res1, res2] = res
-				let [res0, res1] = res
-				gaoya = res0.data || []
-				zhongya = res1.data || []
-				// cigaoya = res1.data || []
-				this.lineDataMap = Object.freeze({
-					gaoya: {
-						...this.legendTopConfig.gaoya,
-						position: gaoya,
-					},
-					// cigaoya: {
-					// 	...this.legendConfig.cigaoya,
-					// 	position: cigaoya,
-					// },
-					zhongya: {
-						...this.legendTopConfig.zhongya,
-						position: zhongya,
-					},
-				})
-			})
+			let diya = mapLineResult('low')
+			// 市政中压
+			let municipal = mapLineResult('municipal')
+			// 庭院中压
+			let courtyard = mapLineResult('courtyard')
+			Promise.all([gaoya, zhongya, diya, municipal, courtyard]).then(
+				res => {
+					let [res0, res1, res2, res3, res4] = res
+					gaoya = res0.data || []
+					zhongya =
+						res1.data
+							.concat(res3.data || [])
+							.concat(res4.data || []) || []
+					diya = res2.data || []
+					this.lineDataMap = Object.freeze({
+						gaoya: {
+							...this.legendTopConfig.gaoya,
+							position: gaoya,
+						},
+						zhongya: {
+							...this.legendTopConfig.zhongya,
+							position: zhongya,
+						},
+						diya: {
+							...this.legendTopConfig.diya,
+							position: diya,
+						},
+					})
+				},
+			)
 		},
 		async mapArea() {
 			let area = await mapStationArea().then(res => {
