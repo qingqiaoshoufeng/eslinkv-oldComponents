@@ -1,7 +1,7 @@
 <template>
 	<widget-normal :value="value" :customConfig="customConfig" :eventTypes="eventTypes">
 		<div class="o-select-4 fn-flex flex-row pos-r">
-			<h2 class="fn-flex flex-row">
+			<h2 :class="config.config.row ? 'row' : 'column'">
 				<span
 					class="pos-r pointer"
 					v-for="item in data ? data : []"
@@ -66,15 +66,26 @@ export default class OSelect4 extends mixins(widgetNormalMixin) {
 	height: 100%;
 
 	h2 {
+		display: flex;
 		align-items: center;
 		justify-content: center;
 		font-weight: normal;
+		
+		&.column {
+			flex-direction: column;
+			>span {
+				margin-bottom: 8px;
+			}
+		}
+		
+		&.row>span {
+			margin-right: 8px;
+		}
 
 		span {
 			min-width: 88px;
 			padding: 0 8px;
 			height: 32px;
-			margin-right: 8px;
 			font-size: 18px;
 			line-height: 32px;
 			color: rgba(255, 255, 255, 0.75);
@@ -85,6 +96,7 @@ export default class OSelect4 extends mixins(widgetNormalMixin) {
 
 			&:last-child {
 				margin-right: 0;
+				margin-bottom: 0;
 			}
 
 			&.active {

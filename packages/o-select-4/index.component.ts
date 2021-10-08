@@ -3,13 +3,18 @@ export const name = '选项卡4'
 // 组件名唯一
 export const type = 'o-select-4'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.6'
+export const version = '1.0.7'
 // 自定义配置
 export const customConfig = [
 	{
 		prop: 'defaultValue',
 		label: '默认选项',
 		type: 'func-input',
+	},
+	{
+		prop: 'row',
+		label: '横向排列',
+		type: 'func-switch',
 	},
 ]
 // 配置
@@ -32,6 +37,7 @@ export const value = {
 	// 自定义配置默认值
 	config: {
 		defaultValue: '1',
+		row: true,
 	},
 	widget: {
 		componentVersion: version,
