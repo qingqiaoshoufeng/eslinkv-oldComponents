@@ -7,18 +7,27 @@ export const version = '1.0.3'
 // 自定义配置
 export const customConfig = [
 	{
-		prop: 'title',
-		label: '标题',
+		prop: 'defaultValue',
+		label: '默认选项',
 		type: 'func-input',
 	},
 ]
 // 配置
 export const value = {
+	api: {
+		data: JSON.stringify([
+			{ key: 'nav1', label: '运行' },
+			{ key: 'nav2', label: '服务' },
+			{ key: 'nav3', label: '首页' },
+			{ key: 'nav4', label: '工程' },
+			{ key: 'nav5', label: '洞察' },
+		]),
+	},
 	layout: {
 		// 宽高
 		size: {
 			width: 2086,
-			height: 103,
+			height: 146,
 		},
 		position: {
 			value: 'relative',
@@ -26,7 +35,7 @@ export const value = {
 	},
 	// 自定义配置默认值
 	config: {
-		title: '',
+		defaultValue: 'nav1',
 	},
 	widget: {
 		componentVersion: version,
