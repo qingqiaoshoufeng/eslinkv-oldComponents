@@ -3,7 +3,7 @@ export const name = 'b-列表'
 // 组件名唯一
 export const type = 'b-widget-3'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.22'
+export const version = '1.0.23'
 // 自定义配置
 export const customConfig = [
 	{

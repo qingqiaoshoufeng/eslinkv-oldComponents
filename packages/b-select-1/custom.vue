@@ -1,5 +1,8 @@
 <template lang="pug">
-widget-normal(:value="value", :customConfig="customConfig" :eventTypes="eventTypes")
+widget-normal(
+	:value="value",
+	:customConfig="customConfig",
+	:eventTypes="eventTypes")
 	ul.list
 		li.pointer(
 			v-for="(k, i) in data",
@@ -48,8 +51,6 @@ export default class OSelect1 extends mixins(widgetNormalMixin) {
 			})
 		}
 	}
-
-	
 }
 </script>
 <style lang="scss" scoped>
@@ -62,14 +63,14 @@ export default class OSelect1 extends mixins(widgetNormalMixin) {
 		justify-content: center;
 		flex: none;
 		padding: 4px 16px;
-		font-size: 18px;
-		color: #74FFF2;
+		font-size: 24px;
+		color: #74fff2;
 		background: #285066;
 		border-right-width: 0;
 		&.active {
 			font-weight: 600;
 			color: #fff;
-			border: 1px solid #74FFF2;
+			border: 1px solid #74fff2;
 		}
 	}
 }

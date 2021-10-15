@@ -13,7 +13,8 @@ widget-normal.pos-r(
 		:customConfig="innerConfig",
 		@icon-click="handleIconClick",
 		@icon-hover="handleIconHover",
-		@legend-click="handleLegendClick")
+		@legend-click="handleLegendClick",
+		@legend-check="handleLegendCheck")
 		//- 覆盖物详情
 		es-marker(
 			:visible="!!activeOverlay.position",
@@ -58,10 +59,13 @@ widget-normal.pos-r(
 import { EsMarker } from 'es-amap'
 import { widgetMixin, widgetNormal } from '@eslinkv/vue2'
 import { value, customConfig } from './index.component'
-import { legendTopConfig, legendBottomConfig } from './config'
+// import { legendTopConfig, legendBottomConfig } from './config'
 import bIcon from './components/b-icon.vue'
 import baseMap from './components/base-map.vue'
+import { SCENEINDEXMAP } from './config'
+
 import {
+	mapLegend,
 	mapLineResult,
 	mapPointResult,
 	mapStationArea,
@@ -90,8 +94,10 @@ export default {
 			value,
 			customConfig,
 			// 图例配置
-			legendTopConfig: legendTopConfig,
-			legendBottomConfig: legendBottomConfig,
+			legendTopConfig: {},
+			legendBottomConfig: {},
+			legendData: {},
+			legendConfigData: {},
 			// 管线信息
 			lineDataMap: {},
 			iconDataMap: {},
@@ -179,36 +185,129 @@ export default {
 	},
 	created() {
 		this.init()
-		let {
-			gaoya,
-			zhongya,
-			diya,
-			gasPressurePoints,
-			hiddenTroublePoints,
-			inspectionCarPoints,
-			inspectionPersonPoints,
-			companyPoints,
-		} = this.innerConfig
-		let legendVisMap = {
-			gaoya,
-			zhongya,
-			diya,
-			gasPressurePoints,
-			hiddenTroublePoints,
-			inspectionCarPoints,
-			inspectionPersonPoints,
-			companyPoints,
-		}
-		Object.keys(legendVisMap).forEach(prop => {
-			if (this.legendTopConfig[prop]) {
-				this.legendTopConfig[prop].visible = legendVisMap[prop]
-			}
-			if (this.legendBottomConfig[prop]) {
-				this.legendBottomConfig[prop].visible = legendVisMap[prop]
-			}
-		})
+		// let {
+		// 	gaoya,
+		// 	zhongya,
+		// 	diya,
+		// 	gasPressurePoints,
+		// 	hiddenTroublePoints,
+		// 	inspectionCarPoints,
+		// 	inspectionPersonPoints,
+		// 	companyPoints,
+		// } = this.innerConfig
+		// let legendVisMap = {
+		// 	gaoya,
+		// 	zhongya,
+		// 	diya,
+		// 	gasPressurePoints,
+		// 	hiddenTroublePoints,
+		// 	inspectionCarPoints,
+		// 	inspectionPersonPoints,
+		// 	companyPoints,
+		// }
+		// Object.keys(legendVisMap).forEach(prop => {
+		// 	if (this.legendTopConfig[prop]) {
+		// 		this.legendTopConfig[prop].visible = legendVisMap[prop]
+		// 	}
+		// 	if (this.legendBottomConfig[prop]) {
+		// 		this.legendBottomConfig[prop].visible = legendVisMap[prop]
+		// 	}
+		// })
+	},
+	async mounted() {
+		document.addEventListener('SceneIndex', this.handleSceneChange)
 	},
 	methods: {
+		handleLegendCheck(val) {
+			if (val.top && val.bottom) {
+				Object.keys(this.legendData.legendTopConfig).map(item => {
+					this.legendData.legendTopConfig[item].visible = true
+				})
+				Object.keys(this.legendData.legendBottomConfig).map(item => {
+					this.legendData.legendBottomConfig[item].visible = true
+				})
+				this.legendTopConfig = JSON.parse(
+					JSON.stringify(this.legendData.legendTopConfig),
+				)
+				this.legendBottomConfig = JSON.parse(
+					JSON.stringify(this.legendData.legendBottomConfig),
+				)
+				this.legendData = JSON.parse(
+					JSON.stringify(this.legendConfigData),
+				)
+			} else {
+				if (val.top) {
+					for (let item in this.legendData.legendTopConfig) {
+						this.legendData.legendTopConfig[item].visible = true
+					}
+					this.legendTopConfig = JSON.parse(
+						JSON.stringify(this.legendData.legendTopConfig),
+					)
+					this.legendData = JSON.parse(
+						JSON.stringify(this.legendConfigData),
+					)
+				}
+				if (!val.top) {
+					this.legendTopConfig = JSON.parse(
+						JSON.stringify(this.legendData.legendTopConfig),
+					)
+					this.legendData = JSON.parse(
+						JSON.stringify(this.legendConfigData),
+					)
+				}
+				if (val.bottom) {
+					for (let item in this.legendData.legendBottomConfig) {
+						this.legendData.legendBottomConfig[item].visible = true
+					}
+					console.log('====================================')
+					console.log(this.legendData.legendBottomConfig)
+					console.log('====================================')
+					this.legendBottomConfig = JSON.parse(
+						JSON.stringify(this.legendData.legendBottomConfig),
+					)
+					this.legendData = JSON.parse(
+						JSON.stringify(this.legendConfigData),
+					)
+				}
+				if (!val.bottom) {
+					this.legendBottomConfig = JSON.parse(
+						JSON.stringify(this.legendData.legendBottomConfig),
+					)
+					this.legendData = JSON.parse(
+						JSON.stringify(this.legendConfigData),
+					)
+				}
+			}
+		},
+		handleSceneChange(e) {
+			const sceneIndexMap = SCENEINDEXMAP
+			const { index } = e.detail
+			console.log('====================================')
+			console.log(e, e.detail, index)
+			console.log('====================================')
+			const mapConfig = sceneIndexMap[index] || ''
+			if (mapConfig === 'unchange') {
+				return false
+			} else {
+				console.log('====================================')
+				console.log('需要更改地图获取图例的参数')
+				console.log('====================================')
+			}
+		},
+		// 图例
+		async legendConfig() {
+			let legendConfig = await mapLegend('map1').then(res => {
+				this.legendConfigData = JSON.parse(JSON.stringify(res.data))
+				return res.data || {}
+			})
+			this.legendData = JSON.parse(JSON.stringify(legendConfig))
+			this.legendTopConfig = JSON.parse(
+				JSON.stringify(this.legendData.legendTopConfig),
+			)
+			this.legendBottomConfig = JSON.parse(
+				JSON.stringify(this.legendData.legendBottomConfig),
+			)
+		},
 		// 地图点位
 		async mapPoint() {
 			let point = await mapPointResult().then(res => {
@@ -266,6 +365,8 @@ export default {
 		},
 		//获取数据并处理
 		init() {
+			// 图例
+			this.legendConfig()
 			//1.icon
 			this.mapPoint()
 			//定时刷新人，车的位置
@@ -367,6 +468,7 @@ export default {
 	},
 	beforeDestroy() {
 		if (this.timer) clearInterval(this.timer)
+		document.addEventListener('SceneIndex', this.handleSceneChange)
 	},
 }
 </script>

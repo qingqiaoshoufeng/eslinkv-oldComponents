@@ -45,20 +45,27 @@ export default (data, config) => {
 		name: data.line.name,
 		textStyle: {
 			color: 'rgba(255, 255, 255, 1)',
-			fontSize: 16,
+			fontSize: 24,
 			lineHeight: 16,
 		},
 	})
 
 	// x 坐标 日期倾斜
+	option.legend.data.map(item => {
+		item.textStyle.fontSize = 24
+		return item
+	})
 	option.xAxis.axisLabel.interval = 0
-	option.xAxis.axisLabel.rotate = 30
+	option.xAxis.axisLabel.rotate = 20
+	option.xAxis.axisLabel.textStyle.fontSize = 20
+	option.yAxis[0].axisLabel.textStyle.fontSize = 24
+	option.yAxis[0].nameTextStyle.fontSize = 24
 
 	option.yAxis.push({
 		name: '%',
 		nameTextStyle: {
 			color: '#fff',
-			fontSize: 16,
+			fontSize: 24,
 			align: 'left',
 			padding: [2, 6, 5, 8],
 			lineHeight: 10,
@@ -78,6 +85,7 @@ export default (data, config) => {
 			textStyle: {
 				show: true,
 				color: '#fff',
+				fontSize: 24,
 			},
 		},
 		axisLine: {
@@ -94,6 +102,6 @@ export default (data, config) => {
 	})
 	if (max !== undefined) option.grid.left += (max.toString().length - 3) * 12
 	option.grid.left += config.left
-	option.grid.right = 30
+	option.grid.right = 44
 	return option
 }

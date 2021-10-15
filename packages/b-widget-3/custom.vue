@@ -36,7 +36,7 @@ widget-normal(
 				@click="getItem(item)")
 				.row1
 					b-icon(
-						:name="item.hiddenLevel === '紧急' ? 'icon-erjixunjianyinhuan' : item.hiddenLevel === '一般' ? 'icon-sanjixunjianyinhuan' : item.hiddenLevel === '蹲守' ? 'icon-xunjianyinhuanyizhenggai' : ''",
+						:name="item.hiddenStatus === '已处理' ? 'icon-xunjianyinhuanyizhenggai' : item.hiddenLevel === '紧急' ? 'icon-erjixunjianyinhuan' : item.hiddenLevel === '一般' ? 'icon-sanjixunjianyinhuan' : item.hiddenLevel === '蹲守' ? 'icon-xunjianyinhuanyizhenggai' : ''",
 						:size="48")
 					.name {{ item.hiddenName }}
 					.time {{ item.hiddenTime }}

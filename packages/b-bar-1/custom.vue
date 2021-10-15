@@ -28,8 +28,8 @@ export default class extends widgetNormalMixin {
 		}
 	}
 
-	@Watch('config.config.title')
-	onTitleChange(val) {
+	@Watch('config.config')
+	onConfigChange(val) {
 		if (this.id) {
 			this.$nextTick(() => {
 				this.instance = echarts.init(document.getElementById(this.id))

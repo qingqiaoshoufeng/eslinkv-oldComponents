@@ -19,6 +19,11 @@ const ajax = (url: string) => {
 	})
 }
 
+// 地图图例，包含所有图例和当前客户图例，客户图例的visible默认为true
+export function mapLegend(data) {
+	const url = `${API}/gis/legend?mapName=${data}`
+	return ajax(url)
+}
 // 地图管线信息
 export function mapLineResult(data) {
 	const url = `${API}/gis/mapLineResult?type=${data}`

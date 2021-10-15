@@ -15,6 +15,17 @@ export default (data, config) => {
 		  })
 		: ''
 	option.tooltip.trigger = 'axis'
+	option.tooltip = {
+		show: true,
+		trigger: 'axis',
+		textStyle: {
+			fontSize: 28,
+		},
+	}
+	option.xAxis.axisLabel.textStyle.fontSize = 22
+	option.yAxis[0].axisLabel.textStyle.fontSize = 24
+	option.yAxis[0].nameTextStyle.fontSize = 24
+
 	value.forEach((item, index) => {
 		max = Math.max(...[...item.y, max])
 		const color =
