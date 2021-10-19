@@ -16,6 +16,7 @@
     "@babel/runtime-corejs3": "^7.15.4",
     "@eslinkv/core": "^1.1.4",
     "@eslinkv/vue2": "^1.1.5",
+    "@turf/bbox": "^6.5.0",
     "babel-polyfill": "^6.26.0",
     "core-js": "^3.18.0",
     "date-fns": "^2.24.0",

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { loadJs } from '../../../examples/utils.js'
+import { loadJs } from '../utils.js'
 export default {
 	name: 'SvgIcon',
 	props: {
@@ -29,7 +29,7 @@ export default {
 	},
 	created() {
 		loadJs(
-			'//at.alicdn.com/t/font_2864091_joxoftmm4s.css',
+			'//at.alicdn.com/t/font_2864091_yl30l9s5shl.js',
 			'huachen_iconfont',
 		)
 	},

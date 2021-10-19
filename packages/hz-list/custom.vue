@@ -21,7 +21,7 @@ widget-normal(
 				div(:class="repairState === 2 ? 'active' : ''") 已处理{{ data.processed }}
 		.list(
 			v-if="list && list.length > 0",
-			:style="{ height: '100%', overflow: 'hidden' }",                          
+			:style="{ height: '100%', overflow: 'hidden' }",
 			@mouseover="stop = true",
 			@mouseleave="stop = false")
 			transition-group.list-group(
@@ -139,7 +139,7 @@ export default class extends mixins(widgetNormalMixin) {
 	}
 
 	getItem(item) {
-		this.__handleEvent__('click4', item.id)
+		this.__handleEvent__('click4', item)
 	}
 
 	beforeDestroy() {
