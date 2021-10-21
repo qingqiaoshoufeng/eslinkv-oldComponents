@@ -1,21 +1,5 @@
 <template lang="pug">
 .service-page
-	MglMarker(
-		anchor="bottom"
-		:coordinates="[120.18388262, 30.23126455]",
-		@click="handleClick")
-		BIcon.b-icon-width-line(slot="marker", name="menzhan")
-	//- 详情图标
-	MglMarker(
-		:coordinates="[120.18388262, 30.23126455]",
-		:offset="[0,-110]"
-		anchor="bottom",
-		@click="handleClick")
-		.popup(slot="marker")
-			.close-btn
-				BIcon(name="baseline-close-px", :size="20")
-			div 振宁路
-			div 燃气泄漏
 </template>
 <script lang="ts">
 import { MglMap, MglMarker } from 'vue-mapbox'
@@ -25,6 +9,9 @@ export default {
 		MglMap,
 		MglMarker,
 		BIcon,
+	},
+	created() {
+		this.map = this.$parent.map
 	},
 	data() {
 		return {

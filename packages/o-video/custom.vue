@@ -1,6 +1,7 @@
 <template lang="pug">
 widget-normal(:value="value", :customConfig="customConfig")
 	video.fn-block(
+		v-if="config.config.show"
 		:src="config && config.config.video",
 		:controls="config.config.controls",
 		:poster="config.config.poster",

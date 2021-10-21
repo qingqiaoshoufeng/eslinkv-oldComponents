@@ -22,13 +22,28 @@
 		BIcon.b-icon-width-line(slot="marker", name="xunjianqiangxiuche")
 	//- 事件发生位置
 	MglMarker(anchor="bottom", v-if="points[1]", :coordinates="points[1]")
-		BIcon.b-icon-width-line(slot="marker", name="xunjianqiangxiuche")
+		BIcon.b-icon-width-line(
+			slot="marker",
+			:name="'shijianbaojing' + (data.status ? '-' + data.status : '')")
+	//- 事件详情
+	MglMarker(
+		v-if="data.coordinates",
+		:coordinates="data.coordinates",
+		:offset="[0, -110]",
+		anchor="bottom")
+		.popup(slot="marker")
+			.close-btn(@click="$emit('close')")
+				BIcon(name="baseline-close-px", :size="20")
+			.name {{ data.name }}
+			.detail
+				.detail-item(v-for="(item, index) in data.data", :key="index")
+					.detail-item-label(v-if="item.label") {{ item.label }} ：
+					.detail-item-value {{ item.value }} {{ item.dw }}
 </template>
 <script lang="ts">
 import { MglGeojsonLayer, MglMarker } from 'vue-mapbox'
 import BIcon from './b-icon.vue'
 import bbox from '@turf/bbox'
-import routePlanVue from '../page/route-plan.vue'
 export default {
 	name: 'RoutePlan',
 	components: {
@@ -44,6 +59,12 @@ export default {
 					[118, 30],
 					[118.2, 30.1],
 				]
+			},
+		},
+		data: {
+			type: Object,
+			default() {
+				return {}
 			},
 		},
 	},
@@ -102,12 +123,17 @@ export default {
 	},
 	created() {
 		this._map = this.$parent.map
-		this._map.loadImage(require('./arrow.png'), (err, image) => {
-			if (err) throw err
-			this._map.addImage('pattern', image)
-		})
+		//'./arrow.png'上传
+		this._map.loadImage(
+			'https://kv-etbc.eslink.com/node//089ae893-4840-403e-a3cd-fcdf278f4793/componentStatic/o-img/1.0.6/1634539183267.png',
+			(err, image) => {
+				if (err) throw err
+				this._map.addImage('pattern', image)
+			},
+		)
 	},
 	beforeDestroy() {
+		this.animation && cancelAnimationFrame(this.animation)
 		this._map.removeImage('pattern')
 		this.clearRoute()
 	},
@@ -135,6 +161,7 @@ export default {
 					],
 				},
 			}
+			if (this.timerOut) clearTimeout(this.timerOut)
 			this.markerCoordinates = null
 			this.fetchController && this.fetchController.abort()
 			this.animation && cancelAnimationFrame(this.animation)
@@ -175,11 +202,12 @@ export default {
 					this.geojson.data = Object.freeze(geojson)
 					this.setViewFit()
 					//路径回放
-					setTimeout(() => {
+					if (this.timerOut) clearTimeout(this.timerOut)
+					this.timerOut = setTimeout(() => {
 						this.startPoseIndex = 0
 						this.endPoseIndex = path.geometry.coordinates.length
 						this.routePlayBack()
-					}, 2000)
+					}, 4000)
 				})
 				.catch(err => {
 					console.log(err, '取消请求')
@@ -188,7 +216,7 @@ export default {
 		setViewFit() {
 			let bound = bbox(this.geojson.data)
 			this._map.fitBounds(bound, {
-				padding: { top: 100, bottom: 100, left: 200, right: 200 },
+				padding: { top: 100, bottom: 100, left: 1100, right: 700 },
 			})
 		},
 		routePlayBack() {
@@ -206,22 +234,12 @@ export default {
 	},
 }
 </script>
+
 <style lang="scss" scoped>
 @import '../assets/common.scss';
 
-.overlay-name {
-	position: absolute;
-	bottom: -30px;
-	left: 50%;
-	z-index: 0;
-	font-size: 24px;
-	font-weight: bold;
-	color: #fff;
-	white-space: nowrap;
-	transform: translateX(-50%);
-}
-
 .popup {
+	z-index: 11;
 	width: 360px;
 	padding: 24px;
 	border-radius: 16px;
@@ -233,45 +251,20 @@ export default {
 
 	.detail {
 		font-size: 24px;
-		white-space: nowrap;
+		// white-space: nowrap;
 
 		&-item {
 			display: flex;
 			margin-top: 8px;
 			line-height: 34px;
 
+			&-label {
+				white-space: nowrap;
+			}
+
 			&-value {
 				color: yellow;
 			}
-		}
-	}
-}
-
-.legend {
-	position: absolute;
-	right: 649px;
-	bottom: 0;
-	box-sizing: border-box;
-	padding: 16px;
-	font-size: 18px;
-	color: #fff;
-	pointer-events: all;
-	background: rgba(0, 0, 0, 0.8);
-	border: 1px solid #0065df;
-	border-radius: 16px;
-
-	&-item {
-		display: flex;
-		align-items: center;
-		cursor: pointer;
-		user-select: none;
-
-		&:not(:last-child) {
-			margin-bottom: 16px;
-		}
-
-		.label {
-			margin-left: 6px;
 		}
 	}
 }

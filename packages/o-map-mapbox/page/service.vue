@@ -7,7 +7,10 @@
 			anchor="bottom",
 			:coordinates="item.coordinates",
 			@click="handleClick(item)")
-			BIcon.b-icon-width-line(slot="marker", :name="legendConfig[prop].icon")
+			BIcon.b-icon-width-line(
+				slot="marker",
+				:size="56",
+				:name="legendConfig[prop].icon + (item.status ? '-' + item.status : '')")
 				.overlay-name(v-if="!!legendConfig[prop].showName") {{ item.name }}
 	//- 详情图标
 	MglMarker(
@@ -16,7 +19,7 @@
 		v-if="showDetail",
 		anchor="bottom")
 		.popup(slot="marker")
-			.close-btn(@click="handleClose(false)")
+			.close-btn(@click="handleClose")
 				BIcon(name="baseline-close-px", :size="20")
 			.name {{ detail.name }}
 			.detail
@@ -24,7 +27,7 @@
 					.detail-item-label(v-if="item.label") {{ item.label }} ：
 					.detail-item-value {{ item.value }} {{ item.dw }}
 				.operate-btn
-					.btn.btn-text(@click="$emit('custom-click', 'run-click1', detail)") 查看详情
+					.btn.btn-text(@click="$emit('custom-click', 'service-click1', detail)") 查看详情
 	//- 图例
 	.legend
 		.legend-item(
@@ -33,21 +36,21 @@
 			v-if="item.showLegend !== false")
 			b-icon(:name="item.icon", :size="24")
 			.label {{ item.label }}
-	//- 路径规划
-	RoutePlan(
-		v-if="routePlanDetail.points",
-		:points="routePlanDetail.points",
-		@close="handleClose",
-		:data="routePlanDetail")
+	//- 热力图
+	MglGeojsonLayer(
+		type="heatmap",
+		:sourceId="layer.source",
+		:layerId="layer.id",
+		:layer="layer",
+		:source="geojson")
 </template>
 <script lang="ts">
-import { MglMarker } from 'vue-mapbox'
+import { MglGeojsonLayer, MglMarker } from 'vue-mapbox'
 import BIcon from '../components/b-icon.vue'
-import RoutePlan from '../components/route-plan.vue'
 export default {
 	components: {
 		MglMarker,
-		RoutePlan,
+		MglGeojsonLayer,
 		BIcon,
 	},
 	props: {
@@ -58,39 +61,76 @@ export default {
 			},
 		},
 	},
-
-	watch: {
-		data: {
-			handler(val) {
-				if (!val || JSON.stringify(val) === '{}') {
-					this.routePlanDetail = {}
-					this.showDetail = true
-					this.handleMapFly()
-					return false
-				}
-				console.log('ssss', val)
-				let { lat, lng, content, address, statusText, time } = val || {}
-				this.routePlanDetail = {
-					...val,
-					name: content,
-					coordinates: [lng, lat],
-					status: statusText === '已处理' ? '' : 'err',
-					data: [
-						{ label: '', value: address },
-						{ label: '发生时间', value: time },
-						{ label: '是否处理', value: statusText },
-					],
-					points: [
-						[lng - 0.1 * Math.random(), lat - 0.1 * Math.random()],
-						[lng, lat],
-					],
-				}
-			},
-		},
-	},
 	data() {
 		return {
-			routePlanDetail: {},
+			geojson: {
+				data: {
+					type: 'FeatureCollection',
+					features: [],
+				},
+			},
+			layer: {
+				id: 'heatmap',
+				type: 'heatmap',
+				source: 'heatmap',
+				maxzoom: 18,
+				paint: {
+					// 使用mag 属性
+					'heatmap-weight': [
+						'interpolate',
+						['linear'],
+						['get', 'count'],
+						0,
+						0,
+						4000,
+						1,
+					],
+					'heatmap-intensity': [
+						'interpolate',
+						['linear'],
+						['zoom'],
+						0,
+						1,
+						18,
+						3,
+					],
+					'heatmap-color': [
+						'interpolate',
+						['linear'],
+						['heatmap-density'],
+						0,
+						'rgba(0,0,0,0)',
+						0.3,
+						'blue',
+						0.4,
+						'rgb(117,211,248)',
+						0.7,
+						'rgb(0, 255, 0)',
+						0.8,
+						'#ffea00',
+						1,
+						'red',
+					],
+					'heatmap-radius': [
+						'interpolate',
+						['linear'],
+						['zoom'],
+						0,
+						20,
+						18,
+						80,
+					],
+					'heatmap-opacity': [
+						'interpolate',
+						['linear'],
+						['zoom'],
+						0,
+						0,
+						18,
+						0.8,
+					],
+				},
+			},
 			mapConfig: {
 				center: [120.18388262, 30.23126455],
 				zoom: 11,
@@ -102,52 +142,43 @@ export default {
 			pointDataMap: {},
 			// 图例配置
 			legendConfig: {
-				fuwuwangdian: {
-					icon: 'fuwuwangdian',
+				gongsi: {
+					icon: 'fuwuwangdian', //图标
 					label: '公司',
-					showName: true, //地图上是否显示名称
-					showLegend: false, //在图例上是否展示
+					showName: false, //地图上是否显示名称
 				},
-				menzhan: {
-					icon: 'menzhan',
-					label: '门站',
-					showName: true,
-				},
-				yingjizhan: {
-					icon: 'yingjizhan',
-					label: '应急站',
-					showName: true,
+				gongshanghu: {
+					icon: 'fuwugongdan',
+					label: '工商户',
+					showName: false,
 				},
 				gaozhongyatiaoyazhan: {
-					icon: 'gaozhongyatiaoyazhan',
-					label: '高中压调压站',
-				},
-				gaoyaguanwang: {
-					icon: 'gaoyaguanwang',
-					label: '高压管网',
-				},
-				zhongyaguanwang: {
-					icon: 'zhongyaguanwang',
-					label: '中压管网',
-				},
-				xunjianyinhuandian: {
-					icon: 'xunjianyinhuandian',
-					label: '巡检隐患点',
-				},
-				weixiushijian: {
-					icon: 'weixiushijian',
-					label: '抢维事件',
-				},
-				gongyibaojing: {
-					icon: 'gongyibaojing',
-					label: '工艺报警',
-				},
-				xunjianqiangxiuche: {
-					icon: 'xunjianqiangxiuche',
-					label: '巡检抢修车',
+					icon: 'kehureli',
+					label: '客户热力',
 				},
 			},
 		}
+	},
+	watch: {
+		data: {
+			handler(val) {
+				if (!val || JSON.stringify(val) === '{}') {
+					this.showDetail = false
+					this.handleMapFly()
+					return false
+				}
+				let { lng, lat, address, content, time } = val
+				let data = {
+					coordinates: [lng, lat],
+					name: address,
+					data: [
+						{ label: '发生时间', value: time },
+						{ label: '异常类型', value: content },
+					],
+				}
+				this.handleClick(data)
+			},
+		},
 	},
 	created() {
 		this.map = this.$parent.map
@@ -171,10 +202,10 @@ export default {
 				zoom: 15.2,
 			})
 		},
-		handleClose(isEmit = true) {
+		handleClose() {
 			this.showDetail = false
 			this.handleMapFly()
-			isEmit && this.$emit('custom-click', 'run-click2')
+			this.$emit('custom-click', 'service-click2')
 		},
 		// 地图聚焦
 		handleMapFly(data = {}) {
@@ -185,9 +216,14 @@ export default {
 		},
 		getData() {
 			// 1.站点数据
-			fetch('/yapi/mock/914/hzzh/station/list').then(async res => {
+			fetch('/yapi/mock/914/hzzh/service/list').then(async res => {
 				let data = await res.json()
 				this.pointDataMap = data
+			})
+			// 2.客户热力
+			fetch('/yapi/mock/914/hzzh/heatmap').then(async res => {
+				let data = await res.json()
+				this.geojson.data = data
 			})
 		},
 	},
@@ -202,13 +238,10 @@ export default {
 	bottom: -30px;
 	left: 50%;
 	z-index: 0;
-	padding: 4px 8px;
-	font-size: 20px;
+	font-size: 24px;
 	font-weight: bold;
-	color: #333;
+	color: #fff;
 	white-space: nowrap;
-	background: #ffdc45;
-	border-radius: 5px;
 	transform: translateX(-50%);
 }
 
@@ -224,7 +257,6 @@ export default {
 
 	.detail {
 		font-size: 24px;
-		// white-space: nowrap;
 
 		&-item {
 			display: flex;
@@ -245,7 +277,7 @@ export default {
 .legend {
 	position: absolute;
 	right: 649px;
-	bottom: 0;
+	bottom: 73px;
 	box-sizing: border-box;
 	padding: 16px;
 	font-size: 18px;

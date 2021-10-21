@@ -35,6 +35,13 @@ module.exports = {
 				target: 'http://eslinkv.eslink.cc',
 				changeOrigin: true,
 			},
+			'^/yapi': {
+				target: 'http://yapi.eslink.com',
+				changeOrigin: true,
+				pathRewrite: {
+					'^/yapi': ''
+				}
+			},
 		},
 	},
 	css: {

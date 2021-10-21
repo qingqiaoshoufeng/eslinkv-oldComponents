@@ -3,7 +3,7 @@ export const name = 'hz-视频'
 // 组件名唯一
 export const type = 'hz-video'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.2'
+export const version = '1.0.4'
 // 自定义配置
 export const customConfig = [
 	{
@@ -29,6 +29,11 @@ export const customConfig = [
 	{
 		prop: 'loop',
 		label: '循环播放',
+		type: 'func-switch',
+	},
+	{
+		prop: 'show',
+		label: '是否显示',
 		type: 'func-switch',
 	},
 ]
