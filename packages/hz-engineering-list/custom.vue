@@ -18,13 +18,13 @@ widget-normal(
 					@click="getItem(item)")
 					.row1
 						b-icon(
-							:name="item.status === 0 ? 'hzzh-a-Group107' : item.status === 1 ? 'hzzh-a-Group108' : ''",
+							:name="item.status === 0 ? 'hzzh-a-Group108' : item.status === 1 ? 'hzzh-a-Group107' : ''",
 							:size="23")
 						.name {{ item.content }}
-						.time {{ item.time }}
+						.time {{ item.status === 1 ? `延期${item.outday}天` : item.stage === '招标' ? '招标' : item.stage === '竣工' ? '竣工' : `剩余${item.remainday}天` }}
 					.row2
 						.address {{ item.address }}
-						.state(:class="item.status ===  ? 'unhandled' : ''") {{ item.statusText }}
+						.state(:class="item.status === 1 ? 'unhandled' : ''") {{ item.progress }}
 		.empty(v-if="!list || !list.length")
 			.text 暂无数据
 </template>
@@ -124,7 +124,7 @@ export default class extends mixins(widgetNormalMixin) {
 	}
 
 	getItem(item) {
-		this.__handleEvent__('click4', item.id)
+		this.__handleEvent__('click4', item)
 	}
 
 	beforeDestroy() {
@@ -204,7 +204,7 @@ export default class extends mixins(widgetNormalMixin) {
 						height: 8px;
 						border-radius: 50%;
 						background: #00a3ff;
-						right: 40px;
+						right: 50px;
 						top: 8px;
 					}
 					&.unhandled {

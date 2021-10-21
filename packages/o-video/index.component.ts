@@ -1,7 +1,7 @@
 // 组件中文名唯一
-export const name = 'hz-视频'
+export const name = '视频'
 // 组件名唯一
-export const type = 'hz-video'
+export const type = 'video'
 // 检测当前组件名，版本唯一，类似npm发布策略
 export const version = '1.0.4'
 // 自定义配置
@@ -57,9 +57,9 @@ export const value = {
 	config: {
 		video: '',
 		poster: '',
-		controls: true,
+		controls: false,
 		autoplay: true,
-		loop: false,
+		loop: true,
 	},
 	widget: {
 		componentVersion: version,

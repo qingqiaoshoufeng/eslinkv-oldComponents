@@ -53,7 +53,12 @@ export default class extends mixins(widgetNormalMixin) {
 }
 </script>
 <style lang="scss" scoped>
-@import './font/index.css';
+@font-face {
+	font-family: 'UnidreamLED';
+	font-style: normal;
+	font-weight: normal;
+	src: url('https://kv-etbc.eslink.com/cdn/zhanhui/UnidreamLED.ttf');
+}
 .hz-time {
 	width: 100%;
 	height: 100%;

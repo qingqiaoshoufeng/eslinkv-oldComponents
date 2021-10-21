@@ -22,7 +22,7 @@ export default class extends mixins(widgetNormalMixin) {
 	value = value
 	customConfig = customConfig
 	editor = Editor.Instance()
-	isActive = 'nav1'
+	isActive = 'nav3'
 	background = 'url(./nav1.png) no-repeat top center'
 	eventTypes = [
 		{ key: 'click-nav1', label: '运行点击事件' },
