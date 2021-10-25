@@ -60,6 +60,14 @@ export default {
 				return {}
 			},
 		},
+		config: {
+			type: Object,
+			default() {
+				return {
+					serviceZoom: 11,
+				}
+			},
+		},
 	},
 	data() {
 		return {
@@ -133,8 +141,7 @@ export default {
 			},
 			mapConfig: {
 				center: [120.18388262, 30.23126455],
-				zoom: 11,
-				pitch: 60,
+				zoom: this.config.serviceZoom || 11,
 			},
 			showDetail: false,
 			detail: {},
@@ -188,10 +195,9 @@ export default {
 	},
 	methods: {
 		resetMap() {
-			let { center, zoom, pitch } = this.mapConfig
+			let { center, zoom } = this.mapConfig
 			center && this.map.setCenter(center)
 			zoom && this.map.setZoom(zoom)
-			pitch && this.map.setPitch(pitch)
 		},
 
 		handleClick(data) {

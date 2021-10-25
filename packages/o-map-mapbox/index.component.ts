@@ -26,6 +26,26 @@ export const customConfig = [
 		label: '工程场景id',
 		type: 'func-input',
 	},
+	{
+		prop: 'run-zoom',
+		label: '运行页地图缩放等级',
+		type: 'func-input',
+	},
+	{
+		prop: 'service-zoom',
+		label: '服务页地图缩放等级',
+		type: 'func-input',
+	},
+	{
+		prop: 'project-zoom',
+		label: '工程页地图缩放等级',
+		type: 'func-input',
+	},
+	{
+		prop: 'pitch',
+		label: '地图倾斜度',
+		type: 'func-input',
+	}
 ]
 // 配置
 export const value = {
@@ -49,6 +69,10 @@ export const value = {
 		run: '',
 		project: '',
 		service: '',
+		'runZoom': 11.5,
+		'serviceZoom': 11.5,
+		'projectZoom': 11.5,
+		'pitch':60
 	},
 	widget: {
 		componentVersion: version,

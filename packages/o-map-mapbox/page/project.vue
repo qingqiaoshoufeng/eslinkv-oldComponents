@@ -53,6 +53,14 @@ export default {
 				return {}
 			},
 		},
+		config: {
+			type: Object,
+			default() {
+				return {
+					projectZoom: 11,
+				}
+			},
+		},
 	},
 	watch: {
 		data: {
@@ -83,7 +91,7 @@ export default {
 			},
 			mapConfig: {
 				center: [120.18388262, 30.23126455],
-				zoom: 11,
+				zoom: this.config.projectZoom || 11,
 				pitch: 60,
 			},
 			showDetail: false,
@@ -123,10 +131,9 @@ export default {
 	},
 	methods: {
 		resetMap() {
-			let { center, zoom, pitch } = this.mapConfig
+			let { center, zoom } = this.mapConfig
 			center && this.map.setCenter(center)
 			zoom && this.map.setZoom(zoom)
-			pitch && this.map.setPitch(pitch)
 		},
 
 		handleClick(data) {
@@ -234,4 +241,3 @@ export default {
 	}
 }
 </style>
-

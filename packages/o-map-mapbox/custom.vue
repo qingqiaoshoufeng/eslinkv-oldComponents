@@ -8,6 +8,7 @@ widget-normal(
 			:is="currentPageName",
 			@custom-click="handleCustomClick",
 			:data="data",
+			:config="config.config",
 			:style="originStyle")
 </template>
 <script lang="ts">
@@ -53,7 +54,7 @@ export default class OMap extends mixins(widgetNormalMixin) {
 		mapStyle: 'mapbox://styles/mankorn/cku6ih82n3lhw17nzvsrrxxr9',
 		center: [120.18388262, 30.23126455],
 		zoom: 11,
-		pitch: 60,
+		pitch: this.config.config.pitch || 60,
 	}
 	scaleStyle = {}
 	originStyle = {}
