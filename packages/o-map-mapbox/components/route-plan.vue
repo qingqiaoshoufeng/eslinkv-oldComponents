@@ -221,7 +221,11 @@ export default {
 		},
 		routePlayBack() {
 			let { coordinates } = this.geojson.data.features[0].geometry
-			if (this.startPoseIndex < this.endPoseIndex / 3) {
+			let isFinish = this.data.statusText === '已处理'
+			let endPointIndex = isFinish
+				? this.endPoseIndex
+				: this.endPoseIndex / 3
+			if (this.startPoseIndex < endPointIndex) {
 				let point = coordinates[this.startPoseIndex]
 				this.markerCoordinates = point
 				this.geojson2.data.features[0].geometry.coordinates.push(point)

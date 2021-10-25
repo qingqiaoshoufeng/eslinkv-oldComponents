@@ -6,7 +6,7 @@
 			v-for="item in list",
 			anchor="bottom",
 			:coordinates="item.coordinates",
-			@click="handleClick(item)")
+			@click="handleClick(item, prop)")
 			BIcon.b-icon-width-line(slot="marker", :name="legendConfig[prop].icon")
 				.overlay-name(v-if="!!legendConfig[prop].showName") {{ item.name }}
 	//- 详情图标
@@ -23,7 +23,7 @@
 				.detail-item(v-for="(item, index) in detail.data", :key="index")
 					.detail-item-label(v-if="item.label") {{ item.label }} ：
 					.detail-item-value {{ item.value }} {{ item.dw }}
-				.operate-btn
+				.operate-btn(v-if="detail.showMore")
 					.btn.btn-text(@click="$emit('custom-click', 'run-click1', detail)") 查看详情
 	//- 图例
 	.legend
@@ -72,7 +72,6 @@ export default {
 			handler(val) {
 				if (!val || JSON.stringify(val) === '{}') {
 					this.routePlanDetail = {}
-					this.showDetail = true
 					this.handleMapFly()
 					return false
 				}
@@ -161,6 +160,7 @@ export default {
 		//每个页面的center,zoom可能不一致，重置下
 		this.resetMap()
 		this.getData()
+		window.ss = this
 	},
 	methods: {
 		resetMap() {
@@ -169,9 +169,12 @@ export default {
 			zoom && this.map.setZoom(zoom)
 		},
 
-		handleClick(data) {
+		handleClick(data, prop) {
 			this.showDetail = true
 			this.detail = data
+			if (prop === 'menzhan') {
+				this.detail.showMore = true
+			}
 			this.handleMapFly({
 				center: data.coordinates,
 				zoom: 15.2,
