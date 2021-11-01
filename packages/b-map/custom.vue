@@ -33,7 +33,7 @@ widget-normal.pos-r(
 							v-for="(item, prop) in detailMap[activeOverlay.type]",
 							:key="prop")
 							span {{ item }}:
-							span.value {{ activeOverlay[prop] }}{{ activeOverlay.type === 'gasPressurePoints' ? 'MPa' : '' }}
+							span.value {{ activeOverlay[prop] }}{{ activeOverlay.type === 'gasPressurePoints' ? 'KPa' : '' }}
 					.operate-btn
 						span.more(
 							@click="openPressure",
