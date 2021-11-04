@@ -1,6 +1,10 @@
 <template lang="pug">
 widget-normal(:value="value", :customConfig="customConfig" :eventTypes="eventTypes")
-	img(:src="config && config.config.img" @click="__handleEvent__('click')")
+	img(
+		:src="config && config.config.img"
+		@click="__handleEvent__('click')"
+		:class="{point: config.config.isPointer}"
+	)
 </template>
 <script lang="ts">
 import { Component } from 'vue-property-decorator'
@@ -20,5 +24,8 @@ img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	&.point{
+		cursor: pointer;
+	}
 }
 </style>
