@@ -19,13 +19,17 @@ module.exports = {
 		open: true,
 		disableHostCheck: true,
 		proxy: {
+			// '^/node': {
+			// 	// target: 'http://127.0.0.1:7001',
+			// 	target: 'http://eslinkv.eslink.cc',
+			// 	changeOrigin: true,
+			// 	// pathRewrite: {
+			// 	// 	'^/node': '/'
+			// 	// }
+			// },
 			'^/node': {
-				// target: 'http://127.0.0.1:7001',
-				target: 'http://eslinkv.eslink.cc',
+				target: 'https://kv-etbc.eslink.com',
 				changeOrigin: true,
-				// pathRewrite: {
-				// 	'^/node': '/'
-				// }
 			},
 			'/huachen': {
 				target: 'https://kv-etbc.eslink.com',
@@ -39,8 +43,8 @@ module.exports = {
 				target: 'http://yapi.eslink.com',
 				changeOrigin: true,
 				pathRewrite: {
-					'^/yapi': ''
-				}
+					'^/yapi': '',
+				},
 			},
 		},
 	},

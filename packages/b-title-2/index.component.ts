@@ -34,10 +34,12 @@ export const value = {
 		},
 	},
 	config: {
-		titles: [{
-			name: '标题1',
-			sceneId: ''
-		}],
+		titles: [
+			{
+				name: '标题1',
+				sceneId: '',
+			},
+		],
 	},
 	widget: {
 		componentVersion: version,
