@@ -1,5 +1,9 @@
 <template>
-	<widget-normal :value="value" :customConfig="customConfig" :eventTypes="eventTypes">
+	<widget-normal
+		:value="value"
+		:customConfig="customConfig"
+		:eventTypes="eventTypes"
+	>
 		<div class="o-select-3 fn-flex flex-row pos-r">
 			<h2
 				class="fn-flex flex-row"
@@ -69,8 +73,6 @@ export default class extends widgetNormalMixin {
 			})
 		}
 	}
-
-	
 }
 </script>
 <style lang="scss" scoped>
