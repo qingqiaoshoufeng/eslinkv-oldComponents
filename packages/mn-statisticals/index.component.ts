@@ -3,7 +3,7 @@ export const name = 'statistical'
 // 组件名唯一
 export const type = 'a-statistical'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.5'
+export const version = '1.0.1'
 export const value = {
 	api: {
 		data: JSON.stringify({
@@ -14,13 +14,9 @@ export const value = {
 	config: {
 		timeDesc: '本年累计',
 		rightDesc: '今日供气量(m³)',
-		desc: '供气量(m³)',
+		desc: '供气量(m3)',
 		sceneId: '',
 		componentId: '',
-		scale: 1,
-		color: 'rgba(94, 226, 253, 1)',
-		background: 'rgba(0, 0, 0, 0)',
-		borderImage: 'rgba(94, 226, 253, 1)',
 	},
 	layout: {
 		size: {
@@ -62,25 +58,5 @@ export const customConfig = [
 		prop: 'componentId',
 		label: '组件id',
 		type: 'func-input',
-	},
-	{
-		prop: 'scale',
-		label: '缩放大小',
-		type: 'func-input',
-	},
-	{
-		prop: 'color',
-		label: '字体颜色',
-		type: 'func-color',
-	},
-	{
-		prop: 'background',
-		label: '背景色',
-		type: 'func-color',
-	},
-	{
-		prop: 'borderImage',
-		label: '边框色',
-		type: 'func-color',
 	},
 ]

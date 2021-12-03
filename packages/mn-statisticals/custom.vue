@@ -1,12 +1,6 @@
 <template>
-	<div class="widget-part pos-r" :style="styles" v-if="data" ref="box">
-		<div
-			class="statistical2-box"
-			:style="`{
-				transform: translateX(-50%) scale(${config.config.scale});
-				color: ${config.config.color}
-			}`"
-		>
+	<div class="widget-part pos-r" :style="styles" v-if="data">
+		<div class="statistical2-box">
 			<div class="left fn-flex flex-column">
 				<div class="time">{{ config.config.timeDesc }}</div>
 				<div class="time">
@@ -36,11 +30,7 @@
 									:key="key"
 								>
 									<div class="box">
-										<div
-											class="box_border"
-											:style="`{background: ${config.config.background};
-												border-image: linear-gradient(${config.config.borderImage},rgba(0, 0, 0, 0),rgba(0, 0, 0, 0),${config.config.borderImage}) 2;}`"
-										>
+										<div class="box_border">
 											{{ key }}
 										</div>
 									</div>
@@ -54,11 +44,7 @@
 			</div>
 			<div class="right-more pos-r">
 				<div class="box">
-					<div
-						class="box_border"
-						:style="`{background: ${config.config.background};
-							border-image: linear-gradient(${config.config.borderImage},rgba(0, 0, 0, 0),rgba(0, 0, 0, 0),${config.config.borderImage}) 2;}`"
-					>
+					<div class="box_border">
 						<div class="right-more-total font-num">
 							{{ data.todayData | toThousand }}
 						</div>
@@ -80,7 +66,6 @@ export default {
 		return {
 			scrollList: new Int8Array(10),
 			transform: new Int8Array(9),
-			scaleStyle: {},
 		}
 	},
 	mixins: [widgetMixin],
@@ -130,21 +115,20 @@ export default {
 	display: flex;
 	width: 100%;
 	height: 100%;
-	align-items: center;
+
 	.left {
 		min-width: 66px;
 		height: 39px;
-		height: 39px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
+
 		.time {
 			width: 100%;
 			height: 13px;
+			margin-top: 9px;
 			font-size: 13px;
 			font-style: normal;
 			font-weight: 600;
 			line-height: 13px;
+			color: #74fff2;
 			text-align: right;
 			letter-spacing: 0;
 		}
@@ -182,6 +166,8 @@ export default {
 							line-height: 54px;
 							color: #fff;
 							text-align: center;
+							// background: url('./bgl.png') no-repeat;
+							// background-size: 100% 100%;
 							border-radius: 2px;
 						}
 					}
@@ -202,14 +188,17 @@ export default {
 
 	.right-more {
 		height: 54px;
-		text-align: left;
+		text-align: center;
+		// padding: 2px 8px;
+		// background: url('./bg.png') no-repeat;
+		// background-size: 100% 100%;
 
 		.right-more-des {
 			min-width: 32px;
 			font-weight: 600;
 			font-size: 13px;
+			color: rgba(94, 226, 253, 1);
 			line-height: 13px;
-			text-align: center;
 		}
 
 		.right-more-total {
@@ -230,7 +219,19 @@ export default {
 		width: 100%;
 		height: 100%;
 		box-sizing: border-box;
-		border: 1px solid;
+		border: 1px solid rgba(94, 226, 253, 1);
+		border-image: linear-gradient(
+				rgba(94, 226, 253, 1),
+				rgba(94, 226, 253, 0.7),
+				rgba(94, 226, 253, 0.4),
+				rgba(0, 0, 0, 0),
+				rgba(0, 0, 0, 0),
+				rgba(0, 0, 0, 0),
+				rgba(94, 226, 253, 0.4),
+				rgba(94, 226, 253, 0.7),
+				rgba(94, 226, 253, 1)
+			)
+			2;
 	}
 }
 </style>

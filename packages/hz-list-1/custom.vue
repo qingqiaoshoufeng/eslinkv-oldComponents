@@ -63,14 +63,14 @@ import { mixins } from 'vue-class-component'
 import { value, customConfig, eventTypes } from './index.component'
 import { Select, Option } from 'view-design'
 import bIcon from './components/b-icon.vue'
-import { VueBetterScroll } from 'vue2-better-scroll'
+// import { VueBetterScroll } from 'vue2-better-scroll'
 @Component({
 	components: {
 		widgetNormal,
 		'i-select': Select,
 		'i-option': Option,
 		bIcon,
-		VueBetterScroll,
+		// VueBetterScroll,
 	},
 })
 export default class extends mixins(widgetNormalMixin) {
