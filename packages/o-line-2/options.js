@@ -25,6 +25,18 @@ export default (data, config) => {
 	option.xAxis.axisLabel.textStyle.fontSize = 22
 	option.yAxis[0].axisLabel.textStyle.fontSize = 24
 	option.yAxis[0].nameTextStyle.fontSize = 24
+	option.dataZoom = [
+		{
+			type: 'slider',
+			yAxisIndex: [0],
+			show: true,
+			left: '0%',
+			start: 90,
+			end: 100,
+		},
+	]
+	option.yAxis[0].splitNumber = 4
+	// option.yAxis[0].interval = 0.3
 
 	value.forEach((item, index) => {
 		max = Math.max(...[...item.y, max])
