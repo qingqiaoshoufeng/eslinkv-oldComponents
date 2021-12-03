@@ -38,8 +38,8 @@
 									<div class="box">
 										<div
 											class="box_border"
-											:style="`{background: ${config.config.background};
-												border-image: linear-gradient(${config.config.borderImage},rgba(0, 0, 0, 0),rgba(0, 0, 0, 0),${config.config.borderImage}) 2;}`"
+											:style="`background: ${config.config.background};
+												border-image: linear-gradient(${config.config.borderImage},rgba(0, 0, 0, 0),rgba(0, 0, 0, 0),${config.config.borderImage}) 2;`"
 										>
 											{{ key }}
 										</div>
@@ -56,8 +56,8 @@
 				<div class="box">
 					<div
 						class="box_border"
-						:style="`{background: ${config.config.background};
-							border-image: linear-gradient(${config.config.borderImage},rgba(0, 0, 0, 0),rgba(0, 0, 0, 0),${config.config.borderImage}) 2;}`"
+						:style="`background: ${config.config.background};
+							border-image: linear-gradient(${config.config.borderImage},rgba(0, 0, 0, 0),rgba(0, 0, 0, 0),${config.config.borderImage}) 2;`"
 					>
 						<div class="right-more-total font-num">
 							{{ data.todayData | toThousand }}
