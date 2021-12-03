@@ -1,9 +1,9 @@
 // 组件中文名唯一
-export const name = '选项卡3'
+export const name = '选项卡3-1'
 // 组件名唯一
-export const type = 'o-select-3'
+export const type = 'o-select-31'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.13'
+export const version = '1.0.7'
 // 自定义配置
 export const customConfig = [
 	{
@@ -11,17 +11,38 @@ export const customConfig = [
 		label: '默认选项',
 		type: 'func-input',
 	},
+	{
+		prop: 'background',
+		label: '背景颜色',
+		type: 'func-input',
+	},
+	{
+		prop: 'selectList',
+		label: '下拉列表',
+		type: 'func-group',
+		children: [
+			{
+				prop: 'label',
+				label: 'label',
+				type: 'func-input',
+			},
+			{
+				prop: 'value',
+				label: 'value',
+				type: 'func-input',
+			},
+		],
+	},
 ]
 // 配置
 export const value = {
-	bind: {},
 	api: {
 		// 接口请求数据默认值
-		data: JSON.stringify([
-			{ label: 'Tab01', value: '1' },
-			{ label: 'Tab02', value: '2' },
-			{ label: 'Tab03', value: '3' },
-		]),
+		// data: JSON.stringify([
+		// 	{ label: 'Tab01', value: '1' },
+		// 	{ label: 'Tab02', value: '2' },
+		// 	{ label: 'Tab03', value: '3' },
+		// ]),
 	},
 	layout: {
 		// 宽高
@@ -33,6 +54,13 @@ export const value = {
 	// 自定义配置默认值
 	config: {
 		defaultValue: '1',
+		background: '',
+		selectList: [
+			{
+				label: '名称1',
+				value: '1',
+			},
+		],
 	},
 	widget: {
 		componentVersion: version,

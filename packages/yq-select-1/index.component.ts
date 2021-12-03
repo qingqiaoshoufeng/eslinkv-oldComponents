@@ -3,12 +3,17 @@ export const name = '选项卡'
 // 组件名唯一
 export const type = 'yq-select-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.0'
+export const version = '1.0.2'
 // 自定义配置
 export const customConfig = [
 	{
 		prop: 'defaultValue',
 		label: '默认选项',
+		type: 'func-input',
+	},
+	{
+		prop: 'background',
+		label: '背景颜色',
 		type: 'func-input',
 	},
 	{
@@ -59,6 +64,7 @@ export const value = {
 				value: 2,
 			},
 		],
+		background: '',
 	},
 	widget: {
 		componentVersion: version,

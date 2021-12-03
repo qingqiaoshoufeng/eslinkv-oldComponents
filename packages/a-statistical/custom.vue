@@ -1,6 +1,11 @@
 <template>
-	<div class="widget-part pos-r" :style="styles" v-if="data">
-		<div class="statistical2-box">
+	<div class="widget-part pos-r" :style="styles" v-if="data" ref="box">
+		<div
+			class="statistical2-box"
+			:style="{
+				transform: `translateX(-50%) scale(${config.config.scale})`,
+			}"
+		>
 			<div class="left fn-flex flex-column">
 				<div class="time">{{ config.config.timeDesc }}</div>
 				<div class="time">
@@ -56,6 +61,7 @@ export default {
 		return {
 			scrollList: new Int8Array(10),
 			transform: new Int8Array(9),
+			scaleStyle: {},
 		}
 	},
 	mixins: [widgetMixin],
@@ -105,20 +111,24 @@ export default {
 	display: flex;
 	width: 100%;
 	height: 100%;
-
+	display: flex;
+	align-items: center;
 	.left {
 		min-width: 66px;
 		height: 39px;
-
+		min-width: 66px;
+		height: 39px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 		.time {
 			width: 100%;
 			height: 13px;
-			margin-top: 9px;
 			font-size: 13px;
 			font-style: normal;
 			font-weight: 600;
 			line-height: 13px;
-			color: #74FFF2;
+			color: #74fff2;
 			text-align: right;
 			letter-spacing: 0;
 		}
@@ -182,12 +192,12 @@ export default {
 		padding: 2px 8px;
 		background: url('./bg.png') no-repeat;
 		background-size: 100% 100%;
-		
+
 		.right-more-des {
 			min-width: 32px;
 			font-weight: 600;
 			font-size: 13px;
-			color: #74FFF2;
+			color: #74fff2;
 			line-height: 13px;
 		}
 

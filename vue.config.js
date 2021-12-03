@@ -26,14 +26,27 @@ module.exports = {
 			// 	// pathRewrite: {
 			// 	// 	'^/node': '/'
 			// 	// }
-			// },
+			// }, ceshi
+			'^/ceshi': {
+				target: 'https://kv-etbc.eslink.com',
+				changeOrigin: true,
+				headers: {
+					Cookie: 'UM_distinctid=179cbd18f652b6-0fd6d652023f73-2363163-1fa400-179cbd18f66cb1; EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB; SESSION=f1bdcfaf-1b8a-44f3-8bb7-2e05e91fb5ca',
+				},
+			},
 			'^/node': {
 				target: 'https://kv-etbc.eslink.com',
 				changeOrigin: true,
+				headers: {
+					Cookie: 'UM_distinctid=179cbd18f652b6-0fd6d652023f73-2363163-1fa400-179cbd18f66cb1; EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB; SESSION=ff6f6ef0-0cd2-4fa2-a678-c9a59708728e',
+				},
 			},
 			'/huachen': {
 				target: 'https://kv-etbc.eslink.com',
 				changeOrigin: true,
+				headers: {
+					Cookie: 'EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB; SESSION=ce6fae46-ceae-4446-9fc6-18331b9897d3',
+				},
 			},
 			'^/cdn': {
 				target: 'http://eslinkv.eslink.cc',
@@ -46,6 +59,14 @@ module.exports = {
 					'^/yapi': '',
 				},
 			},
+			// /editor/manger/5f2565ee-cadd-49ff-a658-3c665ce8d373
+			// '^/editor/manger': {
+			// 	target: 'https://kv-etbc.eslink.com',
+			// 	changeOrigin: true,
+			// 	headers: {
+			// 		Cookie: 'UM_distinctid=179cbd18f652b6-0fd6d652023f73-2363163-1fa400-179cbd18f66cb1; EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB; SESSION=ff6f6ef0-0cd2-4fa2-a678-c9a59708728e',
+			// 	},
+			// },
 		},
 	},
 	css: {

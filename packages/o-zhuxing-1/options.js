@@ -1,4 +1,4 @@
-import {getCommonOption} from "../../examples/utils";
+import { getCommonOption } from '../../examples/utils'
 
 export default (data, config) => {
 	let max = 0
@@ -8,7 +8,7 @@ export default (data, config) => {
 	option.xAxis.data = value[0].list.map(v => v.x)
 	option.tooltip.trigger = 'axis'
 	option.tooltip.axisPointer = {
-		type: 'shadow'
+		type: 'shadow',
 	}
 	value.forEach((item, index) => {
 		max = Math.max(...[...item.list.map(v => v.value), max])
@@ -23,10 +23,9 @@ export default (data, config) => {
 				show: true,
 				position: 'top',
 				formatter: '{a}',
-				color:
-					config.colorTheme.colorDisk[
-						index % config.colorTheme.colorDisk.length
-					],
+				color: config.colorTheme.colorDisk[
+					index % config.colorTheme.colorDisk.length
+				],
 				backgroundColor:
 					config.colorTheme.colorDisk[
 						index % config.colorTheme.colorDisk.length
@@ -88,8 +87,8 @@ export default (data, config) => {
 			symbol: 'emptyCircle',
 			showSymbol: false, // 是否显示 symbol, 如果 false 则只有在 tooltip hover 的时候显示。
 			itemStyle: {
-				color: config.lineColor
-			}
+				color: config.lineColor,
+			},
 		})
 		option.grid.right = 40
 	}

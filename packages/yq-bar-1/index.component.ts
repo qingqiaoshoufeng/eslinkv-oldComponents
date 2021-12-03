@@ -1,7 +1,7 @@
 // 组件中文名唯一
-export const name = 'b-bar-2'
+export const name = '空心线柱图'
 // 组件名唯一
-export const type = 'b-bar-2'
+export const type = 'yq-bar-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
 export const version = '1.0.2'
 // 自定义配置
@@ -59,8 +59,8 @@ export const value = {
 	layout: {
 		// 宽高
 		size: {
-			width: 497,
-			height: 200,
+			width: 910,
+			height: 510,
 		},
 		position: {
 			value: 'relative',

@@ -203,18 +203,6 @@ export const value = {
 				name: '标题111111',
 				sceneId: '',
 			},
-			{
-				name: '标题111111',
-				sceneId: '',
-			},
-			{
-				name: '标题111111',
-				sceneId: '',
-			},
-			{
-				name: '标题111111',
-				sceneId: '',
-			},
 		],
 	},
 	widget: {

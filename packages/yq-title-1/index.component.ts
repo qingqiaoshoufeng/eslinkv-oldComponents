@@ -3,7 +3,7 @@ export const name = 'yq-title-1'
 // 组件名唯一
 export const type = 'yq-title-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.1'
+export const version = '1.0.3'
 // 自定义配置
 export const customConfig = [
 	{

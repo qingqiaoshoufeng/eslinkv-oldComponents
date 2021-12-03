@@ -1,9 +1,8 @@
 <template lang="pug">
 widget-normal.main(:value="value", :customConfig="customConfig")
-	.border-box
-		.bg-box
-			h2 {{ config.config.title || data.title }}
-			.value {{ config.config.value || data.value }}
+	.yq-title-4
+		h2 {{ config.config.title || data.title }}
+		.value {{ config.config.value || data.value }}
 </template>
 <script lang="ts">
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
@@ -18,53 +17,60 @@ export default class extends mixins(widgetNormalMixin) {
 }
 </script>
 <style lang="scss" scoped>
-.border-box {
+.yq-title-4 {
+	padding: 0, 50px, 0, 30px;
 	height: 100%;
 	width: 100%;
-	padding: 2px;
-	// height: 152px;
+
+	padding-left: 45px;
 	background: linear-gradient(
-		to bottom,
-		rgba(116, 255, 242, 1),
-		rgba(5, 20, 35, 1),
-		rgba(116, 255, 242, 1)
+		90deg,
+		rgba(40, 80, 102, 0.5) 0%,
+		rgba(40, 80, 102, 0) 100%
 	);
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	.bg-box {
-		margin: 2px;
-		height: 100%;
-		width: 100%;
-		padding-left: 45px;
-		background: #051423;
-		display: flex;
-		align-items: center;
-		// padding-left: 47px;
-		// padding-right: 50px;
+	flex-direction: column;
+	// padding-left: 47px;
+	// padding-right: 50px;
 
-		h2 {
-			height: 36px;
-			font-family: PingFang SC;
-			font-style: normal;
-			font-weight: 600;
-			font-size: 36px;
-			line-height: 36px;
-			color: #74fff2;
-			margin-right: 64px;
-		}
-		.value {
-			font-family: DIN Alternate;
-			font-style: normal;
-			font-weight: bold;
-			font-size: 72px;
-			line-height: 72px;
-			/* identical to box height, or 100% */
-			flex: 1;
-			text-align: right;
-			padding-right: 40px;
-			color: #ffffff;
-		}
+	h2 {
+		font-family: PingFang SC;
+		font-size: 40px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 56px;
+		letter-spacing: 0px;
+		text-align: left;
+		color: #fff;
+		text-align: left;
+		margin-top: 24px;
+		align-items: center;
+		flex-shrink: 0;
+		flex-grow: 0;
+		width: 100%;
+		flex-shrink: 0;
+		flex-flow: 0;
+	}
+	.value {
+		font-family: DIN Alternate;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 80px;
+		// line-height: 93px;
+		text-align: right;
+		width: 100%;
+		text-align: right;
+		justify-content: flex-end;
+		padding-right: 38px;
+		flex: 1;
+		align-items: center;
+
+		/* style1/主色 */
+
+		color: #74fff2;
+		display: flex;
+		text-align: right;
 	}
 }
 // h2 {

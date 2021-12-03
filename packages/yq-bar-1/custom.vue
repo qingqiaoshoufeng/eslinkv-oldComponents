@@ -4,11 +4,11 @@ widget-normal(
 	:customConfig="customConfig",
 	:eventTypes="eventTypes"
 )
-	.chart(:id="id")
+	.o-zhuxing-2(:id="id")
 </template>
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator'
-import { value, customConfig } from './index.component'
+import { value, customConfig } from './index.component.ts'
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import options from './options'
 
@@ -23,45 +23,31 @@ export default class extends widgetNormalMixin {
 		if (this.id) {
 			const data = { ...val }
 			this.$nextTick(() => {
-				this.instance = window.echarts.init(
-					document.getElementById(this.id),
-				)
+				this.instance = echarts.init(document.getElementById(this.id))
 				this.setOption(data, this.config.config)
-				this.instance.off('click')
-				this.instance.on('click', (params: any) => {
-					const res = val.value[params.seriesIndex]
-					const req = {
-						name: res.name,
-						x: res.x[params.dataIndex],
-						y: res.y[params.dataIndex],
-					}
-					this.__handleEvent__('click', req)
-				})
 			})
 		}
 	}
 
-	@Watch('config.config', { deep: true, immediate: true })
+	@Watch('config.config')
 	onConfigChange(val) {
 		if (this.id) {
-			const data = { ...val }
 			this.$nextTick(() => {
-				this.instance = window.echarts.init(
-					document.getElementById(this.id),
-				)
-				this.setOption(data, this.config.config)
+				this.instance = echarts.init(document.getElementById(this.id))
+				this.setOption(this.data, this.config.config)
 			})
 		}
 	}
 
 	setOption(data, config) {
 		const o = options(data, config)
+		console.log(data, config, 'data,config')
 		this.instance && this.instance.setOption(o)
 	}
 }
 </script>
 <style lang="scss" scoped>
-.chart {
+.o-zhuxing-2 {
 	height: 100%;
 }
 </style>

@@ -7,6 +7,20 @@ export default (data, config) => {
 	const option = getCommonOption(value, config)
 	const lineIndex = value.length
 	value.forEach((item, index) => {
+		let mergeOptionMap = {
+			0: {
+				barWidth: 40,
+				itemStyle: {
+					borderColor: '#74FFF2',
+					borderWidth: 2,
+				},
+			},
+			1: {
+				barWidth: 20,
+				barGap: '-75%',
+			},
+		}
+
 		max = Math.max(...[...item.y, max])
 		const req = {
 			type: 'bar',
@@ -17,6 +31,7 @@ export default (data, config) => {
 			symbolSize: 5,
 			data: item.y,
 			itemStyle: {},
+			...mergeOptionMap[index],
 		}
 		if (config.isLinearGradient) {
 			const color =
