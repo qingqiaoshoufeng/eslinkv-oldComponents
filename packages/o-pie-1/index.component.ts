@@ -82,7 +82,7 @@ export const value = {
 		title2: '销售气量',
 		startAngle: 270,
 		fontSize: 24,
-		top: 46
+		top: 46,
 	},
 	event: {
 		scene: [

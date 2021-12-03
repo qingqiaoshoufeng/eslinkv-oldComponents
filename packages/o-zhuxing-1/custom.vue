@@ -1,6 +1,10 @@
 <template lang="pug">
-widget-normal(:value="value", :customConfig="customConfig" :eventTypes="eventTypes")
-	.legend(v-if="data.percent &&  config.config.colorTheme")
+widget-normal(
+	:value="value",
+	:customConfig="customConfig",
+	:eventTypes="eventTypes"
+)
+	.legend(v-if="data.percent && config.config.colorTheme")
 		.item(v-for="(k, i) in data.value")
 			.color(:style="{ background: config.config.colorTheme.colorDisk[i] }")
 			span {{ k.name }}
@@ -46,8 +50,6 @@ export default class extends widgetNormalMixin {
 		const o = options(data, config)
 		this.instance && this.instance.setOption(o)
 	}
-
-	
 }
 </script>
 <style lang="scss" scoped>

@@ -2,7 +2,8 @@
 widget-normal(
 	:value="value",
 	:customConfig="customConfig",
-	:eventTypes="eventTypes")
+	:eventTypes="eventTypes"
+)
 	.chart(:id="id")
 </template>
 <script lang="ts">
