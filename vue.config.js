@@ -12,7 +12,7 @@ module.exports = {
 	transpileDependencies: ['@simonwep', 'swiper', 'dom7'],
 	assetsDir: 'static',
 	productionSourceMap: false,
-	lintOnSave: true,
+	lintOnSave: 'warning',
 	devServer: {
 		port: 3000,
 		hot: true,
@@ -31,7 +31,7 @@ module.exports = {
 				target: 'https://kv-etbc.eslink.com',
 				changeOrigin: true,
 				headers: {
-					Cookie: 'UM_distinctid=179cbd18f652b6-0fd6d652023f73-2363163-1fa400-179cbd18f66cb1; EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB; SESSION=f1bdcfaf-1b8a-44f3-8bb7-2e05e91fb5ca',
+					Cookie: 'EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB; OUTFOX_SEARCH_USER_ID_NCOO=1918531703.0243301; SESSION=d18ba357-8436-424a-96cd-cc2522faf212',
 				},
 			},
 			'^/node': {
@@ -45,7 +45,7 @@ module.exports = {
 				target: 'https://kv-etbc.eslink.com',
 				changeOrigin: true,
 				headers: {
-					Cookie: 'EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB; SESSION=ce6fae46-ceae-4446-9fc6-18331b9897d3',
+					Cookie: 'EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB; SESSION=6f6b5db5-88a5-47cc-b14a-9ed9cbd93eea',
 				},
 			},
 			'^/cdn': {
