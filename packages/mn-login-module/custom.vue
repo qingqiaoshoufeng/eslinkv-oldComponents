@@ -17,14 +17,25 @@ export default class extends mixins(widgetNormalMixin) {
 	customConfig = customConfig
 	editor = Editor.Instance()
 	doLogin(): void {
-		const { url = '', scenceId = '', jumpUrl = '' } = this.config.config
+		const {
+			url = '',
+			scenceId = '',
+			jumpUrl = '',
+			username = '',
+			password = '',
+		} = this.config.config
 		if (!url) {
 			console.warn('缺少登录请求地址')
 			return
 		}
-		fetch(url)
+
+		fetch(`${url}?username=${username}&password=${password}`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+		})
 			.then(async res => {
-				console.log(res)
 				if (res.status >= 200 || res.status < 300) {
 					const json = await res.json()
 					if (json.returnCode === '0000') {
