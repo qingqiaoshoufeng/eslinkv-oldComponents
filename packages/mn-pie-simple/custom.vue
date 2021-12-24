@@ -1,0 +1,59 @@
+<template lang="pug">
+widget-normal(
+	:value="value",
+	:customConfig="customConfig",
+	:eventTypes="eventTypes"
+)
+	.chart(:id="id", :style="bgStyle")
+	.unit(:style="{ [config.config.unitPosition]: 0 }") {{ config.config.unit }}
+</template>
+<script lang="ts">
+import { Component, Watch } from 'vue-property-decorator'
+import { value, customConfig } from './index.component.ts'
+import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
+import options from './options'
+
+@Component({ components: { widgetNormal } })
+export default class OLine1 extends widgetNormalMixin {
+	eventTypes = [{ key: 'click', label: '点击事件' }]
+	value = value
+	customConfig = customConfig
+	bgStyle = {
+		'background-size': `${this.config.config.radius.split(',')[2]}% ${
+			this.config.config.radius.split(',')[2]
+		}%`,
+	}
+	@Watch('data', { deep: true, immediate: true })
+	onDataChange(val) {
+		if (this.id) {
+			const data = { ...val }
+			this.$nextTick(() => {
+				this.instance = echarts.init(document.getElementById(this.id))
+				this.setOption(data, this.config.config)
+				this.instance.off('click')
+				this.instance.on('click', params => {
+					this.__handleEvent__('click', params.data)
+				})
+			})
+		}
+	}
+
+	setOption(data, config) {
+		const o = options(data, config)
+		this.instance && this.instance.setOption(o)
+	}
+}
+</script>
+<style lang="scss" scoped>
+.chart {
+	height: 100%;
+	background-image: url('./loop-bg.svg');
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}
+.unit {
+	position: absolute;
+	right: 0;
+	color: #fff;
+}
+</style>

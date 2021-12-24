@@ -1,6 +1,6 @@
 const API = '/huachen'
 const api = '/meineng'
-// const parmasString = '?companyId=0049'
+// const parmasString = '?companyId=004901'
 const parmasString = ''
 const ajax = (url: string) => {
 	return new Promise((resolve, reject) => {
@@ -60,14 +60,22 @@ const ajax = (url: string) => {
 // 	return ajax(url)
 // }
 
-export function getAllMapPonit() {
+export function getAllapPonit() {
 	// http://119.3.142.120:8083/home/map?
-	const url = `${api}/home/map${parmasString}`
+	const url = `${api}/home/bdMap${parmasString}`
+	return ajax(url)
+}
+// /home/bdMap?companyId=0049
+export function getAllMapArea() {
+	// http://119.3.142.120:8083/home/map?
+	const url = `${api}/home/bdMapArea${parmasString}`
 	return ajax(url)
 }
 
-export function getAllMapArea() {
-	// http://119.3.142.120:8083/home/map?
-	const url = `${api}/home/mapArea${parmasString}`
-	return ajax(url)
+export function getAllInfo() {
+	debugger
+	return Promise.all([
+		getAllapPonit(),
+		// getAllMapArea()
+	])
 }

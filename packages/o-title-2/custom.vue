@@ -12,9 +12,8 @@ import { value, customConfig } from './index.component'
 
 @Component({ components: { widgetNormal } })
 export default class extends mixins(widgetNormalMixin) {
-value = value
-customConfig = customConfig
-	
+	value = value
+	customConfig = customConfig
 }
 </script>
 <style lang="scss" scoped>

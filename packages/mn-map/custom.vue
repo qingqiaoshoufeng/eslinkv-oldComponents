@@ -12,6 +12,7 @@ widget-normal.pos-r(
 		:legendTopConfig="legendTopConfig",
 		:legendBottomConfig="legendBottomConfig",
 		:customConfig="innerConfig",
+		:currentCompanyInfo="currentCompanyInfo",
 		@icon-click="handleIconClick",
 		@icon-hover="handleIconHover",
 		@legend-click="handleLegendClick",
@@ -72,12 +73,15 @@ import baseMap from './components/base-map.vue'
 import { SCENEINDEXMAP } from './config'
 
 import {
-	mapLegend,
-	mapLineResult,
-	mapPointResult,
-	mapStationArea,
-	stationPointsDetail,
-	pressureCollectDetail,
+	// mapLegend,
+	// mapLineResult,
+	// mapPointResult,
+	// mapStationArea,
+	// getAllMapCenter,
+	// stationPointsDetail,
+	// pressureCollectDetail,
+	getAllMapPonit,
+	getAllMapArea,
 } from './api/index.ts'
 export default {
 	name: 'b-map',
@@ -121,7 +125,7 @@ export default {
 					},
 				},
 				zoom: 10,
-				center: [118.11304, 39.755102],
+				center: [110.446311, 35.506857],
 				mapStyle: 'amap://styles/e0e1899c1695e012c70d0731a5cda43c',
 				// viewMode: '3D', //开启3D视图,默认为关闭
 				// buildingAnimation: true, //楼块出现是否带动画
@@ -183,6 +187,8 @@ export default {
 				// 'gatePoints',
 				'gasPressurePoints',
 			],
+			centerList: [],
+			currentCompanyInfo: '',
 		}
 	},
 	computed: {
@@ -222,8 +228,10 @@ export default {
 		// })
 	},
 	async mounted() {
-		document.addEventListener('SceneIndex', this.handleSceneChange)
+		this.currentCompanyInfo = sessionStorage.getItem('insertParams')
+		window.addEventListener('opencenceListChange', this.handleSceneChange)
 	},
+
 	methods: {
 		handleLegendCheck(val) {
 			if (val.top && val.bottom) {
@@ -287,102 +295,58 @@ export default {
 			}
 		},
 		handleSceneChange(e) {
-			const sceneIndexMap = SCENEINDEXMAP
-			const { index } = e.detail
-			console.log('====================================')
-			console.log(e, e.detail, index)
-			console.log('====================================')
-			const mapConfig = sceneIndexMap[index] || ''
-			if (mapConfig === 'unchange') {
-				return false
-			} else {
-				console.log('====================================')
-				console.log('需要更改地图获取图例的参数')
-				console.log('====================================')
+			let isChange =
+				sessionStorage.getItem('insertParams') !==
+				this.currentCompanyInfo
+
+			if (isChange) {
+				this.handleClose()
+				this.currentCompanyInfo = sessionStorage.getItem('insertParams')
+				this.mapPoint()
+				this.mapArea()
 			}
 		},
-		// 图例
-		async legendConfig() {
-			let legendConfig = await mapLegend('map1').then(res => {
-				this.legendConfigData = JSON.parse(JSON.stringify(res.data))
-				return res.data || {}
-			})
-			this.legendData = JSON.parse(JSON.stringify(legendConfig))
-			this.legendTopConfig = JSON.parse(
-				JSON.stringify(this.legendData.legendTopConfig),
-			)
-			this.legendBottomConfig = JSON.parse(
-				JSON.stringify(this.legendData.legendBottomConfig),
-			)
-		},
-		// 地图点位
+		// 获取所有地图点位
 		async mapPoint() {
-			let point = await mapPointResult().then(res => {
-				return res.data || []
+			// ('company', '公司'),
+			// ('gate_station', '门站'),
+			// ('gas_station', '加气站'),
+			// ('surge_station', '高中压调压站'),
+			// ('emergence_station', '应急站'),
+			// ('service_outlets', '服务网点'),
+			let point = await getAllMapPonit().then(res => res.data)
+			const iconDataMap = {
+				company: [],
+				service_outlets: [],
+			}
+			point.forEach(item => {
+				iconDataMap[item.type] && iconDataMap[item.type].push(item)
 			})
-			let iconDataMap = {}
-			Object.keys(point).map(prop => {
-				iconDataMap[prop] = point[prop].map(item => {
-					item.type = prop
-					return item
-				})
-			})
-			this.iconDataMap = Object.freeze(iconDataMap)
-		},
-		// 管线信息  高压、中压、低压
-		async mapLine() {
-			let gaoya = mapLineResult('high')
-			let zhongya = mapLineResult('medium')
-			let diya = mapLineResult('low')
-			// 市政中压
-			let municipal = mapLineResult('municipal')
-			// 庭院中压
-			let courtyard = mapLineResult('courtyard')
-			Promise.all([gaoya, zhongya, diya, municipal, courtyard]).then(
-				res => {
-					let [res0, res1, res2, res3, res4] = res
-					gaoya = res0.data || []
-					zhongya =
-						res1.data
-							.concat(res3.data || [])
-							.concat(res4.data || []) || []
-					diya = res2.data || []
-					this.lineDataMap = Object.freeze({
-						gaoya: {
-							...this.legendTopConfig.gaoya,
-							position: gaoya,
-						},
-						zhongya: {
-							...this.legendTopConfig.zhongya,
-							position: zhongya,
-						},
-						diya: {
-							...this.legendTopConfig.diya,
-							position: diya,
-						},
-					})
-				},
-			)
+			this.iconDataMap = iconDataMap
 		},
 		async mapArea() {
-			let area = await mapStationArea().then(res => {
+			let area = await getAllMapArea().then(res => {
 				return res.data || {}
 			})
-			this.areaDataMap = Object.freeze(area)
+
+			this.areaDataMap = Object.freeze({
+				[this.currentCompanyInfo]: area,
+			})
 		},
 		//获取数据并处理
 		init() {
 			// 图例
-			this.legendConfig()
+			// this.legendConfig()
 			//1.icon
 			this.mapPoint()
+			this.mapArea()
 			//定时刷新人，车的位置
 			this.timer = setInterval(() => {
 				// this.mapPoint()
 				this.mapPoint()
 			}, 60000)
 			//2.line
-			this.mapLine()
+			// this.mapLine()
 			//3. area
 			// this.mapArea()
 		},
@@ -431,25 +395,13 @@ export default {
 		openPressure() {
 			this.__handleEvent__('click3', this.activeOverlay)
 		},
-		// //母站打开详情弹窗
-		// openDetail() {
-		// 	this.__handleClick__({ value: this.activeOverlay })
-		// },
-		// //巡检隐患打开详情弹窗
-		// openRiskDetail() {
-		// 	this.__handleEvent__('click2', this.activeOverlay)
-		// },
-		// // 打开视屏监控
-		// openVideo() {
-		// 	this.__handleEvent__(
-		// 		'click1',
-		// 		this.activeOverlay.stationId || this.activeOverlay.name,
-		// 	)
-		// },
-		// //打开管道气、lng用户详情
-		// openUserDetail() {
-		// 	this.__handleEvent__('click3', this.activeOverlay)
-		// },
+		async getAllMapCenterInfo() {
+			const { data } = await getAllMapCenter()
+			// debugger
+			this.centerList = data
+
+			// this.console.log(res)
+		},
 	},
 	watch: {
 		data: {

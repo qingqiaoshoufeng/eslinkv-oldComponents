@@ -3,7 +3,8 @@ widget-normal.b-tab-1.fn-flex(:value="value")
 	h2.pos-r.pointer(
 		v-for="item in data",
 		:class="{ active: item.id.indexOf(editor.currentSceneIndex) !== -1 }",
-		@click="item.click ? change(item.id) : ''") {{ item.label }}
+		@click="item.click ? change(item.id) : ''"
+	) {{ item.label }}
 </template>
 <script lang="ts">
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
@@ -19,6 +20,7 @@ export default class extends mixins(widgetNormalMixin) {
 
 	change(id) {
 		id.length > 0 && this.editor.selectSceneIndex(id[0])
+		console.log(this.editor)
 	}
 }
 </script>

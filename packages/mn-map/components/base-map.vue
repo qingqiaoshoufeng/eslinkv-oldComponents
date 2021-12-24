@@ -15,20 +15,23 @@
 			)
 			es-loca-option(:options="iconLayerOption")
 		//- 站点区域
-		//- es-polygon(
-		//- 	v-for="(path, station) in areaDataMap",
-		//- 	:key="station",
-		//- 	fillColor="rgb(96, 230, 255)",
-		//- 	strokeColor="#60E6FF",
-		//- 	:strokeWeight="2",
-		//- 	:fillOpacity="0.3",
-		//- 	:path="path")
-		es-path-simplifier(
-			:stepSpace="customConfig.stepSpace",
-			:lineWidth="customConfig.borderWidth",
-			:data="lineLayerData",
-			v-if="lineReady"
-		) 
+		es-polygon(
+			v-for="(path, key) in areaDataMap",
+			:key="key",
+			fillColor="#00DDFF",
+			strokeColor="#00DDFF",
+			:strokeWeight="2",
+			:fillOpacity="0.15",
+			:path="path",
+			v-bind="polygonProps",
+			v-if="currentCompanyInfo === key"
+		)
+		//- es-path-simplifier(
+		//- 	:stepSpace="customConfig.stepSpace",
+		//- 	:lineWidth="customConfig.borderWidth",
+		//- 	:data="lineLayerData",
+		//- 	v-if="lineReady"
+		//- ) 
 		slot
 	img(
 		:src="eyeUrl",
@@ -36,40 +39,11 @@
 		:class="'legend-eye'",
 		@click="switchShow"
 	)
-	//- 图例
-	.legend(v-if="!closeLegend")
-		.legend-top
-			.legend-top-item
-				.box(@click="handleLegendCheck('top')") 
-					.box-inner(v-if="checkboxTop")
-				span 运行
-				//- Checkbox.box(@click="handleLegendCheck('top')") 运行
-			.legend-top-item
-				.box(@click="handleLegendCheck('bottom')") 
-					.box-inner(v-if="checkboxBottom")
-				span 服务
-				//- Checkbox.box(@click="handleLegendCheck('bottom')") 服务
-		.legend-main
-			.lmt
-				.item(
-					v-for="(legend, prop) in legendTopConfig",
-					:key="prop",
-					@click="legendClick(prop, 'Top')",
-					:class="legend.visible ? '' : 'hide'"
-				)
-					.line(v-if="legend.color", :style="{ 'border-color': legend.color }")
-					b-icon(v-if="legend.icon", :name="legend.icon", :size="22")
-					.label {{ legend.label }}
-			.lmb
-				.item(
-					v-for="(legend, prop) in legendBottomConfig",
-					:key="prop",
-					:class="legend.visible ? '' : 'hide'"
-				)
-					b-icon(:name="legend.icon", :size="22")
-					.label {{ legend.label }}
+	.legend_wrapper(v-if="!closeLegend")
+		Legend(:legendData="legendDataTree1", :singleChoice="true")
+		Legend(:legendData="legendDataTree2")
 	//- 地图图层切换
-	.layers-radio-group(v-if="!closeLegend")
+	.layers-radio-group(v-if="false")
 		.radio(
 			:class="curMapLayer === 'TileLayer' ? 'active' : ''",
 			@click="changeLayer('TileLayer')"
@@ -87,10 +61,11 @@
 </template>
 <script>
 // import { EsAmap, EsLoca, EsLocaData, EsLocaOption, EsPolygon } from 'es-amap'
-import { EsAmap, EsLoca, EsLocaData, EsLocaOption } from 'es-amap'
+import { EsAmap, EsLoca, EsLocaData, EsLocaOption, EsPolygon } from 'es-amap'
 import EsPathSimplifier from './es-path-simplifier'
 import { loadJs } from '../../../examples/utils.js'
 import bIcon from '../components/b-icon.vue'
+import Legend from './legend/index.vue'
 const eyeImg =
 	'data:image/png;base64,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'
 const closeImg =
@@ -99,14 +74,21 @@ export default {
 	name: 'base-map',
 	components: {
 		EsAmap,
-		// EsPolygon,
+		EsPolygon,
 		EsLoca,
 		EsLocaData,
 		EsLocaOption,
 		EsPathSimplifier,
 		bIcon,
+		Legend,
 	},
 	props: {
+		currentCompanyInfo: {
+			type: String,
+			default() {
+				return ''
+			},
+		},
 		mapConfig: {
 			type: Object,
 			default() {
@@ -178,84 +160,99 @@ export default {
 	},
 	watch: {
 		// 地图点位
+		// iconDataMap: {
+		// 	handler(val) {
+		// 		if (val && JSON.stringify(val) !== '{}') {
+		// 			this.handleIconLayerData()
+		// 			this.iconReady = true
+		// 		}
+		// 	},
+		// 	deep: true,
+		// 	immediate: true,
+		// },
 		iconDataMap: {
-			handler(val) {
-				if (val && JSON.stringify(val) !== '{}') {
-					this.handleIconLayerData()
-					this.iconReady = true
-				}
-			},
 			deep: true,
 			immediate: true,
-		},
-		legendTopConfig: {
 			handler(val) {
-				if (JSON.stringify(this.legendBottomConfig) !== '{}') {
-					if (!this.svgFlag) {
-						setTimeout(() => {
-							this.transSVGToBase64()
-						}, 0)
-					}
-					if (
-						!this.lineFlag &&
-						JSON.stringify(this.lineDataMap) !== '{}'
-					) {
-						this.handleLineLayerData()
-						this.lineReady = true
-					}
-					if (
-						!this.iconFlag &&
-						JSON.stringify(this.iconDataMap) !== '{}'
-					) {
-						this.handleIconLayerData()
-						this.iconReady = true
-					}
+				// const seclectedList = []
+				// traverse(val)
+				// console.log(seclectedList, 'seclectedList')
+				this.iconLayerData = this.seclectedList.reduce(
+					(current, item) => {
+						return (current = [
+							...current,
+							...(val[item.type]
+								? val[item.type].map(item1 => {
+										const { lon, lat } = item1
+										return {
+											...item,
+											...item1,
+											position: [lon, lat],
+										}
+								  })
+								: []),
+						])
+					},
+					[],
+				)
+				if (this.iconLayerData && this.iconLayerData.length) {
+					this.iconReady = true
+				} else {
+					this.iconReady = false
 				}
 			},
 		},
-		legendBottomConfig: {
-			handler(val) {
-				if (JSON.stringify(this.legendTopConfig) !== '{}') {
-					if (!this.svgFlag) {
-						setTimeout(() => {
-							this.transSVGToBase64()
-						}, 0)
-					}
-					if (
-						!this.lineFlag &&
-						JSON.stringify(this.lineDataMap) !== '{}'
-					) {
-						this.handleLineLayerData()
-						this.lineReady = true
-					}
-					if (
-						!this.iconFlag &&
-						JSON.stringify(this.iconDataMap) !== '{}'
-					) {
-						this.handleIconLayerData()
-						this.iconReady = true
-					}
-					if (!this.svgFlag) {
-						setTimeout(() => {
-							this.transSVGToBase64()
-						}, 0)
-					}
-				}
-			},
-		},
-		// 管线
-		lineDataMap: {
-			handler(val) {
-				if (JSON.stringify(val) !== '{}') {
-					this.handleLineLayerData()
-					this.lineReady = true
-				}
-			},
+		legendDataTree2: {
+			deep: true,
 			immediate: true,
+			handler(val) {
+				const seclectedList = []
+				traverse(val)
+				console.log(seclectedList, 'seclectedList')
+				this.seclectedList = seclectedList
+				this.transSVGToBase64()
+				this.iconLayerData = seclectedList.reduce((current, item) => {
+					return (current = [
+						...current,
+						...(this.iconDataMap[item.type]
+							? this.iconDataMap[item.type].map(item1 => {
+									debugger
+									const { lon, lat } = item1
+									return {
+										...item,
+										...item1,
+										position: [lon, lat],
+									}
+							  })
+							: []),
+					])
+				}, [])
+				debugger
+				if (this.iconLayerData && this.iconLayerData.length) {
+					this.iconReady = true
+				} else {
+					this.iconReady = false
+				}
+				function traverse(val) {
+					val.forEach(item => {
+						if (
+							item.componentType === 'menu-item' &&
+							item.visible === true
+						) {
+							seclectedList.push(item)
+						}
+						if (item.children && item.children.length) {
+							traverse(item.children)
+						}
+					})
+				}
+			},
 		},
 	},
 	data() {
 		return {
+			iconSourceMap: {},
+			seclectedList: [],
 			eyeUrl: closeImg,
 			closeLegend: true,
 			lineFlag: false,
@@ -266,18 +263,29 @@ export default {
 			iconReady: false,
 			lineReady: false,
 			legendData: {},
+			polygonProps: {
+				events: {
+					init: layer => {
+						debugger
+						this.$nextTick(() => {
+							layer.De.map.setFitView()
+							debugger
+						})
+					},
+				},
+			},
 			// 管线图层
 			lineLayerConfig: {
 				zIndex: 99,
 				layerName: 'LineLayer',
 				isHideZoomChange: true,
-				events: {
-					init: layer => {
-						this.$nextTick(() => {
-							layer.setFitView()
-						})
-					},
-				},
+				// events: {
+				// 	init: layer => {
+				// 		this.$nextTick(() => {
+				// 			layer.setFitView()
+				// 		})
+				// 	},
+				// },
 			},
 			lineLayerData: [],
 			lineLayerOption: {
@@ -316,6 +324,11 @@ export default {
 						this.$emit('icon-hover')
 						this.$emit('icon-click', e.rawData)
 					},
+					// init: layer => {
+					// 	this.$nextTick(() => {
+					// 		layer.setFitView()
+					// 	})
+					// },
 				},
 			},
 			iconLayerLnglat(data) {
@@ -336,6 +349,72 @@ export default {
 			checkboxTop: false,
 			checkboxBottom: false,
 			// icon图层 --结束
+			legendDataTree1: [
+				{
+					componentType: 'top-menu',
+					label: '地图',
+					children: [
+						{
+							componentType: 'menu-item',
+							label: '二维地图',
+							visible: true,
+						},
+						// {
+						// 	type: 'menu-item',
+						// 	name: '三维地图',
+						// 	visible: true,
+						// },
+						{
+							componentType: 'menu-item',
+							label: '卫星地图',
+							visible: false,
+						},
+					],
+				},
+			],
+			legendDataTree2: [
+				{
+					componentType: 'top-menu',
+					label: '图例',
+
+					children: [
+						{
+							componentType: 'sub-menu',
+							label: '运行',
+							visible: true,
+							children: [
+								{
+									componentType: 'menu-item',
+									label: '公司',
+									visible: true,
+									icon: 'icon-zigongsi',
+									size: 14,
+									layer: 'icon',
+									type: 'company',
+								},
+								// {
+								// 	color: '',
+								// 	icon: 'icon-relitu',
+								// 	label: '欠费热力',
+								// 	layer: 'icon',
+								// 	location: 'bottom',
+								// 	name: 'billHeatPoints',
+								// 	visible: false,
+								// },
+								{
+									componentType: 'menu-item',
+									label: '服务网点',
+									visible: true,
+									icon: 'icon-fuwuwangdian-01',
+									size: 14,
+									layer: 'icon',
+									type: 'service_outlets',
+								},
+							],
+						},
+					],
+				},
+			],
 		}
 	},
 	methods: {
@@ -492,19 +571,35 @@ export default {
 		},
 		//蒋iconfont的字体图标改为base64位
 		transSVGToBase64() {
-			let { legendTopConfig, legendBottomConfig } = this
-			if (
-				JSON.stringify(this.legendTopConfig) !== '{}' &&
-				JSON.stringify(this.legendBottomConfig) !== '{}'
-			) {
-				this.svgFlag = true
-			} else {
-				this.svgFlag = false
-				return false
-			}
-			let iconSourceMap = {}
-			Object.keys(legendTopConfig).forEach(prop => {
-				let { icon } = legendTopConfig[prop]
+			// const  = []
+			// let { legendTopConfig, legendBottomConfig } = this
+			// if (
+			// 	JSON.stringify(this.legendTopConfig) !== '{}' &&
+			// 	JSON.stringify(this.legendBottomConfig) !== '{}'
+			// ) {
+			// 	this.svgFlag = true
+			// } else {
+			// 	this.svgFlag = false
+			// 	return false
+			// }
+			// let iconSourceMap = {}
+			// Object.keys(legendTopConfig).forEach(prop => {
+			// 	let { icon } = legendTopConfig[prop]
+			// 	if (icon) {
+			// 		let symbol = document.getElementById(icon)
+			// 		if (!symbol) return false
+			// 		let svg =
+			// 			'<svg  width="200" height="200" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">' +
+			// 			symbol.innerHTML +
+			// 			'</svg>'
+			// 		const image64 =
+			// 			'data:image/svg+xml;base64,' + window.btoa(svg) //svg内容中不能有中文字符
+			// 		iconSourceMap[prop] = image64
+			// 	}
+			// })
+			const iconSourceMap = {}
+			this.seclectedList.forEach(item => {
+				let { icon, type } = item
 				if (icon) {
 					let symbol = document.getElementById(icon)
 					if (!symbol) return false
@@ -514,21 +609,7 @@ export default {
 						'</svg>'
 					const image64 =
 						'data:image/svg+xml;base64,' + window.btoa(svg) //svg内容中不能有中文字符
-					iconSourceMap[prop] = image64
-				}
-			})
-			Object.keys(legendBottomConfig).forEach(prop => {
-				let { icon } = legendBottomConfig[prop]
-				if (icon) {
-					let symbol = document.getElementById(icon)
-					if (!symbol) return false
-					let svg =
-						'<svg  width="200" height="200" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">' +
-						symbol.innerHTML +
-						'</svg>'
-					const image64 =
-						'data:image/svg+xml;base64,' + window.btoa(svg) //svg内容中不能有中文字符
-					iconSourceMap[prop] = image64
+					iconSourceMap[type] = image64
 				}
 			})
 			this.iconSourceMap = iconSourceMap
@@ -596,12 +677,12 @@ export default {
 		height: 100%;
 	}
 	.legend-eye {
-		width: 76px;
-		height: 52px;
+		width: 25px;
+		height: 17px;
 		position: absolute;
 		bottom: 40px;
 		z-index: 9999;
-		left: 28%;
+		right: 495px;
 		cursor: pointer;
 	}
 	.legend {
@@ -765,5 +846,24 @@ export default {
 			pointer-events: all !important;
 		}
 	}
+}
+.legend_wrapper {
+	position: absolute;
+	padding: 16px;
+	bottom: 114px;
+	right: 495px;
+	position: fixed;
+	// position: static;
+	width: 197px;
+	// height: 448px;
+
+	/* 主色调/暗色 */
+
+	background: #000a40;
+	/* 主色调/主色 */
+
+	border: 1px solid #00ddff;
+	box-sizing: border-box;
+	border-radius: 8px;
 }
 </style>

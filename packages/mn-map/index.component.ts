@@ -1,15 +1,15 @@
 // 组件中文名唯一
-export const name = 'b-地图'
+export const name = 'mn-地图'
 // 组件名唯一
-export const type = 'b-map'
+export const type = 'mn-map'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.64'
+export const version = '1.0.0'
 export const value = {
 	api: { data: {} },
 	layout: {
 		size: {
-			width: 3840,
-			height: 2160,
+			width: 1920,
+			height: 1080,
 		},
 		position: {
 			value: 'relative',

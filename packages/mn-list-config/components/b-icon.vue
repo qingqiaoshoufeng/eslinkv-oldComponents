@@ -29,7 +29,8 @@ export default {
 	},
 	created() {
 		loadJs(
-			'//at.alicdn.com/t/font_2801166_oikmoyjvks.js',
+			// '//at.alicdn.com/t/font_2801166_h51o8309r1h.js',
+			'//at.alicdn.com/t/font_2801166_juvllw6s0ve.js',
 			'huachen_iconfont',
 		)
 	},
@@ -53,5 +54,7 @@ export default {
 	overflow: hidden;
 	vertical-align: middle;
 	fill: currentColor;
+	margin-left: 30px;
+	margin-right: 18px;
 }
 </style>

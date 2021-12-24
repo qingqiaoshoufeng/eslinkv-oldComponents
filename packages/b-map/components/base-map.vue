@@ -11,7 +11,8 @@
 		es-loca(v-if="iconReady", v-bind="iconLayerConfig")
 			es-loca-data(
 				:data="iconLayerData",
-				:options="{ lnglat: iconLayerLnglat }")
+				:options="{ lnglat: iconLayerLnglat }"
+			)
 			es-loca-option(:options="iconLayerOption")
 		//- 站点区域
 		//- es-polygon(
@@ -26,13 +27,15 @@
 			:stepSpace="customConfig.stepSpace",
 			:lineWidth="customConfig.borderWidth",
 			:data="lineLayerData",
-			v-if="lineReady") 
+			v-if="lineReady"
+		) 
 		slot
 	img(
 		:src="eyeUrl",
 		:style="{ display: 'inline-block' }",
 		:class="'legend-eye'",
-		@click="switchShow")
+		@click="switchShow"
+	)
 	//- 图例
 	.legend(v-if="!closeLegend")
 		.legend-top
@@ -52,7 +55,8 @@
 					v-for="(legend, prop) in legendTopConfig",
 					:key="prop",
 					@click="legendClick(prop, 'Top')",
-					:class="legend.visible ? '' : 'hide'")
+					:class="legend.visible ? '' : 'hide'"
+				)
 					.line(v-if="legend.color", :style="{ 'border-color': legend.color }")
 					b-icon(v-if="legend.icon", :name="legend.icon", :size="22")
 					.label {{ legend.label }}
@@ -60,14 +64,16 @@
 				.item(
 					v-for="(legend, prop) in legendBottomConfig",
 					:key="prop",
-					:class="legend.visible ? '' : 'hide'")
+					:class="legend.visible ? '' : 'hide'"
+				)
 					b-icon(:name="legend.icon", :size="22")
 					.label {{ legend.label }}
 	//- 地图图层切换
 	.layers-radio-group(v-if="!closeLegend")
 		.radio(
 			:class="curMapLayer === 'TileLayer' ? 'active' : ''",
-			@click="changeLayer('TileLayer')")
+			@click="changeLayer('TileLayer')"
+		)
 			.text 二维地图
 		//- .radio(
 		//- 	:class="curMapLayer === 'ThreeD' ? 'active' : ''",
@@ -75,7 +81,8 @@
 		//- 	.text 三维地图
 		.radio(
 			:class="curMapLayer === 'Satellite' ? 'active' : ''",
-			@click="changeLayer('Satellite')")
+			@click="changeLayer('Satellite')"
+		)
 			.text 卫星地图
 </template>
 <script>

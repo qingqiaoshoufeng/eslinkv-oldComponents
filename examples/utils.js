@@ -117,6 +117,7 @@ export function getCommonOption(value, config) {
 					fontSize: 16,
 					lineHeight: 16,
 				},
+				rotate: config.rotate || 0,
 			},
 			data: value[0] && value[0].x,
 		},
@@ -129,6 +130,7 @@ export function getCommonOption(value, config) {
 				nameTextStyle: {
 					padding: [0, 40, 0, 0],
 					color: '#fff',
+					fontSize: 16,
 				},
 				axisTick: {
 					show: false,

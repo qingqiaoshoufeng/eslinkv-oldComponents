@@ -30,7 +30,7 @@ import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import { Editor } from '@eslinkv/core'
 import { Component } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
-import { value } from './index.component'
+import { value, customConfig } from './index.component'
 import left from './left.svg'
 import right from './right.svg'
 @Component({ components: { widgetNormal } })
@@ -39,6 +39,7 @@ export default class extends mixins(widgetNormalMixin) {
 	left = left
 	right = right
 	editor = Editor.Instance()
+	customConfig = customConfig
 
 	change(id) {
 		id.length > 0 && this.editor.selectSceneIndex(id[0])

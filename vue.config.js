@@ -34,6 +34,16 @@ module.exports = {
 					Cookie: 'EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB; OUTFOX_SEARCH_USER_ID_NCOO=1918531703.0243301; SESSION=d18ba357-8436-424a-96cd-cc2522faf212',
 				},
 			},
+			'^/meineng': {
+				target: 'http://119.3.142.120:8083',
+				changeOrigin: true,
+				headers: {
+					// Cookie: 'UM_distinctid=179cbd18f652b6-0fd6d652023f73-2363163-1fa400-179cbd18f66cb1; EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB; SESSION=f1bdcfaf-1b8a-44f3-8bb7-2e05e91fb5ca',
+				},
+				pathRewrite: {
+					'^/meineng': '',
+				},
+			},
 			'^/node': {
 				target: 'https://kv-etbc.eslink.com',
 				changeOrigin: true,
@@ -45,7 +55,7 @@ module.exports = {
 				target: 'https://kv-etbc.eslink.com',
 				changeOrigin: true,
 				headers: {
-					Cookie: 'EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB; SESSION=6f6b5db5-88a5-47cc-b14a-9ed9cbd93eea',
+					Cookie: 'EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB; JSESSIONID=488CA7BA32227724E8967D7C33C7A5D4; SESSION=b4d555fd-c62d-47da-9e16-86bad36871ab',
 				},
 			},
 			'^/cdn': {

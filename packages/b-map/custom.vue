@@ -2,7 +2,8 @@
 widget-normal.pos-r(
 	:value="value",
 	:customConfig="customConfig",
-	:eventTypes="eventTypes")
+	:eventTypes="eventTypes"
+)
 	base-map(
 		:lineDataMap="lineDataMap",
 		:iconDataMap="iconDataMap",
@@ -14,16 +15,19 @@ widget-normal.pos-r(
 		@icon-click="handleIconClick",
 		@icon-hover="handleIconHover",
 		@legend-click="handleLegendClick",
-		@legend-check="handleLegendCheck")
+		@legend-check="handleLegendCheck"
+	)
 		//- 覆盖物详情
 		es-marker(
 			:visible="!!activeOverlay.position",
 			anchor="center",
 			:scaleRatio="0.5",
-			:position="activeOverlay.position")
+			:position="activeOverlay.position"
+		)
 			.overlay
 				.title(
-					v-if="activeOverlay.type !== 'gasPressurePoints' && activeOverlay.type !== 'hiddenTroublePoints'") {{ activeOverlay.name }}
+					v-if="activeOverlay.type !== 'gasPressurePoints' && activeOverlay.type !== 'hiddenTroublePoints'"
+				) {{ activeOverlay.name }}
 				.title(v-if="activeOverlay.type === 'gasPressurePoints'") {{ activeOverlay.address }}
 				.title(v-if="activeOverlay.type === 'hiddenTroublePoints'") {{ activeOverlay.hiddenName }}
 				//- 鼠标hover仅展示name
@@ -31,13 +35,15 @@ widget-normal.pos-r(
 					.detail
 						.detail-item(
 							v-for="(item, prop) in detailMap[activeOverlay.type]",
-							:key="prop")
+							:key="prop"
+						)
 							span {{ item }}:
 							span.value {{ activeOverlay[prop] }}{{ activeOverlay.type === 'gasPressurePoints' ? 'KPa' : '' }}
 					.operate-btn
 						span.more(
 							@click="openPressure",
-							v-if="activeOverlay.type === 'gasPressurePoints'") 查看详情
+							v-if="activeOverlay.type === 'gasPressurePoints'"
+						) 查看详情
 					//- 	span.more(@click="openDetail", v-if="activeOverlay.hasArtwork") 查看详情
 					//- 	span.more(@click="openRiskDetail", v-else-if="activeOverlay.hasDetail") 查看详情
 					//- 	span.more(
@@ -51,7 +57,8 @@ widget-normal.pos-r(
 				b-icon.overlay-icon(
 					v-if="activeOverlay.custom",
 					name="icon-xunjianyinhuanleixing",
-					:size="20")
+					:size="20"
+				)
 				//- 连接图标的线
 				.line
 </template>

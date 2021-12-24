@@ -2,7 +2,8 @@
 widget-normal(
 	:value="value",
 	:customConfig="customConfig",
-	:eventTypes="eventTypes")
+	:eventTypes="eventTypes"
+)
 	.panel(:style="{ background: config.config.background }")
 		.title {{ data.title }}
 		.detail
