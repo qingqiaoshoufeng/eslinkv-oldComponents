@@ -7,6 +7,11 @@ export const version = '1.0.0'
 // 自定义配置
 export const customConfig = [
 	{
+		prop: 'defaultValue',
+		label: '默认选项',
+		type: 'func-input',
+	},
+	{
 		prop: 'bdStartColor',
 		label: '边框渐变(起始)',
 		type: 'func-color',
@@ -35,10 +40,12 @@ export const value = {
 			{
 				label: '客服',
 				id: [1],
+				key: 'nav1',
 			},
 			{
 				label: '安检',
 				id: [2],
+				key: 'nav2',
 			},
 		]),
 	},
@@ -50,6 +57,7 @@ export const value = {
 		},
 	},
 	config: {
+		defaultValue: 'nav1',
 		bdStartColor: '#00ddff',
 		bdEndColor: 'rgba(0, 87, 169, 0)',
 		bgStartColor: 'rgba(0, 87, 169, 0.7)',

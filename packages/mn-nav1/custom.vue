@@ -43,20 +43,11 @@ export default class extends mixins(widgetNormalMixin) {
 		}
 	}
 	mounted() {
-		this.data &&
-			this.data[0] &&
-			this.data[0].id &&
-			window.eslinkV.Editor.prototype.openWithClose.call(
-				this.editor,
-				this.data[0].id[0],
-			)
 		window.addEventListener('opencenceListChange', e => {
 			if (e.detail) {
-				this.data.map(item => {
-					if (item.id && item.id.includes(e.detail[0])) {
-						this.active = item.key
-					}
-				})
+				if (this.firstPageList.includes(e.detail[0])) {
+					this.active = 'nav1'
+				}
 			}
 		})
 	}

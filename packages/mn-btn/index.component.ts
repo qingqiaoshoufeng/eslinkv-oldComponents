@@ -19,6 +19,11 @@ export const customConfig = [
 ]
 // 配置
 export const value = {
+	// 接口请求数据默认值
+	data: JSON.stringify({
+		label: '场景名',
+		id: 1,
+	}),
 	layout: {
 		// 宽高
 		size: {

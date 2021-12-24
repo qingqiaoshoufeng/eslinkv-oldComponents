@@ -7,6 +7,11 @@ export const version = '1.0.3'
 // 自定义配置
 export const customConfig = [
 	{
+		prop: 'defaultValue',
+		label: '默认选项',
+		type: 'func-input',
+	},
+	{
 		prop: 'activeBgColor',
 		label: '选中背景颜色',
 		type: 'func-color',
@@ -25,14 +30,17 @@ export const value = {
 			{
 				label: '客户',
 				id: [1],
+				key: 'nav1',
 			},
 			{
 				label: '服务',
 				id: [2],
+				key: 'nav2',
 			},
 			{
 				label: '营收',
 				id: [3],
+				key: 'nav3',
 			},
 		]),
 	},
@@ -44,6 +52,7 @@ export const value = {
 		},
 	},
 	config: {
+		defaultValue: 'nav1',
 		activeBgColor: '#0057A9',
 		activeBdColor: '#00DDFF',
 	},

@@ -1,7 +1,7 @@
 // 组件中文名唯一
-export const name = 'statistical'
+export const name = '美能-大字轮'
 // 组件名唯一
-export const type = 'a-statistical'
+export const type = 'mn-statistical'
 // 检测当前组件名，版本唯一，类似npm发布策略
 export const version = '1.0.1'
 export const value = {
@@ -21,7 +21,7 @@ export const value = {
 	layout: {
 		size: {
 			width: 700,
-			height: 54,
+			height: 58,
 		},
 		position: {
 			value: 'relative',

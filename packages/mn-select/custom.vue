@@ -9,16 +9,16 @@ widget-normal(
 			:key="i",
 			@click="change(k)",
 			:class="{ active: k.value === selectValue }",
-			:style="{ background: k.value === selectValue ? config.config.backgroundColor : '', borderColor: config.config.borderColor, fontSize: `${config.config.fontSize}px` }") {{ k.label }}
+			:style="{ padding: `${config.config.padding}px 0`, fontSize: `${config.config.fontSize}px` }") {{ k.label }}
 </template>
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator'
-import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component'
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
+import { mixins } from 'vue-class-component'
 
 @Component({ components: { widgetNormal } })
-export default class OSelect1 extends mixins(widgetNormalMixin) {
+export default class OSelect2 extends mixins(widgetNormalMixin) {
 	value = value
 	customConfig = customConfig
 	eventTypes = [{ key: 'click', label: '点击事件' }]
@@ -57,41 +57,22 @@ export default class OSelect1 extends mixins(widgetNormalMixin) {
 <style lang="scss" scoped>
 .list {
 	display: flex;
+	justify-content: space-between;
 	li {
 		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		flex: none;
-		padding: 4px 12px;
+		padding: 4px 0;
 		font-size: 16px;
-		font-weight: 500;
-		color: #d2d2d2;
-		// background: #023066;
-		border: 1px solid #00ddff;
-		border-right-width: 0;
-
-		&:last-child {
-			border-right-width: 1px;
-		}
+		line-height: 22px;
+		color: #ffffff;
 
 		&.active {
 			font-weight: 600;
-			color: #feffff;
-			background: #0057a9;
-			border-color: #00ddff;
-		}
-
-		&:not(:last-child).active:after {
-			content: '';
-			display: block;
-			background: #00ddff;
-			width: 1px;
-			position: absolute;
-			right: -1px;
-			top: -1px;
-			bottom: -1px;
-			z-index: 2;
+			// color: #feffff;
+			border-bottom: 3px solid #00ddff;
 		}
 	}
 }

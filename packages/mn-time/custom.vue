@@ -3,9 +3,15 @@ widget-normal(:value="value", :customConfig="customConfig")
 	.fn-flex.flex-row.hz-time 
 		.time(
 			:style="{ fontSize: `${config.config.timeFontSize}px`, color: config.config.timeColor }") {{ currentTime }}
-		.date(:style="{ fontSize: `${config.config.dateFontSize}px` }")
-			.current-week {{ currentWeek }}
-			.current-date {{ currentDate }}
+		.bar
+		.date
+			.text(:style="{ fontSize: `${config.config.dateFontSize}px` }") {{ currentYear }}
+			span 年
+			.text(:style="{ fontSize: `${config.config.dateFontSize}px` }") {{ currentMonth }}
+			span 月
+			.text(:style="{ fontSize: `${config.config.dateFontSize}px` }") {{ currentDay }}
+			span 日
+		.week {{ currentWeek }}
 </template>
 <script lang="ts">
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
@@ -18,10 +24,20 @@ export default class extends mixins(widgetNormalMixin) {
 	value = value
 	customConfig = customConfig
 	timer = null
-	weekArr = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+	weekArr = [
+		'星期天',
+		'星期一',
+		'星期二',
+		'星期三',
+		'星期四',
+		'星期五',
+		'星期六',
+	]
 	currentTime = '00.00.00'
-	currentWeek = '周一'
-	currentDate = '2021/10/22'
+	currentWeek = '星期一'
+	currentYear = '2021'
+	currentMonth = '12'
+	currentDay = '30'
 	getTime() {
 		var currentDate = new Date()
 		this.currentTime =
@@ -30,12 +46,9 @@ export default class extends mixins(widgetNormalMixin) {
 			this.getFullTime(currentDate.getMinutes()) +
 			':' +
 			this.getFullTime(currentDate.getSeconds())
-		this.currentDate =
-			currentDate.getFullYear() +
-			'/' +
-			this.getFullTime(currentDate.getMonth() + 1) +
-			'/' +
-			this.getFullTime(currentDate.getDate())
+		this.currentYear = String(currentDate.getFullYear())
+		this.currentMonth = this.getFullTime(currentDate.getMonth() + 1)
+		this.currentDay = this.getFullTime(currentDate.getDate())
 		this.currentWeek = this.weekArr[currentDate.getDay()]
 	}
 	getFullTime(currentTime) {
@@ -58,7 +71,7 @@ export default class extends mixins(widgetNormalMixin) {
 	font-family: 'UnidreamLED';
 	font-style: normal;
 	font-weight: normal;
-	src: url('https://kv-etbc.eslink.com/cdn/zhanhui/UnidreamLED.ttf');
+	src: url('https://kv-etbc.eslink.com/cdn/meineng/UnidreamLED.ttf');
 }
 .hz-time {
 	width: 100%;
@@ -69,12 +82,34 @@ export default class extends mixins(widgetNormalMixin) {
 	.time {
 		font-family: UnidreamLED;
 		font-size: 40px;
+		min-width: 130px;
+	}
+	.bar {
+		width: 1px;
+		height: 24px;
+		background-color: #ffffff;
+		/* margin-right: 26px; */
 	}
 	.date {
+		display: flex;
+		justify-content: space-between;
+		/* align-items: flex-end; */
+		height: 45px;
+		line-height: 45px;
+		min-width: 220px;
+		color: #ffffff;
+		.text {
+			font-size: 32px;
+			// line-height: 45px;
+		}
+		span {
+			line-height: 52px;
+		}
+	}
+	.week {
 		font-size: 18px;
-		opacity: 0.8;
-		line-height: 25px;
-		text-align: left;
+		height: 25px;
+		line-height: 38px;
 	}
 }
 </style>

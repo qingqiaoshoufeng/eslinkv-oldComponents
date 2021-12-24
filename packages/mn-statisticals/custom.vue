@@ -122,21 +122,21 @@ export default {
 
 		.time {
 			width: 100%;
-			height: 13px;
+			height: 14px;
 			margin-top: 9px;
-			font-size: 13px;
+			font-size: 14px;
 			font-style: normal;
 			font-weight: 600;
-			line-height: 13px;
-			color: #74fff2;
+			line-height: 20px;
+			color: #00ddff;
 			text-align: right;
 			letter-spacing: 0;
 		}
 	}
 
 	.right {
-		margin-left: 16px;
-		font-size: 29px;
+		margin-left: 12px;
+		font-size: 36px;
 		.value {
 			display: flex;
 			align-items: center;
@@ -145,12 +145,13 @@ export default {
 
 			.item {
 				width: 38px;
-				height: 54px;
-				margin: 0 5px;
+				height: 58px;
+				margin: 0 6px;
 
 				.scroll-box {
 					width: 38px;
-					height: 54px;
+					height: 58px;
+					background-color: #000d7d;
 					overflow: hidden;
 
 					.scroll-list {
@@ -160,10 +161,10 @@ export default {
 
 						.scroll-item {
 							width: 38px;
-							height: 54px;
+							height: 58px;
 							font-style: normal;
 							font-weight: 700;
-							line-height: 54px;
+							line-height: 58px;
 							color: #fff;
 							text-align: center;
 							// background: url('./bgl.png') no-repeat;
@@ -175,11 +176,11 @@ export default {
 			}
 
 			.comma {
-				width: 7px;
-				height: 33px;
+				width: 9px;
+				height: 42px;
 				font-style: normal;
 				font-weight: 700;
-				line-height: 33px;
+				line-height: 42px;
 				color: #fff;
 				text-align: center;
 			}
@@ -187,23 +188,28 @@ export default {
 	}
 
 	.right-more {
-		height: 54px;
+		height: 58px;
 		text-align: center;
+
 		// padding: 2px 8px;
 		// background: url('./bg.png') no-repeat;
 		// background-size: 100% 100%;
+		.box_border {
+			padding-right: 24px;
+		}
 
 		.right-more-des {
 			min-width: 32px;
 			font-weight: 600;
-			font-size: 13px;
-			color: rgba(94, 226, 253, 1);
-			line-height: 13px;
+			font-size: 14px;
+			color: #00ddff;
+			line-height: 14px;
 		}
 
 		.right-more-total {
+			font-family: 'font-num';
 			padding: 3px 8px;
-			font-size: 28px;
+			font-size: 24px;
 			color: #fff;
 			line-height: 28px;
 		}
@@ -213,23 +219,24 @@ export default {
 .box {
 	width: 100%;
 	height: 100%;
+	background: #000d7d;
 	border-radius: 2px;
 	overflow: hidden;
 	.box_border {
 		width: 100%;
 		height: 100%;
 		box-sizing: border-box;
-		border: 1px solid rgba(94, 226, 253, 1);
+		border: 1px solid #01bdeb;
 		border-image: linear-gradient(
-				rgba(94, 226, 253, 1),
-				rgba(94, 226, 253, 0.7),
-				rgba(94, 226, 253, 0.4),
+				#01bdeb,
+				#0193d1,
+				#043c9c,
 				rgba(0, 0, 0, 0),
 				rgba(0, 0, 0, 0),
 				rgba(0, 0, 0, 0),
-				rgba(94, 226, 253, 0.4),
-				rgba(94, 226, 253, 0.7),
-				rgba(94, 226, 253, 1)
+				#043c9c,
+				#0193d1,
+				#01bdeb
 			)
 			2;
 	}

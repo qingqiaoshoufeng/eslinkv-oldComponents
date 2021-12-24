@@ -17,7 +17,7 @@ export const value = {
 	api: {
 		// 接口请求数据默认值
 		data: JSON.stringify([
-			{ label: '本年工单完成率', value: 96 },
+			{ label: '本年工单完成率', value: 96.345 },
 			{ label: '本年工单完成率', value: 95 },
 			{ label: '本年隐患整改率', value: 98 },
 		]),

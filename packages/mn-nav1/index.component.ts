@@ -1,7 +1,7 @@
 // 组件中文名唯一
-export const name = '美能导航'
+export const name = '美能导航1'
 // 组件名唯一
-export const type = 'mn-nav'
+export const type = 'mn-nav1'
 // 检测当前组件名，版本唯一，类似npm发布策略
 export const version = '1.0.4'
 // 自定义配置

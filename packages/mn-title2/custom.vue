@@ -2,14 +2,14 @@
 widget-normal.b-tab-2.fn-flex(:value="value", :customConfig="customConfig")
 	h2.pos-r.pointer(
 		v-for="item in data",
-		@click="change(item.id)",
-		:class="{ active: item.id === editor.currentSceneIndex }") {{ item.label }}
+		@click="change(item)",
+		:class="{ active: item.key == active }") {{ item.label }}
 	.b-title-2-line-left.pos-a
 	.b-title-2-line-right.pos-a
 </template>
 <script lang="ts">
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
-import { Component } from 'vue-property-decorator'
+import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component'
 import { Editor } from '@eslinkv/core'
@@ -17,34 +17,26 @@ import { Editor } from '@eslinkv/core'
 @Component({ components: { widgetNormal } })
 export default class extends mixins(widgetNormalMixin) {
 	value = value
+	active = 'nav1'
 	customConfig = customConfig
 	editor = Editor.Instance()
 	// timer = null
 
-	mounted() {
-		console.log(this.editor)
-		// this.changeTab()
+	change(item) {
+		if (item.id) {
+			;(window.eslinkV.Editor.prototype as any).openWithClose.call(
+				this.editor,
+				item.id,
+			)
+			this.active = item.key
+		}
 	}
-
-	// 每5秒切换场景一次
-	// changeTab() {
-	// 	this.timer = setInterval(() => {
-	// 		let scene = this.data.filter(prop => {
-	// 			if (prop.id !== this.editor.currentSceneIndex) {
-	// 				return prop
-	// 			}
-	// 		})
-	// 		this.editor.selectSceneIndex(scene[0].id)
-	// 	}, 5000)
-	// }
-
-	change(id) {
-		this.editor.selectSceneIndex(id)
+	@Watch('config.config.defaultValue', { deep: true, immediate: true })
+	onDataChange(val) {
+		if (val) {
+			this.active = this.config.config.defaultValue
+		}
 	}
-
-	// beforeDestroy() {
-	// 	if (this.timer) clearInterval(this.timer)
-	// }
 }
 </script>
 <style lang="scss" scoped>

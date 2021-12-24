@@ -7,20 +7,19 @@
 		<div
 			v-for="(item, index) in data"
 			:key="index"
-			:class="{
-				active: item.id.indexOf(editor.currentSceneIndex) !== -1,
-			}"
+			:class="[
+				{
+					active: item.key == active,
+				},
+				'pointer',
+			]"
 			:style="{
 				backgroundColor:
-					item.id.indexOf(editor.currentSceneIndex) !== -1
-						? config.config.activeBgColor
-						: '',
+					item.key == active ? config.config.activeBgColor : '',
 				borderColor:
-					item.id.indexOf(editor.currentSceneIndex) !== -1
-						? config.config.activeBdColor
-						: '',
+					item.key == active ? config.config.activeBdColor : '',
 			}"
-			@click="change(item.id)"
+			@click="change(item)"
 		>
 			<span>{{ item.label }}</span>
 		</div>
@@ -29,7 +28,7 @@
 <script lang="ts">
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import { Editor } from '@eslinkv/core'
-import { Component } from 'vue-property-decorator'
+import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component'
 
@@ -37,10 +36,23 @@ import { value, customConfig } from './index.component'
 export default class extends mixins(widgetNormalMixin) {
 	value = value
 	customConfig = customConfig
+	active = 'nav1'
 	editor = Editor.Instance()
 
-	change(id) {
-		id.length > 0 && this.editor.selectSceneIndex(id[0])
+	change(item) {
+		if (item.id.length > 0) {
+			;(window.eslinkV.Editor.prototype as any).openWithClose.call(
+				this.editor,
+				item.id[0],
+			)
+			this.active = item.key
+		}
+	}
+	@Watch('config.config.defaultValue', { deep: true, immediate: true })
+	onDataChange(val) {
+		if (val) {
+			this.active = this.config.config.defaultValue
+		}
 	}
 }
 </script>

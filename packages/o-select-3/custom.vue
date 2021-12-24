@@ -10,8 +10,16 @@
 				@click="showOptions = !showOptions"
 				:class="{ active: showOptions }"
 			>
-				<span>{{ selectLabel }}</span>
-				<img src="./select.svg" />
+				<span :style="{ fontSize: `${config.config.fontSize}px` }">
+					{{ selectLabel }}
+				</span>
+				<img
+					:style="{
+						width: `${config.config.arrowWidth}px`,
+						height: `${config.config.arrowHeight}px`,
+					}"
+					src="./select.svg"
+				/>
 			</h2>
 			<ul
 				class="pos-a d-scrollbar"
@@ -20,6 +28,7 @@
 			>
 				<li
 					class="pointer"
+					:style="{ fontSize: `${config.config.fontSize}px` }"
 					v-for="item in data ? data : []"
 					@click="change(item)"
 				>

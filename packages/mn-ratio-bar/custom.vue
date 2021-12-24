@@ -41,7 +41,7 @@ export default class extends mixins(widgetNormalMixin) {
 </script>
 <style lang="scss" scoped>
 .mn-ratio {
-	width: 100%;
+	// width: 100%;
 	height: 100%;
 	font-size: 18px;
 	.text {
@@ -57,7 +57,6 @@ export default class extends mixins(widgetNormalMixin) {
 		height: 22px;
 		line-height: 22px;
 		padding-right: 35px;
-		position: relative;
 		display: flex;
 		justify-content: space-between;
 		.ratio-bar {
@@ -90,9 +89,7 @@ export default class extends mixins(widgetNormalMixin) {
 			}
 		}
 		.number {
-			position: absolute;
-			top: 1px;
-			right: 0;
+			margin-left: 8px;
 			text-align: right;
 			font-family: 'font-num';
 			color: #ffffff;

@@ -9,14 +9,13 @@
 			:class="{
 				'left-bg': index === 0,
 				'right-bg': index === 1,
-				active: item.id.indexOf(editor.currentSceneIndex) !== -1,
+				active: item.key == active,
 			}"
 			:style="{
 				background:
-					item.id.indexOf(editor.currentSceneIndex) !== -1 && index
+					item.key == active && index
 						? `linear-gradient(90deg,${config.config.bdStartColor} 3.72%, ${config.config.bdEndColor} 100%)`
-						: item.id.indexOf(editor.currentSceneIndex) !== -1 &&
-						  index == 0
+						: item.key == active && index == 0
 						? `linear-gradient(270deg,${config.config.bdStartColor} 3.72%, ${config.config.bdEndColor} 100%)`
 						: '',
 			}"
@@ -25,7 +24,7 @@
 		>
 			<div
 				:class="{
-					active: item.id.indexOf(editor.currentSceneIndex) !== -1,
+					active: item.key == active,
 					'left-title': index === 0,
 					'right-title': index === 1,
 				}"
@@ -36,7 +35,7 @@
 						? `linear-gradient(270deg,${config.config.bgStartColor} 3.72%, ${config.config.bgEndColor} 100%)`
 						: '',
 				}"
-				@click="change(item.id)"
+				@click="change(item)"
 			>
 				<img v-if="!index" :src="!index ? left : right" alt="" />
 				<span>{{ item.label }}</span>
@@ -48,7 +47,7 @@
 <script lang="ts">
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import { Editor } from '@eslinkv/core'
-import { Component } from 'vue-property-decorator'
+import { Component, Watch } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { value, customConfig } from './index.component'
 import left from './left.svg'
@@ -58,10 +57,23 @@ export default class extends mixins(widgetNormalMixin) {
 	value = value
 	left = left
 	right = right
+	active = 'nav1'
 	editor = Editor.Instance()
 	customConfig = customConfig
-	change(id) {
-		id.length > 0 && this.editor.selectSceneIndex(id[0])
+	change(item) {
+		if (item.id.length > 0) {
+			;(window.eslinkV.Editor.prototype as any).openWithClose.call(
+				this.editor,
+				item.id[0],
+			)
+			this.active = item.key
+		}
+	}
+	@Watch('config.config.defaultValue', { deep: true, immediate: true })
+	onDataChange(val) {
+		if (val) {
+			this.active = this.config.config.defaultValue
+		}
 	}
 }
 </script>
@@ -101,6 +113,7 @@ export default class extends mixins(widgetNormalMixin) {
 		box-sizing: border-box;
 	}
 	.left-title {
+		cursor: pointer;
 		border-radius: 3px;
 		margin-right: 2px;
 		// transform: skew(-45deg, 0deg);
@@ -122,6 +135,7 @@ export default class extends mixins(widgetNormalMixin) {
 		}
 	}
 	.right-title {
+		cursor: pointer;
 		// margin-left: 2px;
 		// transform: skew(45deg, 0deg);
 		border-radius: 3px;

@@ -18,6 +18,7 @@
 <script>
 import { value, customConfig } from './index.component'
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
+import { Editor } from '@eslinkv/core'
 export default {
 	name: 'mn-btn',
 	mixins: [widgetNormalMixin],
@@ -27,10 +28,18 @@ export default {
 			eventTypes: [{ key: 'click', label: '点击事件' }],
 			value,
 			customConfig,
+			editor: Editor.Instance(),
 		}
 	},
 	methods: {
 		handleClick() {
+			if (this.data.id) {
+				window.eslinkV.Editor.prototype.openWithClose.call(
+					this.editor,
+					this.data.id,
+				)
+			}
+
 			this.__handleEvent__('click')
 		},
 	},

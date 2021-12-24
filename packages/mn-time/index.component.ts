@@ -3,7 +3,7 @@ export const name = '时间'
 // 组件名唯一
 export const type = 'time'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.0'
+export const version = '1.0.2'
 // 自定义配置
 export const customConfig = [
 	{
@@ -27,8 +27,8 @@ export const value = {
 	layout: {
 		// 宽高
 		size: {
-			width: 230,
-			height: 46,
+			width: 457,
+			height: 47,
 		},
 		position: {
 			value: 'relative',
@@ -37,7 +37,7 @@ export const value = {
 	// 自定义配置默认值
 	config: {
 		timeFontSize: 40,
-		dateFontSize: 18,
+		dateFontSize: 32,
 		timeColor: '#FFFFFF',
 	},
 	widget: {
