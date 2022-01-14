@@ -35,7 +35,7 @@ module.exports = {
 				},
 			},
 			'^/meineng': {
-				target: 'http://119.3.142.120:8083',
+				target: 'http://60.205.220.93:18118',
 				changeOrigin: true,
 				headers: {
 					// Cookie: 'UM_distinctid=179cbd18f652b6-0fd6d652023f73-2363163-1fa400-179cbd18f66cb1; EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB; SESSION=f1bdcfaf-1b8a-44f3-8bb7-2e05e91fb5ca',

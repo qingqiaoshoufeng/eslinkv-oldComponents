@@ -42,22 +42,6 @@
 	.legend_wrapper(v-if="!closeLegend")
 		Legend(:legendData="legendDataTree1", :singleChoice="true")
 		Legend(:legendData="legendDataTree2")
-	//- 地图图层切换
-	.layers-radio-group(v-if="false")
-		.radio(
-			:class="curMapLayer === 'TileLayer' ? 'active' : ''",
-			@click="changeLayer('TileLayer')"
-		)
-			.text 二维地图
-		//- .radio(
-		//- 	:class="curMapLayer === 'ThreeD' ? 'active' : ''",
-		//- 	@click="changeLayer('ThreeD')")
-		//- 	.text 三维地图
-		.radio(
-			:class="curMapLayer === 'Satellite' ? 'active' : ''",
-			@click="changeLayer('Satellite')"
-		)
-			.text 卫星地图
 </template>
 <script>
 // import { EsAmap, EsLoca, EsLocaData, EsLocaOption, EsPolygon } from 'es-amap'
@@ -170,6 +154,17 @@ export default {
 		// 	deep: true,
 		// 	immediate: true,
 		// },
+		legendDataTree1: {
+			deep: true,
+			handler(val) {
+				const seleted = val[0].children.find(item => item.visible)
+				const seletedMap = {
+					二维地图: 'TileLayer',
+					卫星地图: 'Satellite',
+				}
+				this.changeLayer(seletedMap[seleted.label])
+			},
+		},
 		iconDataMap: {
 			deep: true,
 			immediate: true,
@@ -359,6 +354,7 @@ export default {
 							label: '二维地图',
 							visible: true,
 						},
+
 						// {
 						// 	type: 'menu-item',
 						// 	name: '三维地图',
@@ -380,7 +376,7 @@ export default {
 					children: [
 						{
 							componentType: 'sub-menu',
-							label: '运行',
+							label: '服务',
 							visible: true,
 							children: [
 								{
@@ -392,15 +388,6 @@ export default {
 									layer: 'icon',
 									type: 'company',
 								},
-								// {
-								// 	color: '',
-								// 	icon: 'icon-relitu',
-								// 	label: '欠费热力',
-								// 	layer: 'icon',
-								// 	location: 'bottom',
-								// 	name: 'billHeatPoints',
-								// 	visible: false,
-								// },
 								{
 									componentType: 'menu-item',
 									label: '服务网点',
@@ -675,12 +662,16 @@ export default {
 	&-container {
 		width: 100%;
 		height: 100%;
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
 	}
+
 	.legend-eye {
 		width: 25px;
 		height: 17px;
 		position: absolute;
-		bottom: 40px;
+		bottom: 111px;
 		z-index: 9999;
 		right: 495px;
 		cursor: pointer;
@@ -850,7 +841,7 @@ export default {
 .legend_wrapper {
 	position: absolute;
 	padding: 16px;
-	bottom: 114px;
+	bottom: 144px;
 	right: 495px;
 	position: fixed;
 	// position: static;

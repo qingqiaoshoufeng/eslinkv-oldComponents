@@ -57,7 +57,7 @@ export default class extends widgetNormalMixin {
 				'004903': baoji, //宝鸡市美能
 			}
 			const centerMap = {
-				'0049': '美能公司',
+				'0049': '美能集团',
 				'004901': '韩城公司',
 				'004902': '神木公司',
 				'004903': '宝鸡公司',

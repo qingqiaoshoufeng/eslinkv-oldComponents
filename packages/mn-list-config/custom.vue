@@ -91,7 +91,7 @@ export default class extends mixins(widgetNormalMixin) {
 	showList = true
 	list = []
 	dicMap = {}
-	currentItemIcon = ''
+	// currentItemIcon = ''
 	style = {
 		width: `${100 / Math.min(this.config.config.titles.length, 3)}%`,
 	}
@@ -117,7 +117,14 @@ export default class extends mixins(widgetNormalMixin) {
 			) || []
 		)
 	}
-
+	get currentItemIcon() {
+		const list =
+			this.config.config.selectList.filter(
+				item => item.type === this.tabState,
+			) || []
+		if (!list.length) return ''
+		return list.find(item => item.value === this.type)?.icon
+	}
 	start() {
 		if (this.timer) clearInterval(this.timer)
 		this.timer = setInterval(() => {
@@ -139,7 +146,9 @@ export default class extends mixins(widgetNormalMixin) {
 		} else {
 			// this.__handleEvent__('click5')
 		}
+		this.resetStatus()
 		this.transformLeft(index)
+		// this.getCurrentIcon()
 		this.formatParams()
 		this.getCurrentComponentName()
 		this.getDicMap()
@@ -150,13 +159,11 @@ export default class extends mixins(widgetNormalMixin) {
 		this.showList = false
 		this.type = val
 		this.list = []
-		this.currentItemIcon = this.renderSelectList.find(
-			item => item.value === val,
-		).icon
 		this.__handleEvent__('click3', {
 			priority: val,
 			status: this.status,
 		})
+		// this.getCurrentIcon()
 		this.formatParams()
 	}
 	mounted() {
@@ -255,6 +262,9 @@ export default class extends mixins(widgetNormalMixin) {
 				return current
 			}, {})
 	}
+	resetStatus() {
+		this.status = this.renderCheckList[0]?.value || ''
+	}
 }
 </script>
 <style lang="scss" scoped>
@@ -325,6 +335,9 @@ export default class extends mixins(widgetNormalMixin) {
 		.levels {
 			position: relative;
 			width: 80px;
+		}
+		::v-deep.ivu-select-item-focus {
+			background: none !important;
 		}
 		::v-deep.ivu-select-selection {
 			width: 106px;

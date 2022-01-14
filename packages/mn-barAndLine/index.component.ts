@@ -12,6 +12,11 @@ export const customConfig = [
 		type: 'func-input',
 	},
 	{
+		prop: 'rotate',
+		label: 'xlabel旋转',
+		type: 'func-input',
+	},
+	{
 		prop: 'title1',
 		label: 'y轴单位2',
 		type: 'func-input',
@@ -110,6 +115,7 @@ export const value = {
 		yAxisIndex: '0,0,0,1',
 		showPercent: '0,75',
 		symbolSize: '8',
+		rotate: 45,
 	},
 	widget: {
 		componentVersion: version,

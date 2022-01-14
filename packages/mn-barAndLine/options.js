@@ -58,7 +58,7 @@ export default (data, config) => {
 	})
 
 	option.xAxis.axisLabel.interval = 0
-	option.xAxis.axisLabel.rotate = 45
+	option.xAxis.axisLabel.rotate = config.rotate
 	option.xAxis.axisLabel.textStyle.fontSize = 16
 	option.yAxis[0].axisLabel.textStyle.fontSize = 16
 	option.yAxis[0].nameTextStyle.fontSize = 16

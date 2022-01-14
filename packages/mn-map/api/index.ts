@@ -1,6 +1,8 @@
 const API = '/huachen'
 const api = '/meineng'
-// const parmasString = '?companyId=0049'
+// const parmasString = '?companyId=004901'
+// const parmasString1 = '&companyId=004901'
+const parmasString1 = ''
 const parmasString = ''
 const ajax = (url: string) => {
 	return new Promise((resolve, reject) => {
@@ -69,5 +71,10 @@ export function getAllMapPonit() {
 export function getAllMapArea() {
 	// http://119.3.142.120:8083/home/map?
 	const url = `${api}/home/mapArea${parmasString}`
+	return ajax(url)
+}
+
+export function getDetialInfo(params) {
+	const url = `${api}/home/mapDetail${params}${parmasString1}`
 	return ajax(url)
 }

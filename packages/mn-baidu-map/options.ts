@@ -187,7 +187,7 @@ export default (data, config) => {
 			itemStyle: {
 				normal: {
 					color: 'rgba(51, 69, 89, 0)', //地图背景色
-					borderColor: 'red', //省市边界线00fcff 516a89
+					borderColor: 'none', //省市边界线00fcff 516a89
 					// borderWidth: 1,
 				},
 				emphasis: {
@@ -240,7 +240,7 @@ class dataAdapt {
 			companyList.forEach(item => {
 				const { name, lon, lat } = item
 				debugger
-				if (item.name === '美能公司') {
+				if (item.name === '美能集团') {
 					from = {
 						coord: [lon, lat],
 						name,
@@ -271,10 +271,6 @@ class dataAdapt {
 					value: [lon, lat, ''],
 				}
 			})
-		// }
-		// else {
-		// 	return []
-		// }
 	}
 	get endEffectScatter() {
 		const { company: companyList } = this.dataMap

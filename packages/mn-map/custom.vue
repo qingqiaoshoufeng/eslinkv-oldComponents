@@ -32,26 +32,19 @@ widget-normal.pos-r(
 				.title(v-if="activeOverlay.type === 'gasPressurePoints'") {{ activeOverlay.address }}
 				.title(v-if="activeOverlay.type === 'hiddenTroublePoints'") {{ activeOverlay.hiddenName }}
 				//- 鼠标hover仅展示name
-				template(v-if="activeOverlay.triggerType !== 'hover'")
+				template
 					.detail
 						.detail-item(
 							v-for="(item, prop) in detailMap[activeOverlay.type]",
 							:key="prop"
 						)
 							span {{ item }}:
-							span.value {{ activeOverlay[prop] }}{{ activeOverlay.type === 'gasPressurePoints' ? 'KPa' : '' }}
+							span.value {{ detailData[prop] }}{{ unitMap[prop] }}
 					.operate-btn
 						span.more(
 							@click="openPressure",
 							v-if="activeOverlay.type === 'gasPressurePoints'"
 						) 查看详情
-					//- 	span.more(@click="openDetail", v-if="activeOverlay.hasArtwork") 查看详情
-					//- 	span.more(@click="openRiskDetail", v-else-if="activeOverlay.hasDetail") 查看详情
-					//- 	span.more(
-					//- 		@click="openUserDetail",
-					//- 		v-else-if="activeOverlay.type == 'businessUserPoints' || activeOverlay.type == 'lngUserPoints'") 查看详情
-					//- 	span.video(v-if="activeOverlay.hasVideo", @click="openVideo")
-					//- 		b-icon(name="icon-shipin", :size="20")
 					.close-btn(@click="handleClose")
 						b-icon(name="icon-close", :size="20")
 				//- 地图外的列表展示
@@ -70,6 +63,7 @@ import { value, customConfig } from './index.component'
 // import { legendTopConfig, legendBottomConfig } from './config'
 import bIcon from './components/b-icon.vue'
 import baseMap from './components/base-map.vue'
+import { getDetialInfo } from './api'
 import { SCENEINDEXMAP } from './config'
 
 import {
@@ -140,6 +134,20 @@ export default {
 			activeOverlay: {},
 			//站点详情配置
 			detailMap: {
+				company: {
+					used_qty_this_year: '本年销气量',
+					used_qty_last_month: '上月销气量',
+					used_qty_this_month: '本月销气量',
+					last_month_cb_rate: '上月抄表率',
+					last_month_aj_rate: '上月安检率',
+					total_jm_cnt: '居民户数量',
+					total_gs_cnt: '工商户数量',
+				},
+				service_outlets: {
+					address: '地址',
+					person: '人员',
+					car: '车辆',
+				},
 				gasPressurePoints: {
 					pressure: '进口压力',
 				},
@@ -158,28 +166,22 @@ export default {
 					name: '巡检任务名称',
 				},
 				hiddenTroublePoints: {
-					// hiddenLevel: '隐患等级',
 					hiddenName: '名称',
-					// hiddenStatus: '状态',
 					hiddenTime: '时间',
 					address: '地址',
 				},
-				// gatePoints: {
-				// 	instantaneousFlow: '瞬时流量',
-				// 	totalFlow: '累计流量',
-				// 	inPressure: '进口压力',
-				// 	inTemperature: '进口温度',
-				// },
-				// businessUserPoints: {
-				// 	thisYear: '今年',
-				// 	yesterday: '昨日',
-				// 	thisMonth: '本月',
-				// },
-				// lngUserPoints: {
-				// 	thisYear: '今年',
-				// 	yesterday: '昨日',
-				// 	thisMonth: '本月',
-				// },
+			},
+			unitMap: {
+				used_qty_this_year: 'm³',
+				used_qty_last_month: 'm³',
+				used_qty_this_month: 'm³',
+				last_month_cb_rate: '%',
+				last_month_aj_rate: '%',
+				total_jm_cnt: '',
+				total_gs_cnt: '',
+				car: '辆',
+				person: '人',
+				address: '',
 			},
 			arrData: [
 				// 'businessUserPoints',
@@ -189,6 +191,7 @@ export default {
 			],
 			centerList: [],
 			currentCompanyInfo: '',
+			detailData: {},
 		}
 	},
 	computed: {
@@ -301,6 +304,7 @@ export default {
 
 			if (isChange) {
 				this.handleClose()
+				this.iconDataMap = {}
 				this.currentCompanyInfo = sessionStorage.getItem('insertParams')
 				this.mapPoint()
 				this.mapArea()
@@ -372,10 +376,16 @@ export default {
 			}
 		},
 		//鼠标hover展示name
-		handleIconHover(data) {
+		async handleIconHover(data) {
 			if (data) {
 				data.triggerType = 'hover'
 				this.activeOverlay = data
+				const { type, name } = data
+				const parmasString = `?type=${type}&name=${name}`
+				const info = await this.getDetialInfo(parmasString)
+				this.detailData = info.data[type]
+				console.log(info)
+				// debugger
 			} else {
 				//鼠标移开，判断当时展示为详情则不关闭弹窗
 				if (this.activeOverlay.triggerType === 'hover') {
@@ -401,6 +411,9 @@ export default {
 			this.centerList = data
 
 			// this.console.log(res)
+		},
+		getDetialInfo(parmasString) {
+			return getDetialInfo(parmasString)
 		},
 	},
 	watch: {

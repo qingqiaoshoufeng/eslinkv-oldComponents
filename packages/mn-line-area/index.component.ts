@@ -12,6 +12,11 @@ export const customConfig = [
 		type: 'func-input',
 	},
 	{
+		prop: 'symbolSize',
+		label: '点位大小',
+		type: 'func-input',
+	},
+	{
 		prop: 'left',
 		label: '缩进',
 		type: 'func-number',
@@ -89,6 +94,7 @@ export const value = {
 	// 自定义配置默认值
 	config: {
 		title: '数量',
+		symbolSize: 10,
 		smooth: true,
 		area: true,
 		datazoom: true,

@@ -152,7 +152,7 @@ export const value = {
 	config: {
 		tabDefaultValue: '任务工单',
 		selectDefaultValue: '1',
-		checkDefaultValue: '1',
+		checkDefaultValue: '0',
 		scale: '0.5',
 		titles: [
 			{
@@ -218,13 +218,13 @@ export const value = {
 		],
 		checkList: [
 			{
-				name: '已处理',
-				value: '1',
+				name: '未处理',
+				value: '0',
 				type: '安检隐患',
 			},
 			{
-				name: '未处理',
-				value: '0',
+				name: '已处理',
+				value: '1',
 				type: '安检隐患',
 			},
 			// "status": "处理状态（必传）：0：未处理；1：已处理；2：查全部"
@@ -236,11 +236,6 @@ export const value = {
 			{
 				name: '已处理',
 				value: '1',
-				type: '任务工单',
-			},
-			{
-				name: '全部',
-				value: '2',
 				type: '任务工单',
 			},
 		],

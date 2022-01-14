@@ -55,7 +55,7 @@ export default class OPie3 extends mixins(widgetNormalMixin) {
 			},
 			bottomStyle: {
 				keyMap: {
-					'margin-bottom': 'bottom',
+					height: 'bottom',
 				},
 			},
 			topTitleStyle: {
@@ -66,6 +66,8 @@ export default class OPie3 extends mixins(widgetNormalMixin) {
 			subTitleStyle: {
 				keyMap: {
 					'font-size': 'fontSize2',
+					'margin-top': 'subBottom',
+					height: 'bottom',
 				},
 			},
 		}

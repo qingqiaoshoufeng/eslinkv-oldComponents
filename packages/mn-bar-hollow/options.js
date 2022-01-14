@@ -66,11 +66,20 @@ export default (data, config) => {
 	})
 
 	// x 坐标 日期倾斜
-	option.legend.data.map(item => {
+	option.legend.data.map = option.legend.data.map((item, index) => {
+		if (index === 0) {
+			item.itemStyle = {
+				color: '#74FFF2',
+				borderColor: '#fff',
+				borderWidth: 3,
+			}
+		} else {
+			item.itemStyle = {}
+		}
 		item.textStyle.fontSize = 16
 		return item
 	})
-
+	// option.legend.borderWidth = 1
 	option.xAxis.axisLabel.interval = 0
 	option.xAxis.axisLabel.rotate = 20
 	option.xAxis.axisLabel.textStyle.fontSize = 16
@@ -121,6 +130,7 @@ export default (data, config) => {
 		data: data.line.y,
 		yAxisIndex: config.yAxisIndex.split(',')[lineIndex],
 	})
+
 	option.legend.data.push({
 		name: data.line.name,
 		textStyle: {
@@ -128,10 +138,12 @@ export default (data, config) => {
 			fontSize: 16,
 			lineHeight: 16,
 		},
+		itemStyle: {},
 	})
 	if (max !== undefined) option.grid.left += (max.toString().length - 3) * 12
 	option.grid.left += config.left
 	option.grid.right = 44
 	option.dataZoom = dataZoom
+	console.log(option, 'option')
 	return option
 }

@@ -3,7 +3,7 @@ export const name = '圆环进度图'
 // 组件名唯一
 export const type = 'mn-pie-center'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.0'
+export const version = '1.0.1'
 // 自定义配置
 export const customConfig = [
 	{
@@ -31,6 +31,11 @@ export const customConfig = [
 		label: '副标题字体大小',
 		type: 'func-input',
 	},
+	{
+		prop: 'subBottom',
+		label: '副标题间距',
+		type: 'func-input',
+	},
 ]
 // 配置
 export const value = {
@@ -53,10 +58,10 @@ export const value = {
 	// 自定义配置默认值
 	config: {
 		title: '完成率',
-		titleTop: '10',
-		bottom: '15',
-		fontSize1: '48',
-		fontSize2: '24',
+		titleTop: '-8',
+		bottom: '12',
+		fontSize1: '20',
+		fontSize2: '8',
 	},
 	widget: {
 		componentVersion: version,

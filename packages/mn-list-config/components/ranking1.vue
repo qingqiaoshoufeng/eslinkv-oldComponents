@@ -8,9 +8,9 @@
 	.right
 		.top
 			.value {{ data[dicMap.amount] }}
-			.unit {{ '元/' }}
+			.unit {{ '万元/' }}
 			.value {{ data[dicMap.count] }}
-			.unit {{ '比' }}
+			.unit {{ '笔' }}
 			//- .trend
 			//- 	b-icon(
 			//- 		:name="data.priority_id === '1' ? 'icon-gongdanrenwuyiwancheng' : data.priority_id === '2' ? 'icon-putonggongdanrenwu' : data.priority_id === '3' ? 'icon-jinjigongdanrenwu' : ''",
