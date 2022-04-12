@@ -68,7 +68,7 @@ import { widgetMixin, widgetNormal } from '@eslinkv/vue2'
 import { value, customConfig } from './index.component'
 // import { legendTopConfig, legendBottomConfig } from './config'
 import bIcon from './components/b-icon.vue'
-import baseMap from './components/base-map.vue'
+import baseMap from './components/base-map1.vue'
 import { SCENEINDEXMAP } from './config'
 
 import {
@@ -254,6 +254,7 @@ export default {
 						JSON.stringify(this.legendConfigData),
 					)
 				}
+
 				if (!val.top) {
 					this.legendTopConfig = JSON.parse(
 						JSON.stringify(this.legendData.legendTopConfig),

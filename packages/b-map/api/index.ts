@@ -57,3 +57,24 @@ export function mapStationArea() {
 	const url = `${API}/gis/mapStationArea`
 	return ajax(url)
 }
+
+// 用气热力
+export function getGasUseHeat(): Promise<any> {
+	const url = `${API}/income/gasUseHeat`
+	return ajax(url)
+}
+// 欠费热力
+export function getArrearsHeat(): Promise<any> {
+	const url = `${API}/income/arrearsHeat`
+	return ajax(url)
+}
+// 客户热力
+export function getUserHeat(): Promise<any> {
+	const url = `${API}/client/userHeat`
+	return ajax(url)
+}
+
+// 获取三个日历图数据
+export function getHeatData(): any {
+	return Promise.all([getGasUseHeat(), getArrearsHeat(), getUserHeat()])
+}

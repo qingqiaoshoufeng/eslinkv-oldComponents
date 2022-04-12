@@ -108,6 +108,6 @@ export default (data, config) => {
 	})
 	if (max !== undefined) option.grid.left += (max.toString().length - 3) * 12
 	option.grid.left += config.left
-	option.grid.right = 44
+	option.grid.right = config.right || 44
 	return option
 }

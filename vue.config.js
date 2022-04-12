@@ -55,7 +55,7 @@ module.exports = {
 				target: 'https://kv-etbc.eslink.com',
 				changeOrigin: true,
 				headers: {
-					Cookie: 'EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB; JSESSIONID=488CA7BA32227724E8967D7C33C7A5D4; SESSION=b4d555fd-c62d-47da-9e16-86bad36871ab',
+					Cookie: 'JSESSIONID=0B07857FEBE762AF51B43F34EBA210F3; UM_distinctid=17f298c26c1800-042cef17569a8e-a3e3164-1fa400-17f298c26c28e4; EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB; SESSION=71ecd2f9-ddfc-4b31-81d0-405b9cc87569',
 				},
 			},
 			'^/cdn': {
@@ -105,7 +105,9 @@ module.exports = {
 				// 修改它的选项...
 				return options
 			})
-		config.optimization.splitChunks({ cacheGroups: {} })
+		config.optimization.splitChunks({
+			cacheGroups: {},
+		})
 		if (isProduction) {
 			if (needReport) {
 				config

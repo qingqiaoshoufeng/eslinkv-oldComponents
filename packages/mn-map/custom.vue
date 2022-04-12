@@ -78,7 +78,7 @@ import {
 	getAllMapArea,
 } from './api/index.ts'
 export default {
-	name: 'b-map',
+	name: 'mn-map',
 	mixins: [widgetMixin],
 	components: {
 		widgetNormal,

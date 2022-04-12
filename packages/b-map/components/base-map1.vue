@@ -8,28 +8,27 @@
 		//- 		:options="{ lnglat: lineLayerLngLat }")
 		//- 	es-loca-option(:options="lineLayerOption")
 		//- icon图层
-		es-loca(v-if="iconReady", v-bind="iconLayerConfig")
-			es-loca-data(
-				:data="iconLayerData",
-				:options="{ lnglat: iconLayerLnglat }"
+		.child
+			es-loca(v-if="iconReady", v-bind="iconLayerConfig")
+				es-loca-data(
+					:data="iconLayerData",
+					:options="{ lnglat: iconLayerLnglat }"
+				)
+				es-loca-option(:options="iconLayerOption")
+			heat-map(
+				:data="item.data",
+				:max="item.max",
+				v-for="item in heatData",
+				v-if="heatData.length && heatLegendList[item.key]",
+				:key="item.key"
 			)
-			es-loca-option(:options="iconLayerOption")
-		//- 站点区域
-		//- es-polygon(
-		//- 	v-for="(path, station) in areaDataMap",
-		//- 	:key="station",
-		//- 	fillColor="rgb(96, 230, 255)",
-		//- 	strokeColor="#60E6FF",
-		//- 	:strokeWeight="2",
-		//- 	:fillOpacity="0.3",
-		//- 	:path="path")
-		es-path-simplifier(
-			:stepSpace="customConfig.stepSpace",
-			:lineWidth="customConfig.borderWidth",
-			:data="lineLayerData",
-			v-if="lineReady"
-		) 
-		slot
+			es-path-simplifier(
+				:stepSpace="customConfig.stepSpace",
+				:lineWidth="customConfig.borderWidth",
+				:data="lineLayerData",
+				v-if="lineReady"
+			) 
+			slot
 	img(
 		:src="eyeUrl",
 		:style="{ display: 'inline-block' }",
@@ -51,7 +50,7 @@
 				//- Checkbox.box(@click="handleLegendCheck('bottom')") 服务
 		.legend-main
 			.lmt
-				.item(
+				.item-box(
 					v-for="(legend, prop) in legendTopConfig",
 					:key="prop",
 					@click="legendClick(prop, 'Top')",
@@ -61,10 +60,11 @@
 					b-icon(v-if="legend.icon", :name="legend.icon", :size="22")
 					.label {{ legend.label }}
 			.lmb
-				.item(
+				.item-box(
 					v-for="(legend, prop) in legendBottomConfig",
 					:key="prop",
-					:class="legend.visible ? '' : 'hide'"
+					:class="legend.visible ? '' : 'hide'",
+					@click="legendClick(prop, 'Bottom')"
 				)
 					b-icon(:name="legend.icon", :size="22")
 					.label {{ legend.label }}
@@ -75,10 +75,6 @@
 			@click="changeLayer('TileLayer')"
 		)
 			.text 二维地图
-		//- .radio(
-		//- 	:class="curMapLayer === 'ThreeD' ? 'active' : ''",
-		//- 	@click="changeLayer('ThreeD')")
-		//- 	.text 三维地图
 		.radio(
 			:class="curMapLayer === 'Satellite' ? 'active' : ''",
 			@click="changeLayer('Satellite')"
@@ -89,8 +85,10 @@
 // import { EsAmap, EsLoca, EsLocaData, EsLocaOption, EsPolygon } from 'es-amap'
 import { EsAmap, EsLoca, EsLocaData, EsLocaOption } from 'es-amap'
 import EsPathSimplifier from './es-path-simplifier'
+import HeatMap from './heatMap'
 import { loadJs } from '../../../examples/utils.js'
 import bIcon from '../components/b-icon.vue'
+import { getHeatData } from '../api'
 const eyeImg =
 	'data:image/png;base64,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'
 const closeImg =
@@ -105,6 +103,7 @@ export default {
 		EsLocaOption,
 		EsPathSimplifier,
 		bIcon,
+		HeatMap,
 	},
 	props: {
 		mapConfig: {
@@ -167,10 +166,26 @@ export default {
 			this.transSVGToBase64()
 		}, 0)
 	},
-	mounted() {
+	async mounted() {
 		this.updateSize()
 		window.addEventListener('resize', this.updateSize)
 		document.addEventListener('SceneIndex', this.handleSceneChange)
+		const [GasUseHeat, ArrearsHeat, UserHeat] = await getHeatData()
+		// debugger
+		const GasUseHeatData = GasUseHeat.data
+		const ArrearsHeatData = ArrearsHeat.data
+		const UserHeatData = UserHeat.data
+		this.heatData = [
+			{
+				data: GasUseHeatData,
+				key: 'GasUseHeat',
+			},
+			{
+				data: ArrearsHeatData,
+				key: 'ArrearsHeat',
+			},
+			{ data: UserHeatData, key: 'UserHeat', max: 1 },
+		]
 	},
 	beforeDestroy() {
 		window.removeEventListener('resize', this.updateSize)
@@ -211,10 +226,12 @@ export default {
 						this.iconReady = true
 					}
 				}
+				this.heatLegendList = JSON.stringify(this.iconDataMap)
 			},
 		},
 		legendBottomConfig: {
 			handler(val) {
+				// debugger
 				if (JSON.stringify(this.legendTopConfig) !== '{}') {
 					if (!this.svgFlag) {
 						setTimeout(() => {
@@ -240,8 +257,19 @@ export default {
 							this.transSVGToBase64()
 						}, 0)
 					}
+					// debugger
+					this.heatLegendList = {
+						GasUseHeat:
+							val.gasHeatPoints && val.gasHeatPoints.visible,
+						ArrearsHeat:
+							val.billHeatPoints && val.billHeatPoints.visible,
+						UserHeat:
+							val.customerHeatPoints &&
+							val.customerHeatPoints.visible,
+					}
 				}
 			},
+			deep: true,
 		},
 		// 管线
 		lineDataMap: {
@@ -256,6 +284,8 @@ export default {
 	},
 	data() {
 		return {
+			heatData: [],
+			heatLegendList: [],
 			eyeUrl: closeImg,
 			closeLegend: true,
 			lineFlag: false,
@@ -349,6 +379,7 @@ export default {
 			this.closeLegend = !this.closeLegend
 		},
 		handleLegendCheck(val) {
+			// debugger
 			if (val === 'top') {
 				this.checkboxTop = !this.checkboxTop
 			}
@@ -685,7 +716,7 @@ export default {
 				padding-top: 35px;
 				border-top: 4px dashed rgba(255, 255, 255, 0.2);
 			}
-			.item {
+			.item-box {
 				height: 40px;
 				align-items: center;
 				display: flex;
