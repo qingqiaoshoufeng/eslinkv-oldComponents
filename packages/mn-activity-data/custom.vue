@@ -1,13 +1,15 @@
 <template lang="pug">
 widget-normal(:value="value", :customConfig="customConfig")
-	.show-data
+	.show-data(:style="{ display: config.config.show ? 'block' : 'none' }")
 		.show-data-item(
 			v-for="(item, index) in data",
 			:key="index",
-			:style="{ marginTop: `${config.config.marginTop}px`, height: `${config.config.barHeight}px` }")
+			:style="{ marginTop: `${config.config.marginTop}px`, height: `${config.config.barHeight}px` }"
+		)
 			.label(:style="{ color: config.config.textColor }") {{ item.label }}
 			.number(
-				:style="{ color: config.config.numberColor, fontSize: `${config.config.numberSize}px` }") {{ item.value.toLocaleString() }}
+				:style="{ color: config.config.numberColor, fontSize: `${config.config.numberSize}px` }"
+			) {{ item.value.toLocaleString() + (item.rate ? "%" : "") }}
 </template>
 <script lang="ts">
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'

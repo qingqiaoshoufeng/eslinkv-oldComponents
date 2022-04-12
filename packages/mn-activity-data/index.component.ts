@@ -3,9 +3,14 @@ export const name = '客户动态'
 // 组件名唯一
 export const type = 'consumer-data'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.0'
+export const version = '1.0.1'
 // 自定义配置
 export const customConfig = [
+	{
+		prop: 'show',
+		label: '是否显示',
+		type: 'func-switch',
+	},
 	{
 		prop: 'marginTop',
 		label: '上边距',
@@ -65,6 +70,7 @@ export const value = {
 		},
 	},
 	config: {
+		show: true,
 		marginTop: 8,
 		textColor: '#ffffff',
 		numberColor: '#00ddff',
