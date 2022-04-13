@@ -3,7 +3,7 @@ export const name = '美能折线缩略图'
 // 组件名唯一
 export const type = 'mn-line-trend'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.0'
+export const version = '1.0.2'
 // 自定义配置
 export const customConfig = [
 	{
@@ -56,6 +56,11 @@ export const customConfig = [
 		label: '线宽',
 		type: 'func-input',
 	},
+	{
+		prop: 'show',
+		label: '组件是否展示',
+		type: 'func-input',
+	},
 ]
 // 配置
 export const value = {
@@ -92,6 +97,7 @@ export const value = {
 		lineColor: '#00DDFF',
 		areaColor: 'rgba(0, 221, 255, 0.2)',
 		width: '2',
+		show: 1,
 		lineIcon:
 			'image://data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFUSURBVHgBjVNBTsNADJzNgSPqDwhCHDjBE+AF8AT6A35AeQH8IPwg9AWBFyQ3JNqwOXFNOSEhgbG9bfE2SdWRnGy83rHXnjhsYkbnSHDJqyu2dOmt1L5xhxPX2PBkvSppBE/37Mnxi09+X+DIObUEYxBesIcCNcdIbARx1FRiTo9MMsIQZG9ODxobkUhm2dgVkkgqUbxSyh/eZiailK1gaykgF19USU2t9osXGTNebxxeHbRoI5IZTULVcp83OjMEOQ2jMFWEyvlB9nq0HW3UCz6b9LRogWF0JiQEDT7owPiqLQTT9Spcu0pYIFN8sVD+MR6oQnw3JrUSBOnKSMrOGHPT/SKaQBCe10Yqgroy7IqO8EQY7zzOXp0bhMyZjn4pvDCFQ7eA45+H+LmPUoVltKGlerrlPc8x4UeTMwzXU16KH0x455S/ViSNNpvwhGP3bMP/AKHGMIU7wYTyAAAAAElFTkSuQmCC',
 	},

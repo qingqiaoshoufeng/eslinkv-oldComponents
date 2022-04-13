@@ -1,7 +1,7 @@
 <template lang="pug">
 widget-normal(:value="value", :customConfig="customConfig")
-	.chart(:id="id")
-	.info(:style="topStyle")
+	.chart(:id="id", v-if="config.config.show", ref="id")
+	.info(:style="topStyle", v-if="config.config.show")
 		.title.font-num(:style="{ ...topTitleStyle, ...bottomStyle }") {{ data && data.percent }}%
 		.sub-title(
 			v-for="(item, index) in config.config.title.split(',')",
@@ -34,10 +34,19 @@ export default class OPie3 extends mixins(widgetNormalMixin) {
 		if (this.id) {
 			const data = { ...val }
 			this.$nextTick(() => {
-				this.instance = echarts.init(document.getElementById(this.id))
+				this.instance = echarts.init(this.$refs.id)
 				this.setOption(data, this.config.config)
 			})
 		}
+	}
+	@Watch('config.config.show')
+	setOptions() {
+		this.instance = null
+		this.$nextTick(() => {
+			this.instance = echarts.init(this.$refs.id)
+			console.log(this.$refs.id, this.data, this.config.config)
+			this.setOption(this.data, this.config.config)
+		})
 	}
 	mounted() {
 		this.formatStyle()

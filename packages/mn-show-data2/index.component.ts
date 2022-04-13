@@ -3,7 +3,7 @@ export const name = '数据展示二'
 // 组件名唯一
 export const type = 'mn-show-data2'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.0'
+export const version = '1.0.1'
 // 自定义配置
 export const customConfig = [
 	{
@@ -31,6 +31,11 @@ export const customConfig = [
 		label: '数字颜色',
 		type: 'func-color',
 	},
+	{
+		prop: 'show',
+		label: '组件是否展示',
+		type: 'func-input',
+	},
 ]
 // 配置
 export const value = {
@@ -54,6 +59,7 @@ export const value = {
 		bgStartColor: 'rgba(0, 87, 169, 0.4)',
 		bgEndColor: 'rgba(0, 87, 169, 0)',
 		numberColor: '#00DDFF',
+		show: 1,
 	},
 	widget: {
 		componentVersion: version,

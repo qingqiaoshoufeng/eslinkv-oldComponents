@@ -1,5 +1,9 @@
 <template lang="pug">
-widget-normal.b-tab-2.fn-flex(:value="value", :customConfig="customConfig")
+widget-normal.b-tab-2.fn-flex(
+	:value="value",
+	:customConfig="customConfig",
+	:eventTypes="eventTypes"
+)
 	h2.pos-r.pointer(
 		v-for="item in data",
 		@click="change(item)",
@@ -22,20 +26,19 @@ export default class extends mixins(widgetNormalMixin) {
 	customConfig = customConfig
 	editor = Editor.Instance()
 	// timer = null
-
+	eventTypes = [{ key: 'click', label: '点击事件' }]
 	change(item) {
-		if (item.id) {
-			;(window.eslinkV.Editor.prototype as any).openWithClose.call(
-				this.editor,
-				item.id,
-			)
-			this.active = item.key
-		}
+		this.active = item.key
+		this.__handleEvent__('click', item)
 	}
 	@Watch('config.config.defaultValue', { deep: true, immediate: true })
 	onDataChange(val) {
 		if (val) {
 			this.active = this.config.config.defaultValue
+			const item = this.data.find(
+				item => item.key === this.config.config.defaultValue,
+			)
+			this.__handleEvent__('click', item)
 		}
 	}
 }
@@ -72,14 +75,14 @@ export default class extends mixins(widgetNormalMixin) {
 	}
 	h2 {
 		font-weight: normal;
-		font-size: 16px;
+		font-size: 20px;
 		// line-height: 28px;
 		color: rgba(255, 255, 255, 0.75);
 		margin-right: 8px;
 	}
 	.active {
 		font-weight: 600;
-		font-size: 18px;
+		font-size: 24px;
 		// line-height: 34px;
 		padding-bottom: 3px;
 		color: #ffffff;

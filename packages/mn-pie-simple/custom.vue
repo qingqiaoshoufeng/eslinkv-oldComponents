@@ -4,8 +4,9 @@ widget-normal(
 	:customConfig="customConfig",
 	:eventTypes="eventTypes"
 )
-	.chart(:id="id", :style="bgStyle")
-	.unit(:style="{ [config.config.unitPosition]: 0 }") {{ config.config.unit }}
+	.mn-pie-simple(v-if="config.config.show")
+		.chart(:id="id", :style="bgStyle", ref="id")
+		.unit(:style="{ [config.config.unitPosition]: 0 }") {{ config.config.unit }}
 </template>
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator'
@@ -28,7 +29,7 @@ export default class OLine1 extends widgetNormalMixin {
 		if (this.id) {
 			const data = { ...val }
 			this.$nextTick(() => {
-				this.instance = echarts.init(document.getElementById(this.id))
+				this.instance = echarts.init(this.$refs.id)
 				this.setOption(data, this.config.config)
 				this.instance.off('click')
 				this.instance.on('click', params => {
@@ -37,7 +38,15 @@ export default class OLine1 extends widgetNormalMixin {
 			})
 		}
 	}
-
+	@Watch('config.config.show')
+	setOptions() {
+		this.instance = null
+		this.$nextTick(() => {
+			this.instance = echarts.init(this.$refs.id)
+			console.log(this.$refs.id, this.data, this.config.config)
+			this.setOption(this.data, this.config.config)
+		})
+	}
 	setOption(data, config) {
 		const o = options(data, config)
 		this.instance && this.instance.setOption(o)
@@ -45,15 +54,19 @@ export default class OLine1 extends widgetNormalMixin {
 }
 </script>
 <style lang="scss" scoped>
-.chart {
+.mn-pie-simple {
+	width: 100%;
 	height: 100%;
-	background-image: url('./loop-bg.svg');
-	background-repeat: no-repeat;
-	background-position: 50% 50%;
-}
-.unit {
-	position: absolute;
-	right: 0;
-	color: #fff;
+	.chart {
+		height: 100%;
+		background-image: url('./loop-bg.svg');
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+	}
+	.unit {
+		position: absolute;
+		right: 0;
+		color: #fff;
+	}
 }
 </style>

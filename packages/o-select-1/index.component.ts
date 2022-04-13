@@ -11,7 +11,7 @@ exports.name = '选项卡1'
 // 组件名唯一
 exports.type = 'o-select-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-exports.version = '1.0.5'
+exports.version = '1.0.6'
 // 自定义配置
 exports.customConfig = [
 	{
@@ -33,6 +33,11 @@ exports.customConfig = [
 		prop: 'fontSize',
 		label: '字体大小',
 		type: 'func-number',
+	},
+	{
+		prop: 'show',
+		label: '字体大小',
+		type: 'func-input',
 	},
 ]
 // 配置
@@ -57,6 +62,7 @@ exports.value = {
 		backgroundColor: '#0057A9',
 		borderColor: '#00DDFF',
 		fontSize: 16,
+		show: 1,
 	},
 	widget: {
 		componentVersion: exports.version,

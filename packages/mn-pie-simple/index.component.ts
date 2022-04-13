@@ -3,7 +3,7 @@ export const name = '美能圆环占比图'
 // 组件名唯一
 export const type = 'mn-pie-simple'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.0'
+export const version = '1.0.3'
 // 自定义配置
 export const customConfig = [
 	{
@@ -52,6 +52,11 @@ export const customConfig = [
 		label: '指示线',
 		type: 'func-input',
 	},
+	{
+		prop: 'show',
+		label: '是否展示',
+		type: 'func-input',
+	},
 ]
 // 配置
 export const value = {
@@ -95,6 +100,7 @@ export const value = {
 		top: 40,
 		radius: '52,64,44',
 		labelLine: '20,110,1',
+		show: 1,
 	},
 	event: {
 		scene: [

@@ -1,6 +1,6 @@
 <template lang="pug">
 widget-normal(:value="value", :customConfig="customConfig")
-	.mn-line-trend(:style="style")
+	.mn-line-trend(:style="style", v-show="config.config.show")
 		.title {{ config.config.name }}
 		.chart(:id="id")
 </template>
@@ -68,7 +68,7 @@ export default class OLine2 extends mixins(widgetNormalMixin) {
 		font-family: PingFang SC;
 		font-style: normal;
 		font-weight: normal;
-		font-size: 40px;
+		font-size: 16px;
 		line-height: 56px;
 		/* identical to box height */
 		/* 白色0.75 */

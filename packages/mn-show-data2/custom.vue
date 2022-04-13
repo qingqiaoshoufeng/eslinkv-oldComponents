@@ -1,7 +1,9 @@
 <template lang="pug">
 widget-normal.main(:value="value", :customConfig="customConfig")
 	.yq-title-4(
-		:style="{ background: `linear-gradient(90deg,${config.config.bgStartColor} 0%, ${config.config.bgEndColor} 100%)` }")
+		v-if="config.config.show",
+		:style="{ background: `linear-gradient(90deg,${config.config.bgStartColor} 0%, ${config.config.bgEndColor} 100%)` }"
+	)
 		h2 {{ config.config.title || data.title }}
 		.value(:style="{ color: config.config.numberColor }") {{ config.config.value.toLocaleString() || data.value.toLocaleString() }}
 </template>
