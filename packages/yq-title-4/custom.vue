@@ -1,6 +1,6 @@
 <template lang="pug">
 widget-normal.main(:value="value", :customConfig="customConfig")
-	.yq-title-4
+	.yq-title-4(v-show="config.config.show")
 		h2 {{ config.config.title || data.title }}
 		.value {{ config.config.value || data.value }}
 </template>

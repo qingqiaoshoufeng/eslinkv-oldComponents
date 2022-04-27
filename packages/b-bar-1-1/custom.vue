@@ -2,10 +2,8 @@
 widget-normal(
 	:value="value",
 	:customConfig="customConfig",
-	:eventTypes="eventTypes"
-)
-	.chart(:id="id", v-if="config.config.show")
-	.unit(:style="{ [config.config.unitPosition]: 0 }", v-if="config.config.show") {{ config.config.unit }}
+	:eventTypes="eventTypes")
+	.o-zhuxing-2(:id="id")
 </template>
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator'
@@ -14,10 +12,10 @@ import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import options from './options'
 
 @Component({ components: { widgetNormal } })
-export default class OLine1 extends widgetNormalMixin {
-	eventTypes = [{ key: 'click', label: '点击事件' }]
+export default class extends widgetNormalMixin {
 	value = value
 	customConfig = customConfig
+	eventTypes = [{ key: 'click', label: '点击事件' }]
 
 	@Watch('data', { deep: true, immediate: true })
 	onDataChange(val) {
@@ -26,21 +24,20 @@ export default class OLine1 extends widgetNormalMixin {
 			this.$nextTick(() => {
 				this.instance = echarts.init(document.getElementById(this.id))
 				this.setOption(data, this.config.config)
-				this.instance.off('click')
-				this.instance.on('click', params => {
-					this.__handleEvent__('click', params.data)
-				})
 			})
 		}
 	}
 
-	@Watch('config.config.show')
-	setOptions(data, config) {
-		this.$nextTick(() => {
-			this.instance = echarts.init(document.getElementById(this.id))
-			this.setOption(this.data, this.config.config)
-		})
+	@Watch('config.config')
+	onConfigChange(val) {
+		if (this.id) {
+			this.$nextTick(() => {
+				this.instance = echarts.init(document.getElementById(this.id))
+				this.setOption(this.data, this.config.config)
+			})
+		}
 	}
+
 	setOption(data, config) {
 		const o = options(data, config)
 		this.instance && this.instance.setOption(o)
@@ -48,16 +45,7 @@ export default class OLine1 extends widgetNormalMixin {
 }
 </script>
 <style lang="scss" scoped>
-.chart {
+.o-zhuxing-2 {
 	height: 100%;
-	background-image: url('./loop-bg.svg');
-	background-repeat: no-repeat;
-	background-size: 44% 44%;
-	background-position: 50% 50%;
-}
-.unit {
-	position: absolute;
-	right: 0;
-	color: #fff;
 }
 </style>

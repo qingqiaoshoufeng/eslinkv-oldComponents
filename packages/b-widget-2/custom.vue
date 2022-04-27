@@ -1,6 +1,6 @@
 <template lang="pug">
 widget-normal(:value="value", :customConfig="customConfig")
-	.row
+	.row(v-if="config.config.show")
 		.item
 			.block
 				.font-num {{ data.num1 }}
@@ -13,9 +13,9 @@ widget-normal(:value="value", :customConfig="customConfig")
 				.label {{ config.config.text2 }}
 			.h2.right {{ config.config.text4 }}
 			.finish-num.right.yellow {{ data.num4 }}
-	.bar
-		.bar1(:style="{right: bar1Right}")
-		.bar2(:style="{left: bar2Left}")
+	.bar(v-if="config.config.show")
+		.bar1(:style="{ right: bar1Right }")
+		.bar2(:style="{ left: bar2Left }")
 </template>
 <script lang="ts">
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'

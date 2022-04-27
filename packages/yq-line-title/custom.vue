@@ -1,6 +1,6 @@
 <template lang="pug">
 widget-normal(:value="value", :customConfig="customConfig")
-	.yq-line-title(:style="style")
+	.yq-line-title(:style="style", v-if="config.config.show")
 		.title {{ config.config.name }}
 		.chart(:id="id")
 </template>
@@ -28,6 +28,12 @@ export default class OLine2 extends mixins(widgetNormalMixin) {
 			})
 		}
 	}
+
+	@Watch('data', { deep: true, immediate: true })
+	setOptions(data, config) {
+		const o = options(data, config)
+		this.instance && this.instance.setOption(o)
+	}
 	mounted() {
 		this.style = {
 			'padding-top': this.config.config.padding.split(',')[0] + 'px',
@@ -36,7 +42,8 @@ export default class OLine2 extends mixins(widgetNormalMixin) {
 			'padding-left': this.config.config.padding.split(',')[3] + 'px',
 		}
 	}
-	@Watch('config.config', { deep: true, immediate: true })
+
+	@Watch('config.config.show')
 	onConfigChange(val) {
 		if (this.id) {
 			this.$nextTick(() => {

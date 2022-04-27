@@ -1,6 +1,6 @@
 <template lang="pug">
 widget-normal.main(:value="value", :customConfig="customConfig")
-	.board
+	.board(v-if="config.config.show")
 		.item
 			.label {{ config.config.title1 }}
 			.num {{ data.num1 }}
@@ -10,11 +10,11 @@ widget-normal.main(:value="value", :customConfig="customConfig")
 		.item
 			.label {{ config.config.title3 }}
 			.num.color {{ data.num3 }}
-	.deal
+	.deal(v-if="config.config.show")
 		.deal-item
 			.font-num {{ data.num4 }}
 			.label {{ config.config.title4 }}
-		.center(ref="chart")
+		.center(ref="chart", v-if="config.config.show")
 		.deal-item
 			.font-num.yellow {{ data.num6 }}
 			.label {{ config.config.title6 }}
@@ -41,6 +41,15 @@ export default class extends mixins(widgetNormalMixin) {
 				)
 			})
 		}
+	}
+	@Watch('config.config.show')
+	setOptions() {
+		this.$nextTick(() => {
+			this.instance = echarts.init(this.$refs.chart)
+			this.instance.setOption(
+				getOption(this.data.num5, this.config.config),
+			)
+		})
 	}
 }
 </script>

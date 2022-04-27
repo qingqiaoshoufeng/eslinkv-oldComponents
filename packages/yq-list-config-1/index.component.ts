@@ -3,7 +3,7 @@ export const name = '乐清扩展配置列表'
 // 组件名唯一
 export const type = 'yq-list-config-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.7'
+export const version = '1.0.8'
 // 自定义配置
 export const customConfig = [
 	{
@@ -184,61 +184,8 @@ export const value = {
 			// 	type: '',
 			// },
 		],
-		selectList: [
-			{
-				name: '一般',
-				value: '2',
-				type: '安检隐患',
-				icon: '',
-			},
-			{
-				name: '紧急',
-				value: '1',
-				type: '安检隐患',
-				icon: '',
-			},
-			{
-				name: '一般',
-				value: '1',
-				type: '任务工单',
-				icon: '',
-			},
-			{
-				name: '紧急',
-				value: '2',
-				type: '任务工单',
-				icon: '',
-			},
-			{
-				name: '特急',
-				value: '3',
-				type: '任务工单',
-				icon: '',
-			},
-		],
-		checkList: [
-			{
-				name: '未处理',
-				value: '0',
-				type: '安检隐患',
-			},
-			{
-				name: '已处理',
-				value: '1',
-				type: '安检隐患',
-			},
-			// "status": "处理状态（必传）：0：未处理；1：已处理；2：查全部"
-			{
-				name: '未处理',
-				value: '0',
-				type: '任务工单',
-			},
-			{
-				name: '已处理',
-				value: '1',
-				type: '任务工单',
-			},
-		],
+		selectList: [],
+		checkList: [],
 		themeColor: '#285066',
 		renderMap: [
 			{

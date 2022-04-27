@@ -4,7 +4,7 @@ widget-normal(
 	:customConfig="customConfig",
 	:eventTypes="eventTypes"
 )
-	ul.list
+	ul.list(v-if="config.config.show")
 		li.pointer(
 			v-for="(k, i) in config.config.tablist",
 			:key="i",

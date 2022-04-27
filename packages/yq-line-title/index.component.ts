@@ -3,7 +3,7 @@ export const name = '折线缩略图'
 // 组件名唯一
 export const type = 'yq-line-title'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.8'
+export const version = '1.0.9'
 // 自定义配置
 export const customConfig = [
 	{
@@ -51,6 +51,11 @@ export const customConfig = [
 		label: '边界',
 		type: 'func-input',
 	},
+	{
+		prop: 'show',
+		label: '是否展示',
+		type: 'func-input',
+	},
 ]
 // 配置
 export const value = {
@@ -84,6 +89,7 @@ export const value = {
 		padding: '0,0,0,0',
 		hour: true,
 		interval: 3,
+		show: 1,
 		lineColor: '#E06761',
 		areaColor: 'rgba(0, 221, 255, 0.2)',
 		lineIcon:

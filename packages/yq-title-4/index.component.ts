@@ -3,7 +3,7 @@ export const name = '数据展示二'
 // 组件名唯一
 export const type = 'yq-title-4'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.0'
+export const version = '1.0.1'
 // 自定义配置
 export const customConfig = [
 	{
@@ -14,6 +14,11 @@ export const customConfig = [
 	{
 		prop: 'value',
 		label: '数值',
+		type: 'func-input',
+	},
+	{
+		prop: 'show',
+		label: '是否展示',
 		type: 'func-input',
 	},
 ]
@@ -36,6 +41,7 @@ export const value = {
 	config: {
 		title: '',
 		value: 100,
+		show: 1,
 	},
 	widget: {
 		componentVersion: version,

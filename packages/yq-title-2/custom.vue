@@ -1,6 +1,6 @@
 <template lang="pug">
 widget-normal.main(:value="value", :customConfig="customConfig")
-	.bg-box
+	.bg-box(v-if="config.config.show")
 		h2 {{ config.config.title || data.title }}
 		.value {{ config.config.value || data.value }}
 </template>

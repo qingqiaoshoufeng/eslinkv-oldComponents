@@ -3,7 +3,7 @@ export const name = 'b-动态1'
 // 组件名唯一
 export const type = 'b-widget-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.1'
+export const version = '1.0.4'
 // 自定义配置
 export const customConfig = [
 	{
@@ -56,6 +56,11 @@ export const customConfig = [
 		label: '副标题颜色',
 		type: 'func-color',
 	},
+	{
+		prop: 'show',
+		label: '是否展示',
+		type: 'func-switch',
+	},
 ]
 // 配置
 export const value = {
@@ -89,6 +94,7 @@ export const value = {
 		pointerColor: '#00FFCF',
 		titleColor: '#fff',
 		subTitleColor: '#74FFF2',
+		show: true,
 	},
 	widget: {
 		componentVersion: version,

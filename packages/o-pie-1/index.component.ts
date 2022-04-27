@@ -3,7 +3,7 @@ export const name = '圆环占比图'
 // 组件名唯一
 export const type = 'o-pie-1'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.6'
+export const version = '1.0.11'
 // 自定义配置
 export const customConfig = [
 	{
@@ -40,6 +40,26 @@ export const customConfig = [
 	{
 		prop: 'startAngle',
 		label: '起始角度',
+		type: 'func-number',
+	},
+	{
+		prop: 'show',
+		label: '是否展示',
+		type: 'func-number',
+	},
+	{
+		prop: 'length',
+		label: 'label线一段',
+		type: 'func-number',
+	},
+	{
+		prop: 'length2',
+		label: 'label线二段',
+		type: 'func-number',
+	},
+	{
+		prop: 'labelSize',
+		label: 'label字体大小',
 		type: 'func-number',
 	},
 ]
@@ -83,6 +103,10 @@ export const value = {
 		startAngle: 270,
 		fontSize: 24,
 		top: 46,
+		show: 1,
+		length: 25,
+		length2: 110,
+		labelSize: 14,
 	},
 	event: {
 		scene: [

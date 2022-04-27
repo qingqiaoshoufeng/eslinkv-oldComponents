@@ -2,10 +2,13 @@ import { getCommonOption, hexToRgba } from '../../examples/utils'
 
 export default (data, config) => {
 	let max = 0
+	let min = 100000000
 	const value = data.value || []
 	const option = getCommonOption(value, config)
 	value.forEach((item, index) => {
 		max = Math.max(...[...item.y, max])
+
+		min = Math.min(...[...item.y, max])
 		const color =
 			config.colorTheme.colorDisk[
 				index % config.colorTheme.colorDisk.length
@@ -72,7 +75,11 @@ export default (data, config) => {
 		})
 	})
 	if (max !== undefined) option.grid.left += (max.toString().length - 3) * 12
+	debugger
 	option.grid.left += config.left
+	option.yAxis[0].max = max
+	option.yAxis[0].min = min
+	option.yAxis[0].splitNumber = config.splitNumber
 	option.yAxis[0].axisLabel.textStyle.fontSize = config.labelSize
 	return option
 }

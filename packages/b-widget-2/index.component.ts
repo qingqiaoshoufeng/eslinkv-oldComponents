@@ -3,7 +3,7 @@ export const name = 'b-动态2'
 // 组件名唯一
 export const type = 'b-widget-2'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.1'
+export const version = '1.0.2'
 // 自定义配置
 export const customConfig = [
 	{
@@ -25,6 +25,11 @@ export const customConfig = [
 		prop: 'text4',
 		label: '文字4',
 		type: 'func-input',
+	},
+	{
+		prop: 'show',
+		label: '是否展示',
+		type: 'func-switch',
 	},
 ]
 // 配置
@@ -50,6 +55,7 @@ export const value = {
 		text2: '任务完成率',
 		text3: '已完成',
 		text4: '未完成',
+		show: true,
 	},
 	widget: {
 		componentVersion: version,

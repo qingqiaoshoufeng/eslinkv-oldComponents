@@ -2,13 +2,16 @@
 widget-normal(
 	:value="value",
 	:customConfig="customConfig",
-	:eventTypes="eventTypes")
+	:eventTypes="eventTypes",
+	v-if="config.config.show"
+)
 	ul.list
 		li.pointer(
 			v-for="(k, i) in data",
 			:key="i",
 			@click="change(k)",
-			:class="{ active: k.value === selectValue }") {{ k.label }}
+			:class="{ active: k.value === selectValue }"
+		) {{ k.label }}
 </template>
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator'
