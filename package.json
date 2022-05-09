@@ -93,6 +93,7 @@
       "path": "git-cz"
     }
   },
+  "resolutions":{"coa":2.02},
   "_customHasUsedEsStandard": true,
   "lint-staged": {
     "*.{js,ts,css,vue,scss}": "prettier  --plugin-search-dir ./node_modules --config .prettierrc --write"
