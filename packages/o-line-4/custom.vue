@@ -1,22 +1,18 @@
 <template lang="pug">
-widget-normal(
-	:value="value",
-	:customconfig="customConfig",
-	:eventtypes="eventTypes"
-)
-	.o-zhuxing-2(:id="id")
+widget-normal(:value="value", :customConfig="customConfig")
+	.chart(:id="id")
 </template>
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator'
-import { value, customConfig } from './index.component.ts'
+import { mixins } from 'vue-class-component'
+import { value, customConfig } from './index.component'
 import { widgetNormalMixin, widgetNormal } from '@eslinkv/vue2'
 import options from './options'
 
 @Component({ components: { widgetNormal } })
-export default class extends widgetNormalMixin {
+export default class OLine2 extends mixins(widgetNormalMixin) {
 	value = value
 	customConfig = customConfig
-	eventTypes = [{ key: 'click', label: '点击事件' }]
 
 	@Watch('data', { deep: true, immediate: true })
 	onDataChange(val) {
@@ -28,8 +24,7 @@ export default class extends widgetNormalMixin {
 			})
 		}
 	}
-
-	@Watch('config.config')
+	@Watch('config.config', { deep: true, immediate: true })
 	onConfigChange(val) {
 		if (this.id) {
 			this.$nextTick(() => {
@@ -46,7 +41,7 @@ export default class extends widgetNormalMixin {
 }
 </script>
 <style lang="scss" scoped>
-.o-zhuxing-2 {
+.chart {
 	height: 100%;
 }
 </style>

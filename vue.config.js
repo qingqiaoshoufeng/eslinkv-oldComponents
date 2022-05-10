@@ -55,7 +55,7 @@ module.exports = {
 				target: 'https://kv-etbc.eslink.com',
 				changeOrigin: true,
 				headers: {
-					Cookie: 'UM_distinctid=17f298c26c1800-042cef17569a8e-a3e3164-1fa400-17f298c26c28e4; EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB; SESSION=71ecd2f9-ddfc-4b31-81d0-405b9cc87569; JSESSIONID=E31ABEA30D65AD9110D3C597EC289DD9',
+					Cookie: 'UM_distinctid=17f298c26c1800-042cef17569a8e-a3e3164-1fa400-17f298c26c28e4; JSESSIONID=E31ABEA30D65AD9110D3C597EC289DD9; SESSION=99dc203e-f04d-4f7e-a25f-4cca616b03c5; EslinkV=JqwfpIPeFqQtKMsacKd7SqxNWMYsTs9ncSOb175MAhKDC44D3dxhiYD4X1i4-4TB',
 				},
 			},
 			'^/cdn': {

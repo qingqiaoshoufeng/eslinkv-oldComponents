@@ -4,7 +4,7 @@ widget-normal.pos-r(
 	:customConfig="customConfig",
 	:eventTypes="eventTypes"
 )
-	base-map(
+	base-map1(
 		:lineDataMap="lineDataMap",
 		:iconDataMap="iconDataMap",
 		:areaDataMap="areaDataMap",
@@ -68,7 +68,7 @@ import { widgetMixin, widgetNormal } from '@eslinkv/vue2'
 import { value, customConfig } from './index.component'
 // import { legendTopConfig, legendBottomConfig } from './config'
 import bIcon from './components/b-icon.vue'
-import baseMap from './components/base-map1.vue'
+import baseMap1 from './components/base-map1.vue'
 import { SCENEINDEXMAP } from './config'
 
 import {
@@ -86,7 +86,7 @@ export default {
 		widgetNormal,
 		EsMarker,
 		bIcon,
-		baseMap,
+		baseMap1,
 	},
 	data() {
 		return {
@@ -137,7 +137,10 @@ export default {
 			//站点详情配置
 			detailMap: {
 				gasPressurePoints: {
-					pressure: '进口压力',
+					pressureMin: '低压预警值',
+					pressureMax: '高压预警值',
+					pressure: '压力',
+					gasTemperature: '温度',
 				},
 				// monitor: {
 				// 	careLevel: '看护等级',
@@ -430,6 +433,7 @@ export default {
 		},
 		// 打开压力监测点
 		openPressure() {
+			debugger
 			this.__handleEvent__('click3', this.activeOverlay)
 		},
 		// //母站打开详情弹窗

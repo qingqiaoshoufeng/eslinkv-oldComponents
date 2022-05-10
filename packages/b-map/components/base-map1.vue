@@ -94,7 +94,7 @@ const eyeImg =
 const closeImg =
 	'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAAAmCAYAAABAvVyFAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAATpSURBVHgB7ZpbdhpHEIb/6iFvsS4rCFpBYAVBO5BXIGkFQsFOHoUeE0s2WoHkFQhWoPEKhFcgsgIQzlPETKeKnpG5zKWH0/iAxHeOLQ7Tc/unu+qvYggbnNHQ304UdC0EBiUE53/Rbq+EDU54p4efAF3X/Jn43whejf/syWfUdX+nhNIJD6gRqP2B3lxhgzXv9Lcz1q45+70H74CiAfc8oPJ9k+6OEO63aHeADZk09L+HhPAmaRvP5hvV0MODaXEFqpSg7rAhk/e6X0kTN0bNixtDlfd6eI0NiYi4Iby8SegrnsapYYC3HW1EnicWl+PrTtoYDd0LEHRUiLCddbCNyNNYijtQCN9KDiOz0/CWhTzIOjAPbD8hOH7NiU8SGhC2ssQVCEH1A+125bOS/0Q4cQ5ZO8kDYNtx/6ful/EKESsmCS1PXC4yjmNxhbHAMivFluWJzAcvs4G+a+h+Da+IqIho5o0TcT/S1s3kdzR/sEceQIfIhZoX9OYcLxhZrQE8yT81i+H+BW3tz35JSSMb+rHJFd0ZLA7qcXiRmhsvDLNKvWtZtQV2m9NDJY26pO0mZ0Kb2VmTkPHHOPi/HCQkkHEKZRRjTo/EGWx6E57M4DoskbIw7iBhTRELplG6Ti++imBCKCWdhH3e7QJPT0TuEfTVBW23sEZMNLuacIiCOpoSWPqZcpI8K5KHCO1BNf+mnz9jxSkea/UpO6423x+HEMrZJ+w8CxxlzAe4xdccNi5p18eKIcKSCYM1m/FS+rJgx5P3km8Gws5zknuCyqzkopMM9LipLCezQm7ijpMGB/5+7vF/BCKsXA+ZRk3Ncjc/QFidnShiBkYI9tL00FC3zzOYy+UjXtpZPQd/ZErlnrlQays3cUITOghPX35kMpQY65mHzSHQWtTxhGKBzm1yCuvBJTSdzO5H0xeh7pPjij5NOgnvU7aLRfNIb4Nr9s//8YNbVn/DxFdZmXS4QF6ZmlA2iIYw5xnE9zSV5IyDkGlN5fgkNjH0d93nbKnOFhE6Po/8VBVi9DUAuosKLjf4E/dM+B4qC4o6nn28b/2Stpwk6EQfLEI/mafQgyXRbD4qGjaS0V0+Ti+E/oetDife0SPX+b14Ky/3HT0Wr7TN7dY9BfpFvKsGlbEgRlhccaxtuVxRBMdEQkt8XqfqjptdQbW1hLyg4JjW+F2AsIn1QpJgGUvAucACV4KfsHZ411GScopzgSO7l+V5/QI+2iV+VgNLKjkObda9F1ucx+CGHj6kl526y3avasYZC8Vjf5NfsLEcRNQ2J67OhH9/9qsJDLjdWHXp0Z0KnPaGS4xUPUmJxCRGsMhK3iz6lUWp8N9Cy5XGq4K67Dy+cpDy0+ye8fveQ5qFk64gW7RjOMKZwHm9jKIXHlVfseiJ1i/6IfYUE8beBvbtdZWRJ9j777vqnziLwaOMLBy9I1Do5yURzNxk6KeNkdkqK6Kob/1Iu1KV+mnbaVyouMGZwCrjBRZpPrdWrBGvMx44Fyx9OMKZwNFP1f7s9zJ7XZWdLpHVwdc29xZptNq+wBFObRonsbfmoqXU1T2xRdLmw4rC7UZpvV5FZbIgbcl9l6vN6QvYUSx07iWXiYiMJV7zUio5l4jdStvG7uIeK87KCyyrIrkCk6Jlq4MVx3kltyyk58zeVXq8A7FnrtuKy+J/dPtipXOQbwoAAAAASUVORK5CYII='
 export default {
-	name: 'base-map',
+	name: 'base-map1',
 	components: {
 		EsAmap,
 		// EsPolygon,
@@ -343,6 +343,7 @@ export default {
 						this.$emit('icon-hover')
 					},
 					click: e => {
+						debugger
 						this.$emit('icon-hover')
 						this.$emit('icon-click', e.rawData)
 					},
