@@ -1,6 +1,8 @@
 import { hexToRgba, getCommonOption } from '../../examples/utils'
 
 export default (data, config) => {
+	debugger
+
 	let max = 0
 	const value = data.value || []
 	const option = getCommonOption(value, config)
