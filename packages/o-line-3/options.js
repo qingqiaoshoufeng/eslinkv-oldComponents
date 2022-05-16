@@ -41,6 +41,7 @@ export default (data, config) => {
 			data: item.y,
 			lineStyle: {
 				color,
+				type: config.lineType,
 			},
 			areaStyle: config.area
 				? {
@@ -81,5 +82,6 @@ export default (data, config) => {
 	option.yAxis[0].min = min
 	option.yAxis[0].splitNumber = config.splitNumber
 	option.yAxis[0].axisLabel.textStyle.fontSize = config.labelSize
+	option.xAxis.axisLabel.rotate = config.rotate
 	return option
 }

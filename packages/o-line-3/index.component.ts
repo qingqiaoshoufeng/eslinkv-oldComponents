@@ -3,7 +3,7 @@ export const name = '面积图'
 // 组件名唯一
 export const type = 'o-line-3'
 // 检测当前组件名，版本唯一，类似npm发布策略
-export const version = '1.0.1'
+export const version = '1.0.2'
 // 自定义配置
 export const customConfig = [
 	{
@@ -56,6 +56,16 @@ export const customConfig = [
 		label: 'label字体大小',
 		type: 'func-input',
 	},
+	{
+		prop: 'rotate',
+		label: 'x轴文字倾斜',
+		type: 'func-input',
+	},
+	{
+		prop: 'lineType',
+		label: '折线虚实（dashed/solid）',
+		type: 'func-input',
+	},
 ]
 // 配置
 export const value = {
@@ -91,6 +101,8 @@ export const value = {
 		interval: 'auto',
 		scale: false,
 		splitNumber: 5,
+		rotate: 30,
+		lineType: 'solid',
 		labelSize: '16',
 		lineIcon:
 			'image://data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFUSURBVHgBjVNBTsNADJzNgSPqDwhCHDjBE+AF8AT6A35AeQH8IPwg9AWBFyQ3JNqwOXFNOSEhgbG9bfE2SdWRnGy83rHXnjhsYkbnSHDJqyu2dOmt1L5xhxPX2PBkvSppBE/37Mnxi09+X+DIObUEYxBesIcCNcdIbARx1FRiTo9MMsIQZG9ODxobkUhm2dgVkkgqUbxSyh/eZiailK1gaykgF19USU2t9osXGTNebxxeHbRoI5IZTULVcp83OjMEOQ2jMFWEyvlB9nq0HW3UCz6b9LRogWF0JiQEDT7owPiqLQTT9Spcu0pYIFN8sVD+MR6oQnw3JrUSBOnKSMrOGHPT/SKaQBCe10Yqgroy7IqO8EQY7zzOXp0bhMyZjn4pvDCFQ7eA45+H+LmPUoVltKGlerrlPc8x4UeTMwzXU16KH0x455S/ViSNNpvwhGP3bMP/AKHGMIU7wYTyAAAAAElFTkSuQmCC',

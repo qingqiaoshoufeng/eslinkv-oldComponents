@@ -28,6 +28,7 @@ export default (data, config) => {
 	option.yAxis[0].axisLabel.textStyle.fontSize = 24
 	option.yAxis[0].nameTextStyle.fontSize = 24
 	option.yAxis[0].splitNumber = 4
+	option.yAxis[0].interval = 1
 	option.yAxis[1] = {
 		...option.yAxis[0],
 		position: 'right',
@@ -39,7 +40,13 @@ export default (data, config) => {
 			padding: [0, 0, 0, config.y2TitleLeft],
 		},
 	}
-	// option.yAxis[0].interval = 0.3
+	option.yAxis[0].min = Math.floor(Math.min(...value[0].y))
+	option.yAxis[0].max = Math.ceil(Math.max(...value[0].y))
+
+	option.yAxis[1].min = Math.floor(Math.min(...value[1].y))
+	option.yAxis[1].max = Math.ceil(Math.max(...value[1].y))
+
+	console.log(value[0].y)
 
 	value.forEach((item, index) => {
 		max = Math.max(...[...item.y, max])
